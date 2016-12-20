@@ -1,0 +1,191 @@
+
+\chapter{Preface}
+
+\emph{Important note:} this preface is not intended to be the 
+final preface of this book, but more to give useful information 
+to reviewers and early readers of its draft.
+
+\section*{Warning to the reader}
+
+If you're reading this section, it means that you've been 
+given an \emph{early draft} of this book, not 
+intended to be made public at this point. You may transmit 
+this book to others privately if you think this may serve 
+some useful purpose, but please do not make 
+it public or even semi-public without first consulting 
+me. My hope is to obtain comments, suggested corrections or 
+any other opinions about the content of this document in 
+order to improve it before making it available to the 
+public.
+
+This document contains at this point the complete intended 
+book. Only early chapters have been reviewed by others, the 
+later chapters still need quite a bit of proof reading.
+\index{programming}
+
+\section*{The aim of this book}
+
+This aim of this book is not primarily to teach Perl~6. 
+The foremost aim of this book is to try to teach the art 
+of programming, using the Perl~6 language. After having 
+completed this book, the reader should hopefully be able 
+to write programs to solve relatively difficult problems in 
+Perl~6, but our main aim is to teach computer science, software 
+programming and problem solving more than to teach the Perl~6 
+language itself. 
+
+This means that we will not cover every aspect of Perl~6, but 
+only a (relatively large, but yet incomplete) subset of it. 
+By no means is this book intended to be a reference on the 
+language.
+
+It is not possible to learn programming or to learn a new 
+programming language by just reading a book; practicing 
+is essential. This book contains a lot of exercises. The 
+reader is strongly encouraged to really try to do them. And, 
+whether successful or not in solving the exercises, the reader 
+should really take a look at the solutions in the Appendix, 
+as, very often, several solutions are suggested with further 
+discussion on the issues involved. Sometimes, the solution 
+section of the Appendix is also introducing with examples topics 
+that will be covered in the next chapter--and sometimes even 
+things that will not be covered elsewhere in the book. So, 
+please, really try to solve the exercises and also go to 
+the solutions, read them and try them.
+
+\section*{Inaccuracies and errors}
+
+Since this book is largely intended for beginners, some of 
+the explanations might not be entirely accurate, especially 
+in the eyes of language lawyers: you can't always tell all 
+the truth to children; sometimes, you need to simplify things 
+to explain them to the layman. Hopefully most of these early 
+simplifications are refined in later chapters, but perhaps 
+not all of them.
+
+Another reason for possible inaccuracies is that I am much 
+more used to Perl~5, my daily programming language at work, 
+than to Perl~6. There may be a few cases where I explain 
+things in Perl~5 terms rather than in Perl~6 terms. My hope 
+is that early readers of this document will point out these 
+errors or inaccuracies to help me correct them.
+
+Also, as explained in the next section just below, this book
+is derived from Allen Downey's book on Python. Despite 
+my efforts, there may be a place here or there where I left 
+a comment related to Python that would not really hold for Perl~6. 
+Again, I hope that early readers will help me spot such 
+cases and correct them.
+
+Many thanks in advance to readers who will offer comments 
+or submit suggestions or corrections, as well as encouragements.
+
+Please send your comments to the following address: 
+think.perl6@gmail.com.
+
+\section*{The history of this book}
+
+In the course of the last two to three years, I (Laurent R.) 
+have translated or adapted to French a number of tutorials 
+and articles on Perl 6, and I've also written a few entirely 
+new ones in French (see for example 
+\url{http://perl.developpez.com/cours/#TutorielsPerl6}). 
+Together, these documents represent somewhere between 250 and 300 pages of material on Perl~6. By the end of 2015, I had 
+probably made public more material on Perl~6 in French than 
+all other authors taken together.
+
+Late 2015, I was feeling that a Perl~6 document for beginners 
+was something missing that I was willing to undertake. At that 
+time, I looked around and found that it did not seem to 
+exist in English either. I came to the idea that, after all, 
+it might be more useful to write such a document initially 
+in English, to give it a broader audience. I was therefore 
+contemplating to write a beginner introduction to Perl~6 
+programming, my idea at the time was something like a 50 to 
+70-page tutorial and I had started to gather material and ideas 
+in this direction.
+
+Then, something happened that changed my plans.
+
+To me, TIMTOWTDI is really not an empty slogan. And, although 
+I really love Perl~5 and even more Perl~6, this motto might 
+also mean to do it in another language if needed, as the 
+case may be.
+
+In December 2015, friends of mine were contemplating translating 
+into French Allen B. Downey's \emph{Think Python--how to think 
+like a computer scientist, second edition} 
+(\url{http://greenteapress.com/wp/think-python-2e/}). I had 
+read an earlier edition and fully supported 
+the idea of translating this excellent book. As it turned out, 
+I ended up being a co-translator and the technical editor of 
+the French translation of that book (\url{http://allen-downey.developpez.com/livres/python/pensez-python/}).
+
+While working on the French translation of Allen's Python book, 
+the idea came to me that, rather than writing a tutorial on 
+Perl~6, it might be more useful to make a ``Perl~6 translation'' 
+of that book. Since I was in contact with Allen in the context 
+of the French translation, I suggested this to Allen, who 
+warmly welcomed the idea. This is how I started to write this 
+book late January 2016, just after having completed the 
+work on the Python book French translation.
+
+This book is thus largely derived on Allen's \emph{Think Python--how 
+to think like a computer scientist}, but adapted to Perl~6. My 
+hope is that this will be useful to the Perl~6 community, and 
+more broadly to the general computer programming community. In 
+an interview with \emph{LinuxVoice} (July 2015), Larry Wall said: 
+``We do think that Perl 6 will be learnable as a first language.''
+Hopefully this book will contribute to make this happen. 
+
+Any error on Perl~6 (especially in the coding examples and 
+solutions to the exercises) is obviously my error, not 
+Allen's. And most other errors are quite probably also mine.
+
+\section*{Acknowledgments}
+
+I just don't know how I could thank Larry Wall to the level of 
+gratitude that he deserves for having created Perl in the first 
+place, and Perl~6 more recently. Be blessed for eternity, Larry, 
+for all of that. 
+
+And thank you all of you who took part to this 
+adventure (in no particular order), Tom, Damian, 
+chromatic, Nathan, brian, Jan, Jarkko, John, Johan, Randall, 
+Mark Jason, Ovid, Nick, Tim, Andy, Chip, Matt, Michael, Tatsuhiko, 
+Dave, Rafael, Chris, Stevan, Saraty, Malcolm, Graham, Leon, 
+Ricardo, Gurusamy, Scott and so many others that I can't name.  
+
+All my thanks also to those who believed in 
+this Perl~6 project and made it happen, including those who 
+quit at one point or another but contributed for some 
+time, and I know that this wasn't always easy.
+
+Many thanks to Allen Downey, who kindly supported my idea of 
+adapting his book to Perl~6.
+
+% ...
+
+
+\section*{Contributor List}
+
+% ...
+I would like to thank especially Moritz Lenz and Elizabeth 
+Mattijsen who reviewed in detail drafts of this book 
+(only early chapters at this point in time) and suggested 
+quite a number of improvements and corrections. Timo Paulssen and 
+ryanschoppe alse reviewed early drafts and provided very 
+useful comments.
+
+
+\clearemptydoublepage
+
+% TABLE OF CONTENTS
+\begin{latexonly}
+
+\tableofcontents
+
+\clearemptydoublepage
+
+\end{latexonly}
+
