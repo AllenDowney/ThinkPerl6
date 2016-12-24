@@ -143,17 +143,21 @@ and checks if the operands are equal; the others are:
       $x <= $y            # $x is  numerically less than or equal to $y
       $x === $y           # $x and $y are truly identical
 \end{verbatim}
-%
-\index{$"!=$ numeric inequality operator}
-\index{$<$ less than numeric operator}
-\index{$>$ greater than numeric operator}
-\index{$>=$ greater than or equal operator}
-\index{operator!$"!=$ (numeric inequality)}
-\index{operator!$<$ (numerically less than)}
-\index{operator!$>$ (numerically greater than)}
-\index{$<=$ less than or equal operator}
-\index{operator!$>=$ (greater than or equal)}
-\index{operator!$<=$ (less than or equal)}
+% TODO: get these entries working in plastex
+\ifplastex \else
+\index{"!= numeric inequality operator@\texttt{"!=} numeric inequality operator}
+\index{< less than numeric operator@\texttt{<} less than numeric operator}
+\index{> greater than numeric operator@\texttt{>} greater than numeric operator}
+\index{>= greater than or equal operator@\texttt{>=} greater than or equal operator}
+\index{<= less than or equal operator@\texttt{<=} less than or equal operator}
+\index{=== value identity operator@\texttt{===} value identity operator}
+\index{operator!"!= (numeric inequality)@\texttt{"!=} (numeric inequality)}
+\index{operator!< (numerically less than)@\texttt{<} (numerically less than)}
+\index{operator!> (numerically greater than)@\texttt{>} (numerically greater than)}
+\index{operator!>= (greater than or equal)@\texttt{>=} (greater than or equal)}
+\index{operator!<= (less than or equal)@\texttt{<=} (less than or equal)}
+\index{operator!=== (value identity)@\texttt{===} (value identity)}
+\fi
 Although these operations are probably familiar to you, the Perl
 symbols are different from the mathematical symbols.  A common error
 is to use a single equal sign ({\tt =}) instead of a double equal sign
@@ -164,15 +168,16 @@ operator, but something completely different (it is,  as we'll see later, a pair
 \index{relational operator}
 \index{relational operator!numeric}
 \index{numeric relational operator}
-\index{$===$ value identity operator}
-\index{operator!$===$ (value identity)}
 \index{equality operator}
 \index{operator!equal}
 \index{operator!relational}
-\index{$=>$ pair constructor}
-\index{operator!$=>$ (pair constructor)}
 \index{pair constructor}
 \index{constructor!pair}
+% TODO: get these entries working in plastex
+\ifplastex \else
+\index{=> pair constructor@\texttt{=>} pair constructor}
+\index{operator!=> (pair constructor)@\texttt{=>} (pair constructor)}
+\fi
 
 The difference between {\tt ==} and {\tt ===} is that the former operator checks whether the values of the operands are equal and the latter checks whether the operands are truly identical. As an example, consider this:
 
@@ -256,10 +261,13 @@ operator, \verb"~~".
 \index{three-way operator}
 \index{operator!three-way}
 \index{cmp operator}
-\index{$<=>$ operator}
-\index{operator!$<=>$ (numeric comparison)}
 \index{leg operator}
 \index{operator!leg}
+% TODO: get these entries working in plastex
+\ifplastex \else
+\index{<=> operator@\texttt{<=>} operator}
+\index{operator!<=> (numeric comparison)@\texttt{<=>} (numeric comparison)}
+\fi
 
 
 A final point to be noted about string comparisons is that uppercase letters are always deemed smaller than lowercase letters. So "A", "B", "BB" and "C" are \emph{all} less than "a", "b", "bb" and "c". We will not go into the details here, but this is becoming more complicated (and sometimes confusing) when the strings to be compared contain non alphabetical characters (or non ASCII Unicode letters).
