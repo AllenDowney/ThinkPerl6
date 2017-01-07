@@ -20,10 +20,13 @@ way to implement abstraction and encapsulation.
 Perl~6 is an {\bf object-oriented programming language}, which means
 that it provides features that support object-oriented
 programming, which in turn has these defining characteristics:
+\index{object-oriented programming}
 
 \begin{itemize}
 
 \item Programs include class and method definitions.
+\index{class}
+\index{method}
 
 \item Most of the computation is expressed in terms of operations on
   objects.
@@ -92,10 +95,12 @@ the attributes associated with an object. In Perl~6, a class makes it
 possible to define new types similar to the built-in types 
 that we have seen before. Very soon, we will start to define 
 some classes and to use them to create objects.
+\index{type!building new type}
 
 \index{invocant}
 \index{method}
 \index{dot notation}
+\index{invocant}
 You already know informally what a method is, as we have 
 used built-in methods throughout the book. It is a sort of 
 function with a special postfix syntax using the dot notation 
@@ -139,9 +144,11 @@ buggy (especially large programs).
 
 In addition, OOP usually also offers the following concepts:
 \begin{itemize}
+\item{polymorphism}
 \item polymorphism, i.e. the possibility for a function or 
 a method to do different things depending of the type of 
 object which calls it;
+\item{inheritance}
 \item inheritance, i.e. the possibility to derive a class from 
 another class, so that the child class inherits some of 
 the properties of the parent class, which is a powerful tool 
@@ -218,7 +225,7 @@ associated with the class, here the abscissa and ordinate
 \index{class!Point2D}
 
 \index{type object}
-Defining a class named {\tt Point} creates a {\bf type object}.
+Defining a class named {\tt Point2D} creates a {\bf type object}.
 
 The type object is like a factory for creating objects.  To create 
 a point, you call the {\tt new} method on the {\tt Point2D} class:
@@ -233,6 +240,8 @@ say $point.isa(Point2D)         # -> True
 say $point.abscissa;            # -> 3
 \end{verbatim}
 %
+\index{isa method}
+\index{WHAT method}
 You can of course create as many points as you wish.
 
 \index{constructor}
@@ -247,7 +256,8 @@ syntax, with the dot-notation, is the same as what we have
 used throughout the book to invoke built-in methods. You 
 are not forced to use this constructor, you can also create 
 your own (and you may name it {\tt new} or something else), 
-but we will stay with {\tt new} for the time being.
+but we will stay with the built-in {\tt new} method for the 
+time being.
 
 Creating a new object with a class is called {\bf instantiation}, 
 and the object is an {\bf instance} of the class.
@@ -336,6 +346,7 @@ the \verb'$point' object, but we were really calling the
 the value of that attribute.
 
 \index{dot notation}
+\index{accessor}
 You can use such an accessor with dot notation as part of any 
 expression. For example:
 
@@ -461,6 +472,7 @@ since a method is essentially a subroutine that is defined
 within a class (or a role) and knows about its 
 \emph{invocant}, i.e. the object that called it and its class. 
 And, of course, it has a different calling syntax.
+\index{method}
 
 \index{method!dispatch}
 \index{dispatching methods}
@@ -482,6 +494,7 @@ Within a method definition, {\tt self} refers to the
 \emph{invocant}, the object that invoked the method. 
 There is a short hand for it: \verb'$.' so that we could 
 write the {\tt coordinates} method as follows:
+\index{self}
 
 \begin{verbatim}
     method coordinates {        # accessor to both x and y
@@ -557,6 +570,8 @@ means they provide a snapshot of some of the invocant's attributes.
 If the attributes are mutable (declared with the \verb'is rw' 
 trait), we can also create some \emph{mutators}, i.e. methods 
 that can be invoked to change those mutable attributes:
+\index{accessor}
+\index{mutator}
 
 \begin{verbatim}
 class Point2D-mutable {
@@ -654,7 +669,8 @@ only within the class where this attribute is defined,
 accessor (i.e. the syntax with \verb'$.') for obtaining the 
 value of the corner abscissa.
 
-We can now create a {\tt rectangle} object:
+We can now create a {\tt Rectangle} object:
+\index{rectangle}
 
 \begin{verbatim}
 my $start-pt =  Point2D.new(abscissa => 4, ordinate => 3);
@@ -803,6 +819,7 @@ between 0 and 255 in decimal notation), representing the red,
 green and blue (RGB) components of the pixel:
 \index{class!child}
 \index{pixel class}
+\index{RGB}
 
 \begin{verbatim}
 class Pixel is Point2D {
@@ -862,6 +879,8 @@ may be desirable to check that the parameters are octets, i.e.
 integers between 0 and 255 (which could be done by adding a 
 type constraint or defining a subset of the Integer type).
 \index{subset}
+\index{RGB}
+\index{octet}
 
 Using the new {\tt Pixel} class is straight forward:
 
@@ -912,6 +931,7 @@ Since the multi method is defined twice, with the same name but
 with a different signature, the object system is able to 
 dispatch the invocation to the right method.
 \index{method!dispatch}
+\index{multi method}
 
 
 \subsection{The MovablePoint class}
@@ -1145,7 +1165,7 @@ and/or composition.
 \subsection{A mammal class and a pet-animal role}
 
 \index{vertebrate} \index{mammal} \index{dog}
-Let's come back to vertebrate, mammals and dogs. A dog is 
+Let's come back to vertebrates, mammals and dogs. A dog is 
 a mammal and inherits some characteristics from the mammals, 
 such as having a neocortex (a region of the brain), hair, 
 and mammary glands, as well as a vertebral column, which 
@@ -1271,6 +1291,9 @@ unseen for a while.
 
 Classes are meant for managing instances and roles are 
 meant for managing behaviors and code reuse.
+\index{class}
+\index{role}
+\index{code reuse}
 
 \begin{verbatim}
 role Drawable {
@@ -1295,6 +1318,7 @@ class Rectangle is Figure does Drawable {
 Rectangle.new(width => 10, height => 4).draw;
 \end{verbatim}
 
+\index{ellipsis}
 Please note that the ellipsis \verb'...' used in the code 
 above is really meant here to represent some code that is left 
 to your implementation. However, this is actually valid code 
@@ -1307,8 +1331,9 @@ need to be defined (which would cause a compile time error.
 In the case of the {\tt draw} method in the 
 {\tt Drawable} role, role composition into the {\tt Rectangle} 
 class works only because {\tt draw} is redefined in the 
-{\tt Rectangle} class; without this ref=definition, it would 
-have raised a compile-time error. Similarly, the \verb'method area { ... }' 
+{\tt Rectangle} class; without this redefinition, it would 
+have raised a compile-time error. Similarly, 
+the \verb'method area { ... }' 
 code of the {\tt Figure} class would raise a run-time error if it 
 were called without having been redefined in the {\tt Rectangle} 
 class. The ellipsis has been used here only as a convenient way 
@@ -1354,7 +1379,7 @@ Roles and classes are different, but both are or define types.
 This means that a role can be used as a type for a variable 
 declaration where you might expect a class name. For example, 
 the {\tt Guide} role sketched in the code snippet above does 
-effectively create a {\tt Guide} type. So a {\tt blind} role for 
+effectively create a {\tt Guide} type. So a {\tt Blind} role for 
 a human might have an attribute of {\tt Guide} type, which 
 might represent a guide-doq, a guide-horse, a human guide or 
 even a guiding robot.
@@ -1593,7 +1618,7 @@ is a black box having some specified properties and
 behaviors. This way, these properties and behaviors are 
 \emph{hidden} from the user. They're not hidden in the 
 sense that the user cannot know about them (at least in 
-the open-source world, it is easy to know that),  but it 
+the open-source world, it is easy to know that), but it 
 is hidden in the sense that it is usually not possible to 
 use that knowledge to bypass the supplied interface. This 
 means that the internal implementation of the object may 
@@ -1704,6 +1729,7 @@ particular, they are not inherited by child classes.
 
 Constructing objects with private attributes raises a 
 little difficulty. Let's consider the following program:
+\index{private attribute}
 
 \begin{verbatim}
 class Point3D {
@@ -1748,6 +1774,7 @@ by default, initializes only ``public'' attributes.
 \index{submethod}
 Here, the simplest solution is probably to add a {\tt BUILD} 
 submethod in the class definition.
+\index{BUILD submethod}
 
 \index{submethod}
 \index{subclass}
@@ -1807,6 +1834,7 @@ to a routine binds the arguments to the parameters, a separate
 binding step is unnecessary if the attributes are used as 
 parameters. Hence, the {\tt BUILD} submethod in the example 
 above could also have been written simply as:
+\index{BUILD submethod}
 
 \begin{verbatim}
     submethod BUILD(:$!x, :$!y, :$!z) {
@@ -1828,6 +1856,7 @@ from the {\tt Mu} superclass, you can override it if you wish.
 The default {\tt new} constructor can only be used with named 
 arguments. Assuming you want to use positional parameters, you 
 could override {\tt new} with your own method:
+\index{new!constructor} \index{constructor!new}
 
 \begin{verbatim}
 class Point2D {
@@ -2095,6 +2124,7 @@ like this:
 >
 \end{verbatim}
 
+\index{prompt}
 This says that it is loading the \verb'while_done.pl6' program, 
 and displays the first lines of the program and the last line at 
 the bottom (``\verb"<"'') is a prompt where you can enter some 
