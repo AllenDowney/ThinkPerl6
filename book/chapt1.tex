@@ -9,6 +9,7 @@ components into systems and evaluating tradeoffs among alternatives.
 Like scientists, they observe the behavior of complex systems, form
 hypotheses, and test predictions.  
 \index{problem solving}
+\index{formal language}
 
 The single most important skill for a computer scientist is {\bf
 problem solving}.  Problem solving means the ability to formulate
@@ -30,7 +31,7 @@ A {\bf program} is a sequence of instructions that specifies how to
 perform a computation.  The computation might be something
 mathematical, such as solving a system of equations or finding the
 roots of a polynomial, but it can also be a symbolic computation, such
-as searching and replacing text in a document or something
+as searching and replacing text in a document, or something
 graphical, like processing an image or playing a video.
 \index{program}
 
@@ -41,18 +42,22 @@ instructions appear in just about every language:
 
 \item[input:] Get data from the keyboard, a file, the network, 
 a sensor, a GPS chip or some other device.
+\index{input}
 
 \item[output:] Display data on the screen, save it in a
 file, send it over the network, act on a mechanical device,  etc.
+\index{output}
 
 \item[math:] Perform basic mathematical operations like addition and
 multiplication.
 
 \item[conditional execution:] Check for certain conditions and
 run the appropriate code.
+\index{conditional execution}
 
 \item[repetition:] Perform some action repeatedly, usually with
 some variation.
+\index{repetition}
 
 \end{description}
 
@@ -61,9 +66,11 @@ program you've ever used, no matter how complicated, is made up of
 instructions that look pretty much like these.  So you can think of
 programming as the process of breaking a large, complex task
 into smaller and smaller subtasks until the subtasks are
-simple enough to be performed with one of these basic instructions. 
+simple enough to be performed with one of these basic instructions.
+\index{instruction}
 
 \index{abstraction}
+\index{subtask}
 Using or calling these subtasks makes it possible to create 
 various levels of \emph{abstraction}. You have probably 
 been told that computers only use 0's and 1's at the 
@@ -87,6 +94,8 @@ The essence of programming is to a very large extent this
 art of creating these successive layers of abstraction 
 so that performing the higher level tasks becomes 
 relatively easy.
+\index{subtask}
+\index{black box}
 
 
 \section{Running Perl~6}
@@ -98,7 +107,7 @@ If you are familiar with your operating system, and especially
 if you are comfortable with the shell or command-line interface, 
 you will have no trouble installing Perl~6.  But for beginners, 
 it can be painful to learn about system administration and 
-programming at thesame time.
+programming at the same time.
 
 To avoid that problem, you can start out running Perl~6 
 in a Web browser. You might want to use a search engine 
@@ -119,9 +128,10 @@ follow the instructions for your operating system at
 \url{https://perl6.org/downloads/}. 
 
 \index{Perl 6 version}
-As of this writing, the 
-most recent release is Perl~6 version 6c (v6.c), or 
-Rakudo Star 2016.07, and the examples in this book should 
+As of this writing, the most recent specification of 
+the language is Perl~6 version 6c (v6.c), and the most 
+recent release available for download is Rakudo Star 2016.07; 
+the examples in this book should 
 all run with such version. You can find out the installed 
 version by issuing the following command at the operating 
 system prompt:
@@ -187,8 +197,8 @@ REPL and run code.
 \index{Hello, World}
 
 Traditionally, the first program you write in a new language
-is called ``Hello, World!'' because all it does is display the
-words ``Hello, World!''.  In Perl~6, it looks like this:
+is called ``Hello, World'' because all it does is display the
+words ``Hello, World''.  In Perl~6, it looks like this:
 
 \begin{verbatim}
 > say "Hello, World";
@@ -196,13 +206,16 @@ Hello, World
 >
 \end{verbatim}
 %
+\index{say function}
 This is an example of what is usually called a {\bf print statement}, although it
 doesn't actually print anything on paper and doesn't even 
 use the {\tt print} keyword \footnote{Perl also has a {\tt print} 
 function, but the {\tt say} built-in function is used here 
-because it adds a new line character to the output.}.  It 
-displays a result on the screen.  In this case, the result is 
-the words {\tt Hello, World}.
+because it adds a new line character to the output.} (keywords are 
+words which have a special meaning to the language and are 
+used by the interpreter to recognize the structure of the program).  
+The print statement displays a result on the screen.  In this case, 
+the result is the words {\tt Hello, World}.
 %
 The quotation marks in the program indicate the beginning and end
 of the text to be displayed; they don't appear in the result.
@@ -253,8 +266,8 @@ prints out the result of the statements for us. In a real
 program, you would need a print statement to display 
 the result, as we'll see later. Similarly, if you run 
 Perl statements in the Web browser mentioned in 
-section~\ref{running_perl_6} earlier, you will need a 
-print statement to obtain the result of these operations. 
+section~\ref{running_perl_6}, you will need a 
+print statement to display the result of these operations. 
 For example:
 
 \begin{verbatim}
@@ -286,13 +299,13 @@ Perl~6 it is used for some other purposes.
 
 A {\bf value} is one of the basic things a program works with, like a
 letter or a number.  Some values we have seen so far are {\tt 2},
-{\tt 42}, and \verb'"Hello, World!"'.
+{\tt 42}, and \verb'"Hello, World"'.
 
 These values belong to different {\bf types}:
 {\tt 2} is an {\bf integer}, {\tt 40 + 2} is also an integer, 
 {\tt 84/2} is a {\bf rational number},
-and \verb"'Hello, World!'" is a {\bf string},
-so-called because the letters it contains are strung together.
+and \verb"'Hello, World'" is a {\bf string}, so-called 
+because the characters it contains are strung together.
 \index{integer}
 \index{floating-point}
 
@@ -410,7 +423,10 @@ strings.
 (Str)
 \end{verbatim}
 %
-They're strings.
+They're strings because they are defined within quotes. Although 
+Perl will often perform the necessary conversions for you, it 
+is generally a good practice not to use quote marks if your value 
+is intended to be a number.
 
 When you type a large integer, you might be tempted to use commas
 between groups of digits, as in {\tt 1,234,567}.  This is not a
@@ -433,6 +449,7 @@ we expected at all!
 Perl~6 interprets {\tt 1,234,567} as a comma-separated 
 sequence of three integers.  As we will see later, 
 the comma is a separator used for constructing lists.
+\index{comma}
 
 You can, however, separate groups of digits with the underscore character ``\verb"_"'' for better legibility and obtain a 
 proper integer:
@@ -491,7 +508,7 @@ there is no chemical element with the abbreviation $Zz$.
 \index{token}
 \index{structure}
 
-The second type of syntax rule pertains to the way tokens are
+The second type of syntax rule, structure, pertains to the way tokens are
 combined.  The equation $3 += 3$ is illegal in mathematics 
 because even though $+$ and $=$ are legal tokens, you can't 
 have one right after the other. Similarly, in a chemical formula, 
@@ -617,19 +634,6 @@ with our suggestions for debugging.  We hope they help!
 a solution, and expressing it.
 \index{problem solving}
 
-\item[high-level language:]  A programming language like Perl~6 that
-is designed to be easy for humans to read and write.
-\index{high-level language}
-
-\item[low-level language:]  A programming language that is designed
-to be easy for a computer to run; also called ``machine language'' or
-``assembly language''.
-\index{low-level language}
-
-\item[portability:]  A property of a program that can run on more
-than one kind of computer.
-\index{portability}
-
 \item[abstraction:] A way of providing a high-level view 
 of a task and hiding the underlying technical details so 
 that this task becomes easy.
@@ -727,6 +731,13 @@ helps when you are programming, because you get to know what the error
 messages mean.  It is better to make mistakes now and on purpose than
 later and accidentally.
 
+Please note that most exercises in this book are provided with 
+a solution in the appendix. However, the exercises in this  
+and in the next chapter are not intended to let you solve an 
+actual problem but are designed to simply let you experiment 
+with the Perl interpreter; there is no good solution, just try 
+out what is proposed to get a feeling on how it works.
+
 \begin{enumerate}
 
 \item If you are trying to print a string, what happens if you
@@ -740,7 +751,7 @@ What about {\tt 2++2}?
 What happens if you try this in Perl?
 
 \item What happens if you have two values with no operator
-between them?
+between them, such as {\tt say 2 2;}?
 
 \end{enumerate}
 
