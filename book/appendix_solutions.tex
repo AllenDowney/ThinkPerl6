@@ -4862,6 +4862,7 @@ similar to a heap.
 \subsection{Exercise in section~\ref{february_rule}: getting the February dates right (p.~\pageref{february_rule})}
 \label{sol_february_rule}
 \index{February, number of days}
+\index{grammar!date}
 
 To begin with, let's exclude February dates that are 
 larger than 29. This can be done by just expanding the 
@@ -5031,6 +5032,8 @@ to the reader.
 A grammar for an arithmetic calculator}
 \label{sol_calculator}
 \index{calculator}
+\index{arithmetic calculator}
+\index{grammar!arithmetic calculator}
 
 \subsubsection{The grammar}
 
@@ -5091,6 +5094,7 @@ class, it is useful to know that actions may be inserted in the
 grammar part. For a very simple grammar, it might be 
 over-engineering to create an actions class with just one or 
 two actions.
+\index{grammar}
 
 The actions class might look like this:
 
@@ -5130,8 +5134,9 @@ separated by addition or subtraction operators) and terms
 (atoms separated by multiplication or division operators) 
 from left to right, since these operators are left associative.
 
-This grammar and its associated actions class may be 
-tested with the following code:
+This grammar for a calculator and its associated actions class 
+may be tested with the following code:
+\index{grammar!arithmetic calculator}
 
 \begin{verbatim}
 for |< 3*4 5/6 3+5 74-32 5+7/3 5*3*2 (4*5) (3*2)+5 4+3-1/5 4+(3-1)/4 >,

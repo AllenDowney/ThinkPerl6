@@ -83,9 +83,14 @@ Printing \verb'~$/' displays a stringified version of the
 match object. And printing \verb'$0' (or \verb'$/[0]') 
 displays the capture (part of the match that is between 
 parentheses, in this case the number ``42'').
+\index{capture}
+\index{regex!capture}
+\index{match object}
 
 \index{lexing}
 \index{parsing}
+\index{lexical analysis}
+\index{grammatical analysis}
 This is what might be called low-level matching: pattern 
 recognition is done mostly at the individual character level.
 Perl~6 offers ways to group and name regex patterns so that 
@@ -93,7 +98,7 @@ these individual patterns can then be used as building
 blocks for higher level matching: recognizing words and 
 sequences of words (rather than just characters), for the 
 purpose of performing what is called lexical analysis 
-(or lexing) and grammatical analysis or parsing on a piece 
+(or lexing) and grammatical analysis (or parsing) on a piece 
 of text. 
 
 \index{Perl 6 grammar}
@@ -104,6 +109,7 @@ JSON or YAML documents or even computer programs: Perl~6
 programs are actually parsed using a Perl~6 grammar written 
 in Perl~6.
 
+\index{grammar}
 Grammars are a very important topic in computer science, 
 but, obviously, most programmers don't commonly write 
 full-fledged grammars for parsing programming languages. 
@@ -115,6 +121,7 @@ simple configuration file with low level techniques, whereas
 writing simple parser might be a lot easier and much more 
 efficient. Perl~6 offers all the tools to do that 
 very easily.
+\index{configuration file}
 
 \index{domain-specific language}
 \index{DSL}
@@ -217,6 +224,7 @@ The use of the named capture, \verb'$<capture_name>',
 is a shorthand for accessing the \verb'$/' match object as 
 a hash, in other words: \verb"$/{ 'capture_name' }" or 
 \verb'$/<capture_name>'.
+\index{match object}
 
 Named captures can be nested using regular capture group syntax:
 
@@ -271,7 +279,7 @@ named rules.
 \index{named!token}
 
 It is possible to store pieces of regexes into \emph{named rules}. The following example uses a named regex, which 
-is one of the kinds of regex rules, to match a text line:
+is one of the kinds of named rules, to match a text line:
 
 \begin{verbatim}
 my regex line { \N* \n }  # any number of characters other 
@@ -294,13 +302,14 @@ A named regex can be declared with
 \verb'my regex name { regex body }', and called with 
 {\tt <name>}. 
 
-As it can be seen in the example above, calling a named 
+As it can be seen in the example above, a successful named 
 regex creates a named capture with the same name. If you 
 need a different name for the capture, you can do this 
 with the syntax {\tt <capturename=regexname>}. For example,
 in this example, we call twice the same named regex and, 
 for convenience, use a different name to distinguish 
 the two captures:
+\index{named!capture}
 
 \begin{verbatim}
 my regex line { \N* \n }
@@ -412,11 +421,12 @@ if $string ~~ /<date>/ {
 }          
 \end{verbatim} 
 
-The first four named regexes define the basic building 
+The first four named tokens define the basic building 
 blocks for matching the year, the month, the day and 
 possible separators. Then, the {\tt date}  
 named rule uses these building blocks to define an 
 alternation between three possible date formats.
+\index{token}
 
 \index{date validation}
 This checks that the day in the month is between 0 and 31 
@@ -424,7 +434,7 @@ and that the month is between 01 and 12, and this is
 probably sufficient to recognize dates in a 
 text, but this would recognize ``2016-11-31'' as a date, 
 although November only has 30~days. We may want to be a 
-little bit more strict about valid dates and prevent that
+little bit stricter about valid dates and prevent that
 by adding a code assertion to the {\tt date} named rule:
 \index{code assertion}
 \index{assertion!code}
@@ -447,6 +457,8 @@ days in February depending on whether the date occurs in
 a leap year. You may also want to try to define and test 
 other date formats. Solution: \ref{sol_february_rule}
 \end{exercise}
+\index{leap year}
+\index{February!number of days}
 
 Rules can (and usually should) be grouped in 
 grammars, that's in fact what they have been designed 
@@ -557,6 +569,7 @@ rule. A grammar is creating its own namespace and
 lexical scope, and we no longer need to declare our rules 
 with the {\tt my} declarator (which is required for
 rules declared outside of a grammar). 
+\index{grammar}
 
 Within a grammar, the order in which the rules are 
 defined is generally not relevant, so that we could define 
@@ -752,6 +765,7 @@ The aim of this example is not to describe how to implement
 a basic calculator (there are better ways to do that, we'll 
 come back to that), but only to show how actions may be 
 used in conjunction with a grammar.
+\index{arithmetic calculator}
 
 The grammar is quite simple and is looking for two decimal numbers 
 separated by an infix arithmetic operator. If there is a 
@@ -765,7 +779,7 @@ will contain the arithmetic operator).
 The {\tt parse} 
 method is called with an {\tt actions:} named argument, 
 the {\tt ArithmActions} class, which tells Perl which 
-action object to use with the grammar. In this example, we 
+actions object to use with the grammar. In this example, we 
 don't really pass an action object, but simply the name 
 of the actions class (actually a type object), 
 because there is no need to instantiate an object. In 
@@ -893,6 +907,7 @@ token number {
 
 \subsubsection{JSON strings}
 \index{JSON!string}
+\index{double quote}
 
 There are many possible patterns to define a string. For 
 the sample JSON document used as an example, the following 
@@ -928,6 +943,7 @@ For our purpose, the first rule above will be sufficient.
 \index{JSON!object}
 \index{key-value pair}
 \index{JSON!value}
+\index{curly bracket}
 
 JSON objects are lists of key-value pairs. Lists are 
 delimited by curly brackets and pairs separated by 
@@ -984,12 +1000,12 @@ Values are objects, arrays, string, numbers, Booleans
 
 \begin{verbatim}
 token value { | <object> | <array> | <string> | <number> 
-               | true    | false     | null 
+              | true     | false   | null 
     }
 \end{verbatim}
 
 \subsection{The JSON grammar}
-\index{JSON grammar}
+\index{JSON!grammar}
 
 We have defined all the elements of the JSON grammar, we 
 only need to declare a grammar and to add a {\tt TOP} rule 
@@ -1010,7 +1026,7 @@ grammar JSON-Grammar {
       [ <[eE]> [\+|\-]? \d+ ]?
     }
     token value    { <object> | <array> | <string> | <number> 
-                     | true    | false     | null 
+                     | true   | false   | null 
     }
 }
 \end{verbatim}
@@ -1022,6 +1038,7 @@ and try to print the match object:
 my $match = JSON-Grammar.parse($JSON-string);
 say ~$match if $match;
 \end{verbatim}
+\index{parse}
 
 This produces the following output:
 
@@ -1192,6 +1209,7 @@ structure of the AST :
 In this case, the top structure is a hash (it could also have been 
 an array with a different JSON input string). We can now explore 
 this hash to find the data of interest for us. For example:
+\index{AST, abstract syntax tree}
 
 \begin{verbatim}
 say "Keys are: \n", $match.made.keys;
@@ -1223,7 +1241,9 @@ Phone numbers:
 
 \section{Inheritance and mutable grammars}
 
-\index{subclassing}
+\index{grammar!subclassing}
+\index{grammar!mutable}
+\index{grammar!inheritance}
 The capacity for a grammar to inherit from another one opens 
 the door to very rich possibilities in terms of 
 extending the Perl~6 language itself. It is possible, for 
@@ -1239,8 +1259,8 @@ the language for new needs, perhaps without even changing the compiler
 or the virtual machine. These are however advanced topics which 
 are more geared towards language gurus than to beginners. So 
 we only mention these exciting possibilities with the hope of 
-whetting your appetite and push you to study these further, 
-but will not dwell further onto them in this book.
+whetting your appetite and pushing you to study these further, 
+but will not dwell further on them in this book.
 
 \section{Debugging}
 
@@ -1258,6 +1278,7 @@ you may feel like starting again at square one. Even
 very good programmers often make silly mistakes when they start 
 writing grammars. It is a different programming paradigm, and 
 it requires a new learning phase.
+\index{grammar!debugging}
 
 \index{testing}
 In this case, small is beautiful. Start with small regexes and 
@@ -1454,6 +1475,7 @@ be called whenever the rule matches.
 \label{calculator}
 \index{calculator}
 \index{calculator!grammar}
+\index{grammar!arithmetic calculator}
 
 The arithmetic calculator presented in section~\ref{actions_object} 
 above is very simplistic. In particular, it can parse only 
