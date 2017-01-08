@@ -244,7 +244,7 @@ or \emph{less than}.
 
 When comparing two positive integers, a number with four digits
 is always greater than a number with only two or three digits. 
-For example, 1110 if greater than 886. 
+For example, 1110 is greater than 886. 
 
 String comparisons, in contrast, basically follow (pseudo) alphabetical rules: 'b' is greater than 'aaa', because the commonly accepted rule for string comparisons is to start by comparing the first letter of each string: which string is greater is known if the two letters are different, irrespective of what character comes next; you need to proceed to comparing the second letter of each word only if comparing the first letter of each string led to a draw, and so on. Thus, any word starting with 'a' is less than any word starting with 'b', irrespective of the length of these words. You may think that this is nitpicking, but this becomes essential when you start sorting items: you really have to think about which type of order (numeric or alphabetical) you want to use.
 \index{sorting}
@@ -1048,7 +1048,7 @@ passed arguments to our subroutines.
 
 The easiest way to retrieve arguments passed to a program is 
 to use a special subroutine named \verb'MAIN'. A program 
-having a \verb'MAIN' defined will usually start its execution 
+having a \verb'MAIN' subroutine defined will usually start its execution 
 with that subroutine and the command-line arguments supplied 
 to the program will be passed as arguments to \verb'MAIN', 
 so that the \verb'MAIN' signature will enable you to 
@@ -1117,10 +1117,10 @@ multiplication tables:
 
 \begin{verbatim}
 sub multiplication-tables {
-	for 1..10 -> $x {
-		for 1..10 -> $y {
-			say "$x x $y\t= ", $x * $y;
-		say "";
+    for 1..10 -> $x {
+	    for 1..10 -> $y {
+            say "$x x $y\t= ", $x * $y;
+        say "";
 	}
 }
 
@@ -1146,14 +1146,13 @@ tables might be:
 
 \begin{verbatim}
 sub multiplication-tables {
-	for 1..10 -> $x {
-		for 1..10 -> $y {
-			say "$x x $y\t= ", $x * $y;
-		}
-		say "";
-	}
+    for 1..10 -> $x {
+        for 1..10 -> $y {
+            say "$x x $y\t= ", $x * $y;
+        }
+        say "";
+    }
 }
-
 multiplication-tables();
 \end{verbatim}
 
