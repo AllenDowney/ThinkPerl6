@@ -36,6 +36,9 @@ if you know the position and length of the substring, then
 use the {\tt substr} function. But if you need a more ``fuzzy'' 
 match with perhaps some alternatives or a character class, then 
 a regex is very probably the right tool.
+\index{index}
+\index{substr}
+\index{regex}
 
 Another related tenet is ``YAGNI'': you  aren't gonna need 
 it. This acronym comes from a school of programming 
@@ -43,7 +46,7 @@ known as ``extreme programming'' (XP). Even if you don't
 adhere to all the XP principles, this idea is quite sound 
 and well-founded: don't add any functionality until it is 
 really needed.
-\index{YAGRI: you aren't gonna need it}
+\index{YAGNI: you aren't gonna need it}
 
 Try to make your programs as clear as possible, make them 
 simple as much as you can. Use more advanced concepts if 
@@ -65,6 +68,7 @@ how that neat trick you've used really works.
 A final quote from Dijkstra: ``Simplicity is prerequisite 
 for reliability.''
 \index{Dijkstra, Edsger}
+\index{simplicity}
 
 \section{Do's and Don'ts}
 
@@ -137,6 +141,7 @@ development. Write extensive test plans, use them often,
 update them as the functionality evolves. See section~\ref{test_module} 
 (p.~\pageref{test_module}) for some automated testing tools.
 \index{test}
+\index{Dijkstra, Edsger}
 
 \item[Avoid premature optimization:] In the words of Donald 
 Knuth: ``Premature optimization is the source of all evil (or 
@@ -164,6 +169,7 @@ such a case:
 constant SECONDS-PER-YEAR = 365 * 24 * 60 * 60;
 \end{verbatim}
 \index{magical number}
+\index{constant}
 
 \item[Avoid hard-coded values:] Hard-coded values are bad.
 If you have to use some, define them as variables or constants 
@@ -200,6 +206,7 @@ control flow of your programs.
 \index{indentation}
 
 \item[Be nice and have fun.]
+\index{fun}
 
 \end{description}
 
@@ -226,15 +233,20 @@ more idiomatic one.
 \begin{description}
 \item[Creating a hash from a list of keys and a list of values:] Using slices:
 \index{hash slice}
+
 \begin{verbatim}
 my %hash; %hash{@keys} = @values;
 \end{verbatim}
+
 Using the \emph{zip} operator and a metaoperator with the pair constructor:
 \index{zip operator}
+\index{metaoperator}
 \index{operator!zip}
+
 \begin{verbatim}
 my %hash = @keys Z=> @values;
 \end{verbatim}
+
 For existence tests, the hash values only need to be true. Here is 
 a good way to create a hash from a list of keys:
 \begin{verbatim}
@@ -267,6 +279,7 @@ but you did not provide a value for it.
 \end{verbatim}
 
 You can even pass a explanatory message:
+
 \begin{verbatim}
 > class A { has $.a is required("We need it") }; A.new
 The attribute '$!a' is required because We need it,
@@ -276,11 +289,14 @@ but you did not provide a value for it.
 \item[Iterating over the subscripts of an array:] The first 
 solution that comes to mind might be:
 \index{end}
+
 \begin{verbatim}
 for 0 .. @array.end -> $i {...}
 \end{verbatim}
+
 That's alright, but this is probably even better:
 \index{keys function or method}
+
 \begin{verbatim}
 for @array.keys -> $i {...}
 \end{verbatim}
@@ -289,6 +305,7 @@ for @array.keys -> $i {...}
 The \verb'.kv' method, in combination with a pointy block 
 taking two parameters, allows you to easily iterate over an 
 array:
+\index{kv function or method}
 
 \begin{verbatim}
 for @array.kv -> $i, $value {...}
@@ -298,6 +315,7 @@ for @array.kv -> $i, $value {...}
 \item[Printing the number of items in an array:] Two possible 
 solutions:
 \index{elems method}
+
 \begin{verbatim}
 say +@array; 
 # or:
@@ -313,6 +331,7 @@ if $i %% 3 {...}
 
 \item[Do something \emph{n} times:] Use the right-open range operator:
 \index{range operator}
+
 \begin{verbatim}
 for 0 ..^ $n {...}
 # or, simpler:
@@ -325,6 +344,7 @@ the \verb'$_' topical variable as implicit invocant. Thus,
 assuming the string has been topicalised into \verb'$_':
 \index{split function or method}
 \index{words function or method}
+
 \begin{verbatim}
 @words = .split(/\s+/);
 # or, simpler:
@@ -334,25 +354,34 @@ assuming the string has been topicalised into \verb'$_':
 \item[An infinite loop:] The {\tt loop} statement with no parentheses 
 and no argument loops forever: 
 \index{infinite loop}
+
 \begin{verbatim}
 while True {...}
 # or, more idiomatic:
 loop {...}   
 \end{verbatim}
+
 Of course, the body of the {\tt loop} statement must have some 
 flow control statement to exit the loop at some point.
 
 \item[Returning the unique elements of a list:] the {\tt unique} 
 method removes duplicates from the input list:
 \index{unique function}
+
 \begin{verbatim}
 return @array.unique;
 \end{verbatim}
+
+Or, if you know that your list is sorted, you can use the 
+{\tt squish} function (which removes adjacent duplicates).
+\index{squish function}
 
 \item[Adding up the items of a list:] Use the {\tt reduce} 
 function or the reduction metaoperator:
 \index{reduce function}
 \index{reduction operator}
+\index{sum function or method}
+
 \begin{verbatim}
 my $sum = @a.reduce(* + *);
 # or, simpler:
@@ -362,7 +391,7 @@ my $sum = @a.sum;
 \end{verbatim}
 
 \item[Swapping two variables:] Use the \verb'.=' mutating 
-method call:
+method call with the \verb'reverse' function:
 \begin{verbatim}
 ( $x, $y ) =   $y, $x;
 # or:
@@ -385,6 +414,7 @@ sequence operator with the ``*'' whatever star operator and
 a pointy block:
 \index{whatever operator}
 \index{sequence operator}
+
 \begin{verbatim}
 for 3, * + 3 ... * -> $n {...}
 # or:
@@ -394,6 +424,7 @@ for 3, 6, 9 ... * -> $n {...}
 \item[Loop on a range of values, discounting the range limits:] Use 
 the open range operator:
 \index{range operator}
+
 \begin{verbatim}
 for ($start+1) .. ($end-1) -> $i {...}
 # or, better:
@@ -442,4 +473,5 @@ happens. Try new things. Go ahead, be bold, dive into the pool and
 swim. The bottom line is: you will really learn by doing.
 
 And that's great fun. Enjoy it!
+\index{fun}
 

@@ -115,6 +115,7 @@ adapted for a comparison with the {\tt cmp} function. We
 will come back soon to this form of pipeline programming 
 and others ways of performing these operations. 
 \index{cmp function}
+\index{pipeline programming}
 
 We can now pass the {\tt compare} subroutine to the 
 {\tt sort} function:
@@ -266,6 +267,7 @@ closure}) is a function which can access to variables that
 are lexically available where the function is defined, even 
 if those variables are no longer in scope in the code section 
 where the function is called.
+\index{counter}
 
 Consider the following example:
 
@@ -291,6 +293,8 @@ call it many times to create other counters counting
 from 6, 7, and so on).  Then, \verb'&count-from-five' 
 is called six times and prints out numbers between 5 
 and 10, each on its own line.
+\index{lexical scope}
+\index{scope!lexical}
 
 The magical thing here is that the \verb'$counter' variable 
 is out of scope when \verb'&count-from-five' is called, 
@@ -376,7 +380,9 @@ block a closure.
 
 Languages without closures cannot easily provide 
 higher-order functions that are as easy to use and 
-powerful as map.
+powerful as {\tt map}.
+\index{map}
+\index{function!map}
 
 This is just another example of a block acting as a 
 closure for a counter implementation:
@@ -395,6 +401,9 @@ variable when the closure is created. The call to the
 \verb'&count' code block successfully displays and 
 updates \verb'$counter', even if that variable is no
 longer in lexical scope when the block is executed.
+\index{scope!lexical}
+\index{lexical scope}
+\index{closure}
 
 \section{List processing and pipe-line programming}
 \index{pipe-line programming}
@@ -409,25 +418,32 @@ the following:
 \begin{enumerate}
 \item {\tt map} applies a transformation of each item 
 of a list;
+\index{map} \index{function!map}
 \item {\tt grep} is a filter that keeps only the items 
 for which the function or code block associated with 
 {\tt grep} evaluates to true;
+\index{grep} \index{function!grep}
 \item {\tt reduce} uses each item of a list to compute 
 a single scalar value;
+\index{reduce} \index{function!reduce}
 \item {\tt sort} sorts the elements of a list in accordance 
 to the rules defined in the passed code-block or 
 subroutine. 
+\index{sort} \index{function!sort}
 \end{enumerate}
 
 We have seen several examples where these functions can 
 be used together in a sort of data pipe-line in which 
 the data produced by each step of the pipe-line is fed 
 to the next step. For example, in the preceding section 
-(subsection~\ref{fco-refresher}), we've used this.
+(subsection~\ref{fco-refresher}), we've used this:
 
 \begin{verbatim}
     my $cmp1 = join ",", reverse split /<[;-]>/, $rec1;
 \end{verbatim}
+\index{reverse} \index{function!reverse}
+\index{split} \index{function!split}
+\index{join} \index{function!join}
 
 As we said, this type of code should be read from right 
 to left (and from bottom to top if written over several 
@@ -446,6 +462,8 @@ my @children-of-single-moms =
     grep {  .gender eq FEMALE },
          @citizens;
 \end{verbatim}
+\index{map} \index{function!map}
+\index{grep} \index{function!grep}
 
 This one should be read bottom to top. It takes a list 
 of all citizens, filters those who are female, filters 
@@ -479,6 +497,7 @@ steps in a ``more natural'', left to right, order.
 
 For example, reusing the example of sorting records 
 by dates seen earlier in this chapter:
+\index{sort}
 
 \begin{verbatim}
 "id1;13-05-2015" 
@@ -531,6 +550,7 @@ say [+] 1..10;      # -> 55
 \end{verbatim}
 
 Similarly, we can write a factorial function as:
+\index{factorial!using the reduction meta-operator}
 
 \begin{verbatim}
 sub fact (Int $n where $n >= 0) {
@@ -546,6 +566,7 @@ to be 1.)
 
 \subsection{The hyperoperator}
 
+\index{hyperoperator}
 An hyperoperator applies the specified operator to each 
 item of a list (or two lists in parallel) and return a 
 modified list (somewhat similarly to the {\tt map} 
@@ -555,6 +576,8 @@ and U+00BB), but you can use their ASCII equivalent
 double angle brackets, \verb'<< >>', if you prefer 
 (or don't know how to enter those Unicode characters 
 with your editor).
+\index{French quote marks}
+\index{German quote marks}
 
 Our first example will multiply each element of a list 
 by a given number (5):
@@ -601,8 +624,15 @@ operators:
 \begin{verbatim}
 @x >>+=<< @y   # Same as: @x = @x >>+<< @y
 \end{verbatim}
+\index{hyperoperator}
 
 \subsection{The ``X'' cross and ``Z'' zip operators}
+\index{cross operator X}
+\index{operator!cross}
+\index{operator!X (cross)}
+\index{zip operator Z}
+\index{operator!zip}
+\index{operator!Z (zip)}
 
 The cross operator uses the capital letter ``\verb"X"''.
 It takes two or more lists as arguments and returns a list 
@@ -631,7 +661,7 @@ say @a X* @b;    # -> 18 24 24 32
 
 If no additional operator is supplied (as in the first 
 example above), ``\verb"X"'' acts as if a comma is 
-provided as aditional operator. 
+provided as default additional operator. 
 
 The ``\verb"Z"'' zip operator interleaves the lists 
 like a zipper:
@@ -643,7 +673,7 @@ like a zipper:
 say 1, 2 Z <a b c > Z 9, 8;   # -> ((1 a 9) (2 b 8))
 \end{verbatim}
 
-The \verb'Z' operator also exists as a meta operator, in 
+The \verb'Z' operator also exists as a metaoperator, in 
 which case the inner lists are replaced by the value 
 from applying the operator to the list:
 \index{metaoperator}
@@ -668,6 +698,7 @@ just seen):
 returns the least common multiple of two numbers, 
 write a program which displays the smallest positive 
 number divisible by all numbers between 1 and 20.
+\index{lcm function}
 
 \item Write a program that computes the sum of all 
 digits of factorial 100.
@@ -684,6 +715,7 @@ The reduction operator makes it possible to apply an
 operator to all elements of a list. Thus, using it 
 with the {\tt lcm} function gives the LCM of numbers 
 between 1 and 20:
+\index{reduction metaoperator}
 
 \begin{verbatim}
 say [lcm] 1..20;                 # -> 232792560
@@ -694,6 +726,7 @@ twice the \verb'[]' reduction metaoperator, once with
 the multiplication operator to compute factorial 100, 
 and another time with the addition operator to sum 
 the digits of the result:
+\index{reduction metaoperator}
 
 \begin{verbatim}
 say [+] split '', [*] 2..100;    # -> 648
@@ -705,6 +738,7 @@ with the reduction operator. The \verb'<<...>>'
 hyperoperator easily supplies a list of the squares of 
 these integers, and another application of the reduction 
 operator reduces this list to a sum:
+\index{hyperoperator}
 
 \begin{verbatim}
 say ([+] 1..100)**2 - [+] (1..100) «**» 2; # -> 25164150
@@ -721,6 +755,7 @@ as an infix operator between two hashes in order to
 perform a kind of mathematical set subtraction, i.e. 
 to find all keys of the first hash that are not in the 
 second hash.
+\index{operator type!infix}
 
 \index{operator type!prefix}
 In the previous paragraph, the word \emph{infix} means 
@@ -769,6 +804,7 @@ interesting point, though, is we have re-used an existing
 operator (the modulo operator), but the compiler does not 
 get confused because modulo is an infix operator and our 
 new operator is defined as a prefix operator.
+\index{modulo operator}
 
 A better naming example might be to use ``!'' exclamation 
 mark to be a postfix factorial operator, just as in 
@@ -786,7 +822,7 @@ Note that the exclamation mark used as a prefix
 operator (i.e. placed before its operand) is 
 a negation operator, but there is usually no possible 
 confusion between the two operators because one is a 
-prefix operator and our now operator is a postfix operator 
+prefix operator and our new operator is a postfix operator 
 (although you might have to be a bit careful on where 
 to put whitespace if your expression is somewhat 
 complicated). The {\tt multi} keyword isn't strictly 
@@ -849,6 +885,7 @@ pseudo-code operator to express the variable interchange
 (or swap) of two values, i.e. the following operation:
 \index{Knuth, Donald}
 \index{swap}
+\index{variable interchange}
 
 \begin{verbatim}
 # Caution: this is pseudo-code, not working code, at this point
@@ -856,11 +893,14 @@ my $a = 1; my $b = 2;
 $a :=: $b; 
 say "$a $b";  # -> 2 1 
 \end{verbatim}
+\index{pseudo-code}
 
 In Knuth's paper, this is just a pseudo-code shortcut 
-to discuss more easily Hoare's quicksort algorithm, but 
-we can easily implement it:
+to discuss more easily Tony Hoare's quicksort algorithm, but 
+we can easily implement that symbol:
 \index{swap operator}
+\index{sort!quicksort}
+\index{Hoare, Charles Antony Richard}
 
 \begin{verbatim}
 multi sub infix:<:=:> ($a is rw, $b is rw) {
@@ -890,6 +930,8 @@ Now, the pseudo-code above now just works fine as real code.
 A sort algorithm such as the one presented below 
 (\ref{combsort}) may typically have code lines 
 like these to swap two elements of an array:
+\index{swap}
+
 \begin{verbatim}
 if $some-condition {
     my ($x, $y) = @array[$i], @array[$i + gap];
@@ -910,6 +952,7 @@ union between two hashes. This could easily be
 written as follows:
 \index{$\oplus$ operator}
 \index{operator!$\oplus$}
+\index{hash merge operator}
 
 \begin{verbatim}
 multi sub infix:<⊕> (%a, %b) {
@@ -1136,7 +1179,8 @@ is 1 and the comb sort becomes equivalent to a bubble
 sort. The optimal shrink factor lies somewhere between 1.25 
 and 1.33; we have used a shrink factor of 1.3, the value 
 suggested by the authors of the original publications 
-presenting the algorithm.  
+presenting the algorithm.
+\index{sort!bubble sort}
 
 \subsection{An iterator version of map}
 \index{iter!map}
@@ -1362,6 +1406,7 @@ and {\tt grep} functions as a form of case study for
 pedagogical purpose, in order to explain in practical terms 
 the idea of laziness. 
 \index{laziness}
+\index{iterator}
 
 This is what would have been necessary to implement lazy 
 iterators in earlier versions of Perl (e.g. Perl~5), but 
@@ -1526,6 +1571,7 @@ Although the number of code lines is only one of many
 criteria to compare programs and languages, this is 
 in my humble opinion a testimony in favor of the functional 
 programming paradigm and its inherent expressiveness.
+\index{functional programming}
 
 
 \section{Lazy lists and the sequence operator}
@@ -1547,7 +1593,7 @@ produces a lazy list of successive integers between 0 and 200.
 The Perl~6 compiler may or may not allocate some of the numbers
 (depending on the implementation), but it is not required to 
 produce the full list immediately. The numbers that have not 
-been generated yet may be created and supplied later, when 
+been generated yet may be created and supplied later, if and when 
 the program tries to use these values. 
 
 As explained below, if you want to generate consecutive 
@@ -1711,7 +1757,7 @@ caches the previously computed values in the lazy array.
 As you might remember (see section~\ref{memoize}, 
 p.~\pageref{memoize}), \emph{caching} is the idea of 
 storing a value in memory in order to avoid having to 
-recompute it, with the idea of saving time and CPU cycles.
+recompute it, with the aim of saving time and CPU cycles.
 \index{cache}
 
 And we can similarly construct a lazy infinite list of 
@@ -1742,6 +1788,7 @@ Similarly the sequence of odd integers seen at the
 beginning of this section could be generated in a 
 slightly more concise form with the whatever "\verb'*'" 
 parameter:
+\index{sequence operator}
 
 \begin{verbatim}
 say (1, * + 2  ... 11);        # -> (1 3 5 7 9 11)
@@ -1750,6 +1797,7 @@ say (1, * + 2  ... 11);        # -> (1 3 5 7 9 11)
 This syntax with an asterisk is called a 
 \emph{whatever closure}, we will come back to 
 it below.
+\index{whatever closure}
 
 There is, however, a small caveat in using the sequence operator with 
 an explicit generator: the end value (the upper bound) has 
@@ -1819,6 +1867,7 @@ from the American mathematician Haskell Curry, one of the
 founders (with Alonzo Church) of logical mathematical 
 theories, including lambda-calculus and others.
 \index{Curry, Haskell}
+\index{Church, Alonzo}
 
 To curry a function having several arguments means replacing 
 it by a function having only one argument and returning 
@@ -1842,6 +1891,7 @@ we have an add mathematical function, \verb'add(x, y)'
 taking two arguments and returning their sum. 
 
 In Perl, the {\tt add} subroutine is very simple:
+\index{add}
 
 \begin{verbatim}
 sub add (Numeric $x, Numeric $y) {return $x + $y}
@@ -1946,7 +1996,7 @@ my &add_2 = &infix:<+>.assuming(2);
 
 \subsection{Currying with the whatever star parameter}
 \index{curry}
-\index{whatever operator}
+\index{whatever term}
 \label{whatever star parameter}
 
 A more flexible way to curry a subroutine or an expression 
@@ -1970,7 +2020,7 @@ when the declaration is made):
 (foo foofoofoo foofoo)
 \end{verbatim}
 
-It is also possible to use multiple {\tt whatever} operators 
+It is also possible to use multiple {\tt whatever} terms 
 in the same expression. For example, the {\tt add} 
 subroutine could be rewritten as a {\tt whatever} 
 expression with two parameters:
@@ -1978,6 +2028,13 @@ expression with two parameters:
 \begin{verbatim}
 my $add = * + *;
 say $add(4, 5);          # -> 9
+\end{verbatim}
+
+or:
+
+\begin{verbatim}
+my &add = * + *;
+say add(4, 5);           # -> 9
 \end{verbatim}
 
 You might even do the same with the multiplication operator:
@@ -2106,6 +2163,7 @@ is($value, $expected, $description?)
 The {\tt is} function marks a test as passed if \verb'$value' 
 and \verb'$expected' compare positively with the eq operator. 
 The function accepts an optional description of the test.
+\index{string equality}
 
 \item Approximate numeric comparison:
 
@@ -2121,6 +2179,7 @@ to each other. The subroutine can be called in numerous ways
 that let you test using relative or absolute tolerance 
 of different values. (If no tolerance is set, it will default 
 to an absolute tolerance of $10^{-5}$.)
+\index{approximate numeric equality}
 
 \item Regex:
 
@@ -2179,7 +2238,7 @@ understand why, you may try:
 \index{diag}
 
 \begin{verbatim}
-diag “extensive feedback” unless
+diag "extensive feedback" unless
     ok $foo, 'simple test';
 \end{verbatim}
 
@@ -2342,6 +2401,7 @@ on demand, when required, to avoid unnecessary processing.
 \item[iterator:] A piece of code that returns values on demand 
 and keeps track of where it has arrived, so as to be able 
 to know what the next value should be.
+\index{iterator}
 
 \item[cache:] To cache a value is to store it in memory (in a 
 variable, an array, a hash, etc.) in order to avoid the need to 
