@@ -223,7 +223,7 @@ print-grid;
 There are obviously better ways to do something four times 
 than just repeating \verb'say $value;' four times as in the 
 {\tt say-four-times} above, but this will be covered in 
-the next chapter (see section~\ref{for_loops}).
+the next chapter (see Section~\ref{for_loops}).
 
 To draw a similar grid with four rows and four columns, we need 
 first to modify the strings used for printing the lines:
@@ -308,7 +308,7 @@ print-grid;
 
 \label{sol_do_n_times}
 
-\subsection{Subroutine do-n-times, exercise suggested in section~\ref{do_n_times} (p.~\pageref{do_n_times})}
+\subsection{Subroutine do-n-times, exercise suggested in Section~\ref{do_n_times} (p.~\pageref{do_n_times})}
 
 The {\tt do-n-times} subroutine is recursive and is 
 calling itself each time with a decremented argument. It 
@@ -401,7 +401,7 @@ not. As a further exercise, you might try to insert the
 above code into a recursive subroutine that prints an 
 error message and calls itself again if the user input is 
 not valid. The solution to the next exercise 
-(\ref{sol_fermat_ex}) gives an example of a recursive 
+(Section~\ref{sol_fermat_ex}) gives an example of a recursive 
 subroutine designed at prompting 
 the user to supply input again, this might help you figure 
 out how to do it if you encounter difficulties. 
@@ -633,7 +633,7 @@ at recurse2.pl6:12
 \index{multi!subroutine}
 Another possibility might be to use a feature of Perl~6 which 
 we haven't covered yet, \emph{multi} subroutines, described in 
-section~\ref{multisubs} (p.~\pageref{multisubs}). 
+Section~\ref{multisubs} (p.~\pageref{multisubs}). 
 The idea is to declare two versions of the {\tt recurse} 
 subroutine, with the same name and a different signature. 
 The compiler will figure out which version of {\tt recurse} 
@@ -686,9 +686,9 @@ multi recurse($n , $s) {
 %
 to see what is happening in that case.
 
-\section{Exercises of chapter~\ref{fruitchap}: Fruitful functions}
+\section{Exercises of Chapter~\ref{fruitchap}: Fruitful functions}
 
-\subsection{Compare, exercise at the end of section~\ref{compare} (p.~\pageref{compare})}
+\subsection{Compare, exercise at the end of Section~\ref{compare} (p.~\pageref{compare})}
 \label{sol_compare}
 \index{compare function}
 
@@ -717,7 +717,7 @@ more details.)
 \index{compare function}
 \index{sorting}
 
-\subsection{Hypotenuse, exercise at the end of section~\ref{hypotenuse} (p.~\pageref{hypotenuse})}
+\subsection{Hypotenuse, exercise at the end of Section~\ref{hypotenuse} (p.~\pageref{hypotenuse})}
 \label{sol_hypotenuse}
 \index{hypotenuse}
 
@@ -783,7 +783,7 @@ say hypotenuse 3, 4;
 %
 \index{hypotenuse}
 
-\subsection{Chained relational operators(in section~\ref{isbetween})}
+\subsection{Chained relational operators(in Section~\ref{isbetween})}
 \label{sol_isbetween}
 \index{is-between}
 
@@ -806,11 +806,11 @@ examples, given for illustration purposes. A more complete test
 suite might be needed (testing for example negative and non 
 integer numbers). We will see later better ways 
 of building more robust test suites (see for example 
-section~\ref{test_module} and exercise 
-solution~\ref{sol_fact_operator}).
+Section~\ref{test_module} and exercise 
+solution in Section~\ref{sol_fact_operator}).
 
 
-\subsection{The Ackermann function (exercise~\ref{ackermann})}
+\subsection{The Ackermann function (Exercise~\ref{ackermann})}
 \label{sol_ackermann}
 \index{Ackermann function}
 
@@ -854,10 +854,10 @@ sub ack (Int $m, Int $n) {
 The Ackermann function is defined for non-negative integers. 
 As a further exercise, modify the {\tt ack} subroutine to 
 prevent negative arguments. We have seen two different ways 
-of doing that in section~\ref{guardian}.
+of doing that in Section~\ref{guardian}.
 
 
-\subsection{Palindromes (exercise~\ref{palindrome})}
+\subsection{Palindromes (Exercise~\ref{palindrome})}
 \index{palindrome}
 \label{sol_palindrome}
 
@@ -922,7 +922,7 @@ sub is_palindrome(Str $word) {
 \index{flip function}
 \index{palindrome}
 
-\subsection{Powers (exercise~\ref{power})}
+\subsection{Powers (Exercise~\ref{power})}
 \index{power}
 \label{sol_power}
 
@@ -981,7 +981,7 @@ True
 %
 \index{power}
 
-\subsubsection{Finding the GCD of two numbers, exercise~\ref{gcd} (p.~\pageref{gcd})}
+\subsubsection{Finding the GCD of two numbers, Exercise~\ref{gcd} (p.~\pageref{gcd})}
 \index{gcd}
 \index{greatest common divisor (GCD)}
 \index{GCD (greatest common divisor)}
@@ -1166,7 +1166,7 @@ say gcd 33, 45;        # 3
 say gcd -4, 6;         # 2
 \end{verbatim}
 
-The next chapter (chapter~\ref{iteration}) will come back 
+The next chapter (Chapter~\ref{iteration}) will come back 
 on lexical scoping.
 
 \index{gcd}
@@ -1177,7 +1177,7 @@ You may be interested to know that there is a {\tt gcd} built-in
 function in Perl~6.
 
 
-\section{Exercises of chapter~\ref{iteration} (Iteration)}
+\section{Exercises of Chapter~\ref{iteration} (Iteration)}
 
 \subsection{Exercise~\ref{test_sqrt}: square root (p.~\pageref{test_sqrt})}
 \label{sol_test_sqrt}
@@ -1299,9 +1299,9 @@ Intermediate term = 6.47985705171744e-017
 -4.44089209850063e-016
 \end{verbatim}
 
-\section{Exercises of chapter~\ref{strings} (strings)}
+\section{Exercises of Chapter~\ref{strings} (strings)}
 
-\subsection{Exercise in section~\ref{stringtraversal}: String traversal (p.~\pageref{stringtraversal})}
+\subsection{Exercise in Section~\ref{stringtraversal}: String traversal (p.~\pageref{stringtraversal})}
 \label{sol_stringtraversal}
 
 The backward traversal of a word with a {\tt while} loop may
@@ -1376,7 +1376,7 @@ probably faster):
 \end{verbatim}
 
 
-\subsection{Exercise in section~\ref{stringtraversal}: The ducklings (p.~\pageref{stringtraversal})}
+\subsection{Exercise in Section~\ref{stringtraversal}: The ducklings (p.~\pageref{stringtraversal})}
 \label{sol_ducklings}
 
 The first idea that may come to mind is to build a modified 
@@ -1435,7 +1435,7 @@ Here, we have introduced another simple and common way of
 concatenating two strings: simply inserting the two variables one after the other within double quotes.
 
 
-\subsection{Exercise in section~\ref{stringtraversal}: Counting the letters of a string (p.~\pageref{stringtraversal})}
+\subsection{Exercise in Section~\ref{stringtraversal}: Counting the letters of a string (p.~\pageref{stringtraversal})}
 \label{sol_count_letters}
 
 This subroutine counts the number of occurrences of 
@@ -1577,7 +1577,7 @@ Even compared with this simpler solution, the regex solution
 really shines orders of magnitude brighter.
 
 
-\subsection{Exercises in subsection~\ref{regex_exercises}: Regex exercises (p.~\pageref{regex_exercises})}
+\subsection{Exercises in Subsection~\ref{regex_exercises}: Regex exercises (p.~\pageref{regex_exercises})}
 \label{sol_regex_exercises}
 \index{regex}
 
@@ -1741,7 +1741,7 @@ say ~$2 if 'Mississippi' ~~ /(\w)$0.*(\w)$0.*((\w)$0)/; # -> pp
 \end{verbatim}
 
 
-\subsection{Exercise in section~\ref{isreverse}: {\tt is-reverse} subroutine (p.~\pageref{isreverse})}
+\subsection{Exercise in Section~\ref{isreverse}: {\tt is-reverse} subroutine (p.~\pageref{isreverse})}
 \label{sol_isreverse}
 \index{is-reverse}
 
@@ -1776,7 +1776,7 @@ sub is-reverse(Str $word1, Str $word2) {
 \end{verbatim}
 %
 
-\subsection{Exercise \ref{count_a}: Counting letters (p.~\pageref{count_a})}
+\subsection{Exercise~\ref{count_a}: Counting letters (p.~\pageref{count_a})}
 \label{sol_count_a}
 \index{count letters}
 
@@ -1843,7 +1843,7 @@ sub count_substr (Str $word, Str $letter) {
 say count_substr "I have a dream that one day...", "a"; # -> 4
 \end{verbatim}
 
-\subsection{Exercise \ref{islower}: Lower-case letters (p.~\pageref{islower})}
+\subsection{Exercise~\ref{islower}: Lower-case letters (p.~\pageref{islower})}
 \label{sol_islower}
 \index{count letters}
 
@@ -1919,7 +1919,7 @@ for <FOO bar Baz> -> $str {
 We will see later ways to better organize test cases,  
 for example in Section~\ref{test_module} (p.~\pageref{test_module}).
 
-\subsection{Exercise \ref{rotate}: Caesar's cipher (p.~\pageref{rotate})}
+\subsection{Exercise~\ref{rotate}: Caesar's cipher (p.~\pageref{rotate})}
 \label{sol_rotate}
 \index{letter rotation}
 \index{rotation, letter}
@@ -1974,7 +1974,7 @@ equivalents in the {\tt n..z} range.
 \index{operator!tr}
 \index{one-liner mode}
 
-We can code a ROT13 in a simple Perl one-liner (see section~\ref{one-liner mode}):
+We can code a ROT13 in a simple Perl one-liner (see Section~\ref{one-liner mode}):
 \index{one-liner mode}
 \label{rot13_oneliner}
 
@@ -1989,12 +1989,12 @@ foobar
 It is quite easy to add the ranges for capital letters. You might want to do it as a further exercise.
 
 
-\section{Exercises of chapter~\ref{wordplay} (Word play)}
+\section{Exercises of Chapter~\ref{wordplay} (Word play)}
 
 \subsection{Exercise~\ref{cartalk}: Consecutive double letters (p.~\pageref{cartalk})}
 \label{sol_cartalk}
 
-With the looping techniques used in chapter~\ref{wordplay}, 
+With the looping techniques used in Chapter~\ref{wordplay}, 
 we could write this:
 
 \begin{verbatim}
@@ -2026,7 +2026,7 @@ more efficient than looping  (in terms of coding efficiency,
 i.e., as an approximation, how many code lines are needed 
 for performing a given task).
 
-We have seen in chapter~\ref{strings} that regex captures are 
+We have seen in Chapter~\ref{strings} that regex captures are 
 populating the \verb'$0', \verb'$1', \verb'$2', etc. special 
 variables. A regex pattern matching any repeated letter might 
 therefore be \verb'/(.) $0/', where the character found 
@@ -2053,7 +2053,7 @@ Both programs find four words which are variations on
 ``bookkeeper'' and ``bookkeeping''.
 
 The regex version is so simple that you can code it directly 
-at the operating system command line prompt as a one-liner (see section~\ref{one-liner mode}):
+at the operating system command line prompt as a one-liner (see Section~\ref{one-liner mode}):
 \index{one-liner mode}
 
 \begin{verbatim}
@@ -2184,9 +2184,9 @@ statement when the mother's age exceeds 99. We will see
 later a more idiomatic way to built an infinite loop.
 \index{infinite loop}
 
-\section{Exercises of chapter~\ref{arrays} (Arrays and lists)}
+\section{Exercises of Chapter~\ref{arrays} (Arrays and lists)}
 
-\subsection{Exercise of section~\ref{stacks_queues}: Implementing a queue (p.~\pageref{exercise_queue})}
+\subsection{Exercise of Section~\ref{stacks_queues}: Implementing a queue (p.~\pageref{exercise_queue})}
 \label{sol_exercise_queue}
 
 \index{queue}
@@ -2238,7 +2238,7 @@ sub dequeue (@queue where Array) {
 We probably don't want here any type signature for the \verb'$new_item' parameter of {\tt enqueue}, because we want 
 our queue to be able to operate on any data type in order to 
 make it as generic as possible. But, just as we said it 
-about stacks (section~\ref{stacks_queues}), we might want to 
+about stacks (Section~\ref{stacks_queues}), we might want to 
 be able to add several items to the data structure in one go. 
 
 \subsubsection{Slurpy (or variadic) parameters}
@@ -2280,7 +2280,7 @@ This will display:
 6
 \end{verbatim}
 
-See also section~\ref{slurpy_parameters} for more details 
+See also Section~\ref{slurpy_parameters} for more details 
 on slurpy parameters.
 
 Note that, for an \verb'enqueue' subroutine, we can't simply 
@@ -2389,7 +2389,7 @@ ERROR: The queue is empty !
 
 The {\tt dequeue} subroutine could be made simpler using 
 the ternary conditional operator (which we will study in 
-section~\ref{ternary operator}) and returning the {\tt Nil} 
+Section~\ref{ternary operator}) and returning the {\tt Nil} 
 value is the queue is empty:
 \index{Nil}
 
@@ -2403,7 +2403,7 @@ sub dequeue (@queue where Array) {
 \index{stack}
 \index{queue}
 As a further exercise, you might want to apply to the 
-example code for stacks seen in section~\ref{stack_code} 
+example code for stacks seen in Section~\ref{stack_code} 
 (p.~\pageref{stack_code}) the changes we have made 
 above to the management of queues.
 
@@ -2427,13 +2427,13 @@ it inaccessible by other means than those that have been
 designed for that purpose is often called data 
 {\emph{encapsulation}. One common way to achieve data 
 encapsulation is through object-oriented programming, which 
-we will cover later in this book (see chapter \ref{objects}). 
+we will cover later in this book (see Chapter~\ref{objects}). 
 
 \index{first-class object}
 \index{object, first-class}
 We can, however, obtain 
 a similar result by combining variable scoping and some 
-material briefly covered in section~\ref{first_class} about 
+material briefly covered in Section~\ref{first_class} about 
 subroutines as first-class objects.
 
 Consider the following implementation of a queue:
@@ -2500,12 +2500,12 @@ gives you more expressive power. One of the good things with
 Perl~6 is that it gives you a modern and powerful tool to use 
 each of these programming paradigms. We will devote a full 
 chapter to functional programming later in this book 
-(chapter \ref{functional programming}), but waiting for that 
-chapter, please make sure to read the 
-\ref{array_functional_programming} subsection in the 
+(Chapter~\ref{functional programming}), but waiting for that 
+chapter, please make sure to read 
+Subsection~\ref{array_functional_programming} in the 
 array and list chapter.
 
-\subsection{Exercise of section~\ref{modify_array}: Other ways to modify an array (p.~\pageref{splice_exercise})}
+\subsection{Exercise of Section~\ref{modify_array}: Other ways to modify an array (p.~\pageref{splice_exercise})}
 \label{sol_splice_exercise}
 
 \subsubsection{Simulating the {\tt pop} function}
@@ -2562,7 +2562,7 @@ sub my-pop (@array where @array > 0) {
 
 The only slight difficulty is to manage a signature with a 
 ``variadic'' list of parameters (or slurpy parameters). This 
-has been explained above in subsubsection~\ref{slurpy 
+has been explained above in subSubsection~\ref{slurpy 
 parameters} (p.~\pageref{slurpy parameters}).
 \index{slurpy parameters}
 \index{variadic parameters}
@@ -2615,7 +2615,7 @@ say $letter;       # -> e
 say @letters;      # -> [a b c d (Any) f g h i j]
 \end{verbatim}
 
-\subsection{Exercise of section~\ref{map_filter}: Mapping and filtering the elements of a list (p.~\pageref{exercise_squares})}
+\subsection{Exercise of Section~\ref{map_filter}: Mapping and filtering the elements of a list (p.~\pageref{exercise_squares})}
 \label{sol_exercise_squares}
 
 Producing an array containing the square of the numbers in the input list is very straight forward:
@@ -2653,7 +2653,7 @@ sub is-square (Numeric $num} {
 my @filt = grep &is-square, 3, 9, -6, 16;   # -> [9 16]
 \end{verbatim}
 %
-\subsection{Exercise of section~\ref{advanced_sort}: Advanced sorting techniques (p.~\pageref{sort_exercise})}
+\subsection{Exercise of Section~\ref{advanced_sort}: Advanced sorting techniques (p.~\pageref{sort_exercise})}
 \label{sol_sort_exercise}
 
 The transformation subroutine to extract the letter groups from the strings is quite straight forward:
@@ -2687,7 +2687,7 @@ my @sorted = @unsorted.sort: {/\d+ (\w+)/; $0 // Nil};
 \end{verbatim}
 %
 
-\subsection{Exercise \ref{nested_sum}: Nested sum (p.~\pageref{nested_sum})}
+\subsection{Exercise~\ref{nested_sum}: Nested sum (p.~\pageref{nested_sum})}
 \label{sol_nested_sum}
 
 The most obvious way is to use nested loops. For example:
@@ -2772,7 +2772,7 @@ sub nested-sum ($input) {
 say nested-sum @AoA;  # -> 42
 \end{verbatim}
 
-\subsection{Exercise \ref{cumsum}: Cumulative sum (p.~\pageref{cumsum})}
+\subsection{Exercise~\ref{cumsum}: Cumulative sum (p.~\pageref{cumsum})}
 \label{sol_cumsum}
 
 We just need an accumulator and we push the value of 
@@ -2815,7 +2815,7 @@ I haven't written these two exercises, but only the
 solutions presented here.
 
 
-\subsection{Exercise \ref{middle}: Middle (p.~\pageref{middle})}
+\subsection{Exercise~\ref{middle}: Middle (p.~\pageref{middle})}
 \label{sol_middle}
 
 The easiest is probably to use simply a slice:
@@ -2831,7 +2831,7 @@ Note that \verb'*-1' refers to index of the last element
 of an array. To discard the last element, we limit the 
 range to \verb'*-2'.
 
-\subsection{Exercise \ref{chop}: Chop (p.~\pageref{chop})}
+\subsection{Exercise~\ref{chop}: Chop (p.~\pageref{chop})}
 \label{sol_chop}
 
 The basic difference with the previous exercise is that 
@@ -2869,7 +2869,7 @@ sub chop-it (@array) {
 \end{verbatim}
 %
 
-\subsection{Exercise \ref{is_sorted}: Subroutine is-sorted (p.~\pageref{is_sorted})}
+\subsection{Exercise~\ref{is_sorted}: Subroutine is-sorted (p.~\pageref{is_sorted})}
 \label{sol_is_sorted}
 \index{is-sorted}
 
@@ -2929,7 +2929,7 @@ By the way, this last version of {\tt is-sorted} will
 found values not in the proper order, without iterating 
 over the rest of the list.
 
-\subsection{Exercise \ref{is_anagram}: Subroutine is-anagram (p.~\pageref{is_anagram})}
+\subsection{Exercise~\ref{is_anagram}: Subroutine is-anagram (p.~\pageref{is_anagram})}
 \label{sol_is_anagram}
 \index{anagram}
 \index{is-anagram}
@@ -2986,7 +2986,7 @@ sub is-anagram (Str $word1, Str $word2) {
 \end{verbatim}
 
 
-\subsection{Exercise \ref{has_duplicates}: Subroutine has-duplicates (p.~\pageref{has_duplicates})}
+\subsection{Exercise~\ref{has_duplicates}: Subroutine has-duplicates (p.~\pageref{has_duplicates})}
 \label{sol_has_duplicates}
 \index{duplicate}
 \index{has-duplicates}
@@ -3080,10 +3080,10 @@ sub has-duplicates (@array) {
 Another efficient way of finding or removing duplicates 
 from a list or an array is to use \emph{hashes}, a 
 built-in data structure which will be studied in the 
-next chapter (see exercise~\ref{has_duplicates_hash}).
+next chapter (see Exercise~\ref{has_duplicates_hash}).
 \index{hash}
 
-\subsection{Exercise \ref{birthdays}: Simulating the birthday paradox (p.~\pageref{birthdays})}
+\subsection{Exercise~\ref{birthdays}: Simulating the birthday paradox (p.~\pageref{birthdays})}
 \label{sol_birthdays}
 \index{birthday paradox}
 \index{duplicate}
@@ -3159,7 +3159,7 @@ sub has-duplicate-birthdays (Int $num-students) {
 }
 \end{verbatim}
 
-\subsection{Exercise \ref{push_unshift}: Comparing push and unshift (p.~\pageref{push_unshift})}
+\subsection{Exercise~\ref{push_unshift}: Comparing push and unshift (p.~\pageref{push_unshift})}
 \label{sol_push_unshift}
 \index{push function}
 \index{unshift function}
@@ -3233,7 +3233,7 @@ This is four to five times faster:
 slurp took 0.42602506 seconds.
 \end{verbatim}
 
-\subsection{Exercise \ref{bisection}: Bisection search in a list (p.~\pageref{bisection})}
+\subsection{Exercise~\ref{bisection}: Bisection search in a list (p.~\pageref{bisection})}
 \label{sol_bisection}
 \index{bisect}
 \index{membership!bisection search}
@@ -3375,7 +3375,7 @@ You may also want to try to write a non-recursive solution
 using a loop.
 
 
-\subsection{Exercise \ref{reverse_pair}: Reverse pairs (p.~\pageref{reverse_pair})}
+\subsection{Exercise~\ref{reverse_pair}: Reverse pairs (p.~\pageref{reverse_pair})}
 \label{sol_reverse_pair}
 \index{reverse word pair}
 
@@ -3567,7 +3567,7 @@ might be useful again. Hint: some of the array and string
 subroutines we've seen are likely candidates.
 \index{module}
 
-\subsection{Exercise \ref{interlock}: Interlocking words (p.~\pageref{interlock})}
+\subsection{Exercise~\ref{interlock}: Interlocking words (p.~\pageref{interlock})}
 \label{sol_interlock}
 
 First, it seems that it was a good idea creating the 
@@ -3635,9 +3635,9 @@ word, starting from the first, second or third? Hint: it
 will be easier if you start from the revised 
 version of {\tt interplit} just above.
 
-\section{Exercises of chapter~\ref{hashes} (Hashes)}
+\section{Exercises of Chapter~\ref{hashes} (Hashes)}
 
-\subsection{Exercise at the end of section~\ref{hash_descr}: A hash is a mapping (p.~\pageref{ex_employees})}
+\subsection{Exercise at the end of Section~\ref{hash_descr}: A hash is a mapping (p.~\pageref{ex_employees})}
 \label{sol_ex_employees}
 
 Populating one pair at a time:
@@ -3770,7 +3770,7 @@ no point memoizing the Ackermann function.
 \index{array!multidimensional}
 We have used composite keys for \verb'%ack-memo', but we 
 can have multidimensional hashes just as there are 
-multidimensional arrays (see \ref{multidimensional_array}. 
+multidimensional arrays (see Section~\ref{multidimensional_array}. 
 We only need to have two keys, each between its pair of 
 curly brackets:
 \index{multidimensional hash}
@@ -3820,8 +3820,8 @@ input list whether there are some duplicates with the
 various methods we have used and measure the run time of 
 the various methods. If you encounter difficulties doing 
 that, take a look at the solutions to the ``has duplicates'' 
-(see \ref{sol_has_duplicates}) and ``birthday paradox'' (see 
-\ref{sol_birthdays}) exercises to get some coding clues. An 
+(see Subsection~\ref{sol_has_duplicates}) and ``birthday paradox'' (see 
+Subsection~\ref{sol_birthdays}) exercises to get some coding clues. An 
 example of simple benchmarking is presented in the exercise just 
 above.
 
@@ -3949,9 +3949,9 @@ for %phonetic.keys -> $word {
 }
 \end{verbatim}
 
-\section{Exercises of chapter \ref{data_struct_sel}}
+\section{Exercises of Chapter~\ref{data_struct_sel}}
 
-\subsection{Exercise in section~\ref{given_when}: the {\tt given ... when} switch statement (p.~\pageref{proceed_ex})}
+\subsection{Exercise in Section~\ref{given_when}: the {\tt given ... when} switch statement (p.~\pageref{proceed_ex})}
 \label{sol_proceed_ex}
 
 To test the switch statement with various values, you might 
@@ -4055,7 +4055,7 @@ for <5 42 43 101 666 1024 2048> -> $value {
 }
 \end{verbatim}
 
-\subsection{Exercise in section~\ref{operator_construction}: constructing new operators (p.~\pageref{fact_operator})}
+\subsection{Exercise in Section~\ref{operator_construction}: constructing new operators (p.~\pageref{fact_operator})}
 \label{sol_fact_operator}
 \index{factorial}
 \index{factorial!operator}
@@ -4136,11 +4136,11 @@ the tests would be in a separate file, usually in a ``t''
 directory and with a \verb'.t' extension.
 
 Testing and the {\tt Test} module are further discussed  
-in section~\ref{test_module} (p.~\pageref{test_module}).
+in Section~\ref{test_module} (p.~\pageref{test_module}).
 More information about testing can be found at: 
 \url{https://doc.perl6.org/language/testing}.
 
-\subsection{Exercise in section~\ref{sets_and_bags}: Sets, bags and mixes (p.~\pageref{diff_with_set})}
+\subsection{Exercise in Section~\ref{sets_and_bags}: Sets, bags and mixes (p.~\pageref{diff_with_set})}
 \label{sol_diff_with_set}
 
 We can't just replace the \verb'%histogram' with a bag, because 
@@ -4227,7 +4227,7 @@ my @unknown-words = unique grep {$_ ∉ $word-list},
 \end{verbatim}
 and remove from {\tt process-line} the code to skip the header.
 
-\subsection{Exercise in section~\ref{randomwords}: Random words (p.~\pageref{randhist})}
+\subsection{Exercise in Section~\ref{randomwords}: Random words (p.~\pageref{randhist})}
 \label{sol_randhist}
 \index{histogram!random choice}
 
@@ -4271,7 +4271,7 @@ my $idx = bisect $rand_int, @freqs;
 say @words[$idx];
 \end{verbatim}
 
-\subsection{Exercise in section~\ref{markov}: Markov analysis (p.~\pageref{markov_analysis})}
+\subsection{Exercise in Section~\ref{markov}: Markov analysis (p.~\pageref{markov_analysis})}
 \label{sol_markov_analysis}
 \index{Markov analysis}
 
@@ -4302,7 +4302,7 @@ one
 \end{verbatim}
 
 There is however another way to do it, the {\tt MAIN} 
-subroutine that we have briefly seen in section~\ref{MAIN} 
+subroutine that we have briefly seen in Section~\ref{MAIN} 
 (p.~\pageref{MAIN}). If there is a subroutine 
 called {\tt MAIN} in the program, then the program will start 
 by executing this subroutine, whose parameters will be the 
@@ -4405,13 +4405,13 @@ $ perl6  markov.pl6 emma.txt 100 2 253
 
 \subsection{Exercises on the Huffman Code in Section~\ref{huffman_exercise} (p.~\pageref{huffman_exercise})}
 
-\subsubsection{The frequency table (section \ref{letter_frequency})}
+\subsubsection{The frequency table (Section~\ref{letter_frequency})}
 \label{sol_letter_frequency}
 \index{frequency table}
 
 We have already seen similar problems, there is nothing complicated. 
 This is a possible solution using the pipeline programming model 
-described in section~\ref{most_common_words}:
+described in Section~\ref{most_common_words}:
 \index{pipe-line programming}
 
 \begin{verbatim}
@@ -4486,7 +4486,7 @@ l :     27971    4.04
 (...)
 \end{verbatim}
 
-\subsubsection{Huffman coding of a DNA strand (section \ref{huffman_code_2})}
+\subsubsection{Huffman coding of a DNA strand (Section~\ref{huffman_code_2})}
 \label{sol_huffman_code_2}
 \index{Huffman!code}
 
@@ -4589,7 +4589,7 @@ g => --.
 a => ---
 \end{verbatim}
 
-\subsubsection{Huffman coding of a more complex string (section \ref{huffman_code_2})}
+\subsubsection{Huffman coding of a more complex string (Section~\ref{huffman_code_2})}
 
 For this question, we will use a small paragraph specially written 
 to contain only a few letters of the alphabet:
@@ -4642,7 +4642,7 @@ d => ---.
 r => ----
 \end{verbatim}
 
-\subsubsection{Encoding the input string (section \ref{huffman_code_2})}
+\subsubsection{Encoding the input string (Section~\ref{huffman_code_2})}
 \index{Huffman!encoding}
 
 We want not only to encode an input string with the Huffman code, but 
@@ -4741,7 +4741,7 @@ equal-length codes. And the ASCII encoding of the input string
 required 213~bytes, i.e. 1704~bits; the Huffman-encoded output 
 required almost 3 times less. 
 
-\subsubsection{Decoding the pseudo-Morse string (section \ref{huffman_code_2})}
+\subsubsection{Decoding the pseudo-Morse string (Section~\ref{huffman_code_2})}
 \index{Huffman!decoding}
 
 For decoding efficiently the pseudo-Morse string, we need to reverse 
@@ -4847,7 +4847,7 @@ The solution presented above for finding the Huffman code
 uses the {\tt insert-pair} subroutine to keep ordered the 
 \verb'@pairs' array of pairs. This makes it easy to find the remaining 
 least common letters or pseudo-letters. You might remember 
-from section~\ref{heap} that heaps are a good data structure 
+from Section~\ref{heap} that heaps are a good data structure 
 when the aim is to access rapidly to the smallest items 
 of a collection. As a further exercise, you may want to 
 rewrite the solution using a binary heap. David Huffman's original 
@@ -4860,7 +4860,7 @@ similar to a heap.
 
 \section{Exercises of Chapter~\ref{regex_grammars}: Regexes and grammars}
 
-\subsection{Exercise in section~\ref{february_rule}: getting the February dates right (p.~\pageref{february_rule})}
+\subsection{Exercise in Section~\ref{february_rule}: getting the February dates right (p.~\pageref{february_rule})}
 \label{sol_february_rule}
 \index{February, number of days}
 \index{grammar!date}

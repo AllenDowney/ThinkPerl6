@@ -437,7 +437,7 @@ one, which corresponds to the last character of the string.
 As an exercise, write a function that takes a string as 
 an argument and displays the letters backward, one 
 per line. Do it at least once without using the 
-{\tt flip} function. \emph{Solution: } \ref{sol_stringtraversal}
+{\tt flip} function. Solution: \ref{sol_stringtraversal}
 
 Another way to write a traversal is with a {\tt for} loop:
 \index{for loop}
@@ -532,7 +532,7 @@ contains the result---the total number of ``a's''.
 \index{encapsulation}
 As an exercise, encapsulate this code in a subroutine named 
 {\tt count}, and generalize it so that it accepts the string
-and the searched letter as arguments. \emph{Solution:} \ref{sol_count_letters}.
+and the searched letter as arguments. Solution: \ref{sol_count_letters}.
 \label{count_letters}
 
 \section{Regular expressions (regexes)}
@@ -599,7 +599,7 @@ in this case.
 Most of the rest of this chapter will go through constructing 
 such regex patterns and using them. But the concept of 
 regexes is so crucial in Perl that we will devote later a full 
-chapter to this subject and some related matters (chapter~\ref{regex_grammars}).
+chapter to this subject and some related matters (Chapter~\ref{regex_grammars}).
 
 The notion of regular expressions is originally a concept 
 stemming from the theory of formal languages. The first 
@@ -1395,7 +1395,7 @@ my ($year, $month, $day) = ~$0, ~$1, ~$2;
 Using sub-patterns as building blocks is a quite efficient 
 way of constructing step by step complicated regexes, but 
 will see in a later chapter better ways of doing this 
-type of things (see chapter~\ref{regex_grammars}).
+type of things (see Chapter~\ref{regex_grammars}).
 
 \item We could improve the \verb'$m' (month) sub-pattern so 
 that it matches only ``01'' to ``12'' and thus 
@@ -1644,13 +1644,13 @@ $string ~~ s/(\d ** 4) \- (\d\d) \- (\d\d)/$2-$1-$0/;
 \index{adverb}
 \index{modifier}
 
-The adverbs seen above (section \ref{adverb}) can be used 
+The adverbs seen above (Section~\ref{adverb}) can be used 
 with the substitution operator. 
 
 The modifiers most commonly used in substitutions are the 
 {\tt :ignorecase} (or {\tt :i}) and {\tt :global} (or 
-{\tt :g}) adverbs. They work just as described in the 
-\ref{adverb} subsection in the \ref{pattern} section on regexes 
+{\tt :g}) adverbs. They work just as described in 
+Subsection~\ref{adverb} of the section on regexes 
 and matching. 
 
 The one specific point to be made here is that substitutions 
@@ -1806,7 +1806,8 @@ and {\tt \$j} indicate characters in {\tt \$word1} and
 
 Starting with this diagram, run the program on paper, changing 
 the values of {\tt \$i} and {\tt \$j} during each iteration. 
-Find and fix the second error in this function. (\emph{Solution:} \ref{sol_isreverse}).
+Find and fix the second error in this function.
+(Solution: \ref{sol_isreverse}).
 \label{isreverse}
 \index{is-reverse}
 
@@ -1891,7 +1892,7 @@ possible match possibilities have failed.
 
 Write a subroutine that uses the {\tt index} function in a 
 loop to count the number of ``a'' in \verb"'banana'",
-as we did in the \ref{counter} section. Modify it to count 
+as we did in Section~\ref{counter}. Modify it to count 
 any letter in any word passed as arguments to the subroutine.
 
 Write another subroutine counting a given letter in a given 

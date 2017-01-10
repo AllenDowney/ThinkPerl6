@@ -27,7 +27,7 @@ reviewed here before we get further.
 \section{Higher order functions}
 \index{higher-order functions}
 
-As early as chapter~\ref{funcchap} on functions and 
+As early as Chapter~\ref{funcchap} on functions and 
 subroutines, in Section~\ref{first_class} 
 (p.~\pageref{first_class}), we have seen that functions,  
 subroutines and other code objects are \emph{first-class 
@@ -84,9 +84,9 @@ called a \emph{higher-order function}.
 
 More interesting examples of higher-order function 
 are found with the {\tt reduce}, {\tt map}, and
-{\tt grep} functions studied in section~\ref{map_filter} 
+{\tt grep} functions studied in Section~\ref{map_filter} 
 (p.~\pageref{map_filter}), as well as the {\tt sort} 
-function (sections~\ref{sorting} and \ref{advanced_sort}).
+function (Section~\ref{sorting} and Section~\ref{advanced_sort}).
 
 Let's consider for example the task of sorting by date 
 records consisting in an identifier followed by a date 
@@ -172,7 +172,7 @@ do-twice {say "Hello World!"};   # prints "Hello World" twice
 \end{verbatim}
 
 More useful examples of anonymous subroutines have been 
-seen (see section~\ref{map_filter} for explanations or 
+seen (see Section~\ref{map_filter} for explanations or 
 details):
 \begin{itemize}
 \item With the {\tt reduce} function to compute the sum of 
@@ -244,11 +244,11 @@ for 1..9 -> $mult {
 is another form of lambda where the ``function'' parameter is 
 defined by the pointy block loop variable.
 
-The sorting example presented in the previous subsection 
-(\ref{fco-refresher}) may also be rewritten with an 
+The sorting example presented in Subsection~(\ref{fco-refresher}) 
+just above may also be rewritten with an 
 anonymous code block (taking advantage of the {\tt sort} 
 syntax using a code block with a single argument described 
-in section~\ref{advanced_sort}):
+in Section~\ref{advanced_sort}):
 \index{sort}
 \begin{verbatim}
 my @in = <id1;13-05-2015 id2;17-04-2015 id3;21-02-2016>;
@@ -338,7 +338,7 @@ but this is arguably less clear because the code intent
 is less explicit.
 
 The last {\tt create-fifo} example in the solution to 
-the FIFO queue exercise (subsection~\ref{functional_queue}) 
+the FIFO queue exercise (Subsection~\ref{functional_queue}) 
 is another example of the same mechanism:
 
 \begin{verbatim}
@@ -436,7 +436,7 @@ We have seen several examples where these functions can
 be used together in a sort of data pipe-line in which 
 the data produced by each step of the pipe-line is fed 
 to the next step. For example, in the preceding section 
-(subsection~\ref{fco-refresher}), we've used this:
+(Subsection~\ref{fco-refresher}), we've used this:
 
 \begin{verbatim}
     my $cmp1 = join ",", reverse split /<[;-]>/, $rec1;
@@ -533,7 +533,7 @@ my $out <== join(",")
 
 \subsection{The reduction metaoperator}
 
-We have already met this meta-operator in section~\ref{map_filter}. 
+We have already met this meta-operator in Section~\ref{map_filter}. 
 A meta-operator acts on other operators. Given 
 a list and an operator, the [...] reduction meta-operator 
 applies repeatedly the operator to all the values of the
@@ -746,7 +746,7 @@ say ([+] 1..100)**2 - [+] (1..100) «**» 2; # -> 25164150
 
 \subsection{Creating new operators}
 
-We have briefly seen (section~\ref{operator_construction}) 
+We have briefly seen (Section~\ref{operator_construction}) 
 that you can build new operators or redefine existing ones 
 for new types.
 
@@ -928,7 +928,7 @@ say @e;                    # -> [1 2 3 4 5]
 
 Now, the pseudo-code above now just works fine as real code. 
 A sort algorithm such as the one presented below 
-(\ref{combsort}) may typically have code lines 
+(Section~\ref{combsort}) may typically have code lines 
 like these to swap two elements of an array:
 \index{swap}
 
@@ -1003,7 +1003,7 @@ think of at present time.
 \index{map}
  
 We have seen in this chapter and in 
-section~\ref{map_filter} (p.~\pageref{map_filter}) 
+Section~\ref{map_filter} (p.~\pageref{map_filter}) 
 how higher-order functions such as the {\tt reduce}, 
 {\tt map}, {\tt grep}, and {\tt sort} functions 
 can be powerful and expressive. There are some 
@@ -1639,7 +1639,7 @@ my $odds = (1, 3 ... 15);          # (1 3 5 7 9 11 13 15)
 my $evens = (0, 2 ... 42);         # (0 2 4 6 8 ... 40 42)
 \end{verbatim}
 
-You may remember that, in section~\ref{sequence} of the chapter 
+You may remember that, in Section~\ref{sequence} of the chapter 
 on arrays and lists, we said that parentheses are usually not 
 necessary for constructing a list, unless needed for 
 precedence reasons. The above code is one such example: try 
@@ -2121,8 +2121,8 @@ and when finished with the tests, we use {\tt done-testing}
 to tell the framework we are done.
 
 We have already seen a short example of the use of the Test 
-module in section~\ref{sol_fact_operator} (solution 
-to the exercise of section~\ref{operator_construction}).
+module in Section~\ref{sol_fact_operator} (solution 
+to the exercise of Section~\ref{operator_construction}).
 
 The Test module exports various functions that check the return 
 value of a given expression, and produce standardized test 
@@ -2246,8 +2246,8 @@ This might give you the additional information you need.
 
 Suppose we want to test a subroutine to determine whether a 
 given string is a palindrome (as discussed in several chapters 
-in this book, see for example exercise~/ref{palindrome} and 
-subsection~\ref{palindrome_2}). This could be something 
+in this book, see for example Exercise~\ref{palindrome} and 
+Subsection~\ref{palindrome_2}). This could be something 
 like this:
 \index{palindrome}
 
@@ -2280,8 +2280,8 @@ Usually, tests are stored in different files placed in a ``t''
 sub-directory. Here, for this short test, everything is in the 
 same file, but two multi {\tt MAIN} subroutines are supplied 
 to either test if a passed parameter is a palindrome, or to 
-run the test plan. See section~\ref{MAIN} (p.~\pageref{MAIN} and 
-subsection~\ref{MAIN_sub} (p.~\pageref{MAIN_sub}) if you don't 
+run the test plan. See Section~\ref{MAIN} (p.~\pageref{MAIN} and 
+Subsection~\ref{MAIN_sub} (p.~\pageref{MAIN_sub}) if you don't 
 remember about the {\tt MAIN} subroutine.
 \index{MAIN}
 \index{multi subroutines}
