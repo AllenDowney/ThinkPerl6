@@ -16,7 +16,8 @@ that has a name and holds a value.
 \index{operator!assignment}
 
 An {\bf assignment statement} uses the equal {\tt =} sign 
-and  gives a value to a variable, but you first need to 
+and  gives a value to a variable, but, before you can assign 
+a value to a variable, you first need to 
 create the variable by declaring it if does not already 
 exist:
 
@@ -40,11 +41,11 @@ And now for something completely different
 
 This example makes four assignment statements.  The first 
 assigns a string to a new variable named {\tt \$message};
-the second gives the integer {\tt 42} to {\tt \$number}; the 
+the second assigns the integer {\tt 42} to {\tt \$number}; the 
 third reassigns the integer 17 to {\tt \$number}; the fourth 
 assigns the (approximate) value of the golden ratio to {\tt \$phi}.
 
-There are two important syntax features to explain here.
+There are two important syntax features to understand here.
 
 First, in Perl, variable names start with a so-called 
 \emph{sigil}, i.e. a special non-alphanumeric character such 
@@ -68,13 +69,14 @@ Second, notice that all three variables above are first introduced by the keywor
 
 When we wrote at the beginning of this section that a variable has 
 to be declared before it is used (or just when it is used), it plainly 
-means that the declaration has to be before (or at the point of) its 
-first use in the text file containing the program. We will see later that 
+means that the declaration has to be before (or at the point of) the 
+variable(s first use in the text file containing the program. We will see later that 
 programs don't necessarily run from top to bottom in the order in which 
-the program lines appear in the program file; still, the variable 
+the lines or code appear in the program file; still, the variable 
 declaration must be before its use in the text file containing the program.
 
-If you omit to declare a variable, you get a syntax error:
+If you neglect to declare a variable, you get a syntax error:
+\index{syntax error}
 
 \begin{verbatim}
 > $number = 5;
@@ -133,14 +135,20 @@ it is conventional to use only lower case for most variables
 names. Some people nonetheless like to use {\tt \$TitleCase} 
 for their variables or even pure {\tt \$UPPERCASE} for 
 some special variables.
+\index{lower case}
+\index{uppercase}
+\index{titlecase}
 
+\index{Unicode}
+\index{ASCII}
 Unlike most other programming languages, Perl~6 does not require letters 
 and digits used in variable names to be plain ASCII. 
 You can use all kinds of Unicode letters, i.e. 
 letters from almost any language in the world, so that, for example,  
-{\tt \$brücke}, {\tt \$payé} or {\tt \$niño} are valid variable names, which
-can be useful for non-English programmers (provided that 
-these Unicode characters are handled correctly by your text editor and your 
+{\tt \$brücke}, {\tt \$payé} or {\tt \$niño} are 
+valid variable names, which can be useful for non-English 
+programmers (provided that these Unicode characters are 
+handled correctly by your text editor and your 
 screen configuration). Similarly, instead of using 
 \verb"$phi" for the name of the golden ratio variable, 
 we might have used the \emph{Greek small letter phi}, \verb'φ' 
@@ -164,12 +172,13 @@ variable $φ = 1.61803398874989
 3.14159265358979
 \end{verbatim}
 
-The underscore character, \verb"_", can appear anywhere in a name.
+The underscore character, \verb"_", can appear anywhere in a variable name.
 It is often used in names with multiple words, such as 
 \verb"$your_name" or \verb"$airspeed_of_unladen_swallow". 
 \index{underscore character}
 
-You may even use so-called ``kebab case''\footnote{Because the 
+You may even use dashes to create so-called 
+``kebab case''\footnote{Because the 
 words appear to be skewered like pieces of food prepared for 
 a barbecue.} and name those variables 
 \verb"$your-name" or \verb"$airspeed-of-unladen-swallow", and this 
@@ -184,9 +193,11 @@ are valid identifiers.
 \index{apostrophe}
 \index{single quote}
 \index{quote!single}
+\index{kebab case}
 
 
 If you give a variable an illegal name, you get a syntax error:
+\index{syntax error}
 
 \begin{verbatim}
 > my $76trombones = 'big parade'
@@ -208,8 +219,11 @@ at <unknown file>:1
 §}. 
 
 If you've ever used another programming language and stumbled across a terse message such as {\tt"SyntaxError: invalid syntax"}, you will notice that the Perl designers have made quite a bit of effort to provide detailed, useful and meaningful error messages. 
+\index{error message}
 
 Many programming languages have \emph{keywords} or \emph{reserved words} that are part of the syntax, such as {\tt if}, {\tt while} or {\tt for}, and thus cannot be used for identifying variables because this would create an ambiguity. There is no such problem in Perl: since variable names start with a sigil, the compiler is always able to tell the difference between a keyword and a variable. Names such as {\tt \$if} or {\tt \$while} are syntactically valid variable identifiers in Perl (whether such names make sense is a different matter).
+\index{keyword}
+\index{reserved word}
 
 
 
@@ -260,12 +274,14 @@ The first line is an assignment statement that gives a value to
 {\tt \$n}.  The second line is a print statement that displays the
 value of {\tt \$n}.
 
-When you type a statement, the interpreter {\bf executes} it,
-which means that it does whatever the statement says.
+When you type a statement and then press {\tt Enter}, the 
+interpreter {\bf executes} it, which means that it does 
+whatever the statement says.
 \index{execute}
 
 An assignment can be combined with expressions using arithmetic 
 operators. For example, you might write:
+\index{operator}
 
 \begin{verbatim}
 > my $answer = 17 + 25;
@@ -275,12 +291,23 @@ operators. For example, you might write:
 \end{verbatim}
 %
 
+The \verb'+' symbol is obviously the addition operator 
+and, after the assignment statement, the \verb'$answer' 
+variable contains the result 
+of the addition. The terms on each side of the operator 
+(here 17 and 25) are sometimes called the \emph{operands} 
+of the operation (an addition in this case).
+\index{operand}
+\index{addition operator}
+\index{assignment}
+
 Note that the REPL actually displays the result of the 
 assignment (the first line with ``42''), so that the 
 print statement was not really necessary in this 
 example \emph{under the REPL}; from now on, for the sake of 
-brevity, we will omit the print statements in the 
+brevity, we will generally omit the print statements in the 
 examples where the REPL displays the result.
+\index{REPL}
 
 In some cases, you want to add something to a variable 
 and assign the result to that same variable. This could 
@@ -297,7 +324,8 @@ be written:
 Here, \verb"$answer" is first declared with a value of 17. The next 
 statement assigns to \verb"$answer" the current value of 
 \verb"$answer" (i.e. 17) + 25. This is such a common operation 
-that Perl, like many other languages, has a shortcut for this:
+that Perl, like many other programming languages, has a 
+shortcut for this:
 
 \begin{verbatim}
 > my $answer = 17;
@@ -316,7 +344,7 @@ the current value of \verb"$n", add 2 and assign the result to
 For example, \verb"-=" performs similarly a subtraction and an 
 assignment, \verb"*=" a multiplication and an assignment, etc. It 
 can even be used with operators other than arithmetic operators, 
-such as the string concatenation operator, but we will see that later.
+such as the string concatenation operator, that we will see later.
 
 Adding 1 to a variable is a very common version of this, so that 
 there is a shortcut to the shortcut, the \emph{increment} operator, 
@@ -329,6 +357,8 @@ which increments its argument by one, and returns the incremented value:
 > my $n = 17;
 17
 > ++$n;
+18
+> say $n;
 18
 \end{verbatim}
 %
@@ -360,12 +390,12 @@ it can be clumsy and even tedious.
 The alternative is to use a text editor and save code in a file 
 called a {\bf script} and then run the interpreter in {\bf script mode} 
 to execute the script.  By convention, Perl~6 scripts have names that 
-end with {\tt .pl} or {\tt .pl6}.
+end with {\tt .pl}, {\tt .p6} or {\tt .pl6}.
 \index{script}
 \index{script mode}
 
 Please make sure that you're really using a \emph{text editor} 
-and not a \emph{word processing software} (such as MS Word, 
+and not a \emph{word processing program} (such as MS Word, 
 OpenOffice or LibreOffice Writer). There is a very large 
 number of text editors available for free. On Linux, you might use 
 \emph{vi} (or \emph{vim}), \emph{emacs}, \emph{gEdit} or 
@@ -374,7 +404,7 @@ or \emph{notepad++}. There are also many cross-platform editors
 or integrated development environments (IDEs) providing a 
 text editor functionality, including \emph{padre}, \emph{eclipse} 
 or \emph{atom}. Many of these provide various syntax highlighting 
-capabilities, which might help you use a correct syntax (and 
+capabilities, which might help you use correct syntax (and 
 find some syntax errors).
 \index{syntax!highlighting}
 \index{text editor!emacs}
@@ -386,6 +416,14 @@ find some syntax errors).
 \index{text editor!nano}
 \index{text editor!notepad++}
 \index{text editor!atom}
+
+Once you've saved your code into a file (say, for example, 
+\verb'my_script.pl6'), you can run the program by issuing 
+the following command at the operating system prompt (for example 
+in a Linux console or in a \verb'cmd' window under Windows):
+\begin{verbatim}
+perl my_script.pl6
+\end{verbatim}
 
 Because Perl provides both modes,
 you can test bits of code in interactive mode before you put them
@@ -406,7 +444,7 @@ For example, if you are using Perl~6 as a calculator, you might type
 The first line assigns a value to {\tt \$miles} and displays that value.  
 The second line is an expression, so the
 interpreter evaluates it and displays the result.  It turns out that a
-marathon is about 42 kilometers.
+marathon is about 42~kilometers.
 
 But if you type the same code into a script and run it, you get no
 output at all.  In script mode, an expression, all by itself, has no
@@ -418,7 +456,7 @@ my $miles = 26.2;
 say $miles * 1.61;
 \end{verbatim}
 
-This behavior can be confusing at first.
+This behavior can be confusing at first. Let's examine why.
 
 A script usually contains a sequence of statements.  If there
 is more than one statement, the results appear one at a time
@@ -469,11 +507,13 @@ The answer is 42
 \end{verbatim}
 
 The {\tt -e} option tells the compiler that the script to be run is not 
-saved in a file but typed at the prompt between quote marks immediately after 
+saved in a file but instead typed at the prompt between quote marks immediately after 
 this option.
 
 Under Unix and Linux, you would replace double quote marks with apostrophes (or single quotes) 
 and apostrophes with double quote marks:
+\index{apostrophe}
+\index{quote mark}
 
 \begin{verbatim}
 $  perl6 -e 'my $value = 42; say "The answer is $value";'
@@ -521,7 +561,7 @@ if it doesn't change the result.
 \index{$()$ parenthesis operator}
 
 \item {\bf E}xponentiation has the next highest precedence, so
-{\tt 1 + 2**3} is 9, not 27, and {\tt 2 * 3**2} is 18, not 36.
+{\tt 1 + 2**3} is 9 (1 + 8), not 27, and {\tt 2 * 3**2} is 18, not 36.
 \index{$**$ exponentiation operator}
 \index{operator!$**$ (exponentiation)}
 
@@ -536,8 +576,18 @@ if it doesn't change the result.
 \item Operators with the same precedence are usually evaluated from left to
   right (except exponentiation).  So in the expression {\tt \$degrees / 2 * pi}, the division happens first and the result is multiplied
   by {\tt pi}, which is not the expected result. (Note that {\tt pi} is not a variable, but a predefined 
-  constant in Perl~6, and therefore does not require a sigil).  To divide by $2 \pi$, you can use parentheses or write
-  {\tt \$degrees / 2 / pi} or {\tt \$degrees / } $2 / \pi$.
+  constant in Perl~6, and therefore does not require a sigil).  To 
+  divide by $2 \pi$, you can use parentheses:
+  
+\begin{verbatim}
+my $result = $degrees / (2 * pi);  
+\end{verbatim}  
+ 
+or write
+  {\tt \$degrees / 2 / pi} or {\tt \$degrees / } $2 / \pi$, which 
+  will divide \verb'$degrees' by 2, and then divide the result of 
+  that operation by $\pi$ (which is equivalent \verb'$degrees' by 
+   $2 \pi$.
 
 \end{itemize}
 
@@ -546,6 +596,8 @@ operators.  If we can't tell by looking at the expression, we use
 parentheses to make it obvious. If we don't know for sure which of two operators 
 has the higher precedence, then the next person reading or maintaining 
 our code may also not know.
+\index{precedence}
+\index{parentheses}
 
 
 \section{String operations}
@@ -556,8 +608,8 @@ our code may also not know.
 \index{type!coercion}
 
 In general, you can't perform mathematical operations on strings, unless
-the strings look so much like numbers that they can be transformed or \emph{coerced} into 
-numbers and still make sense, so the following are illegal:
+the strings look so much like numbers that Perl can transform or \emph{coerce} them into numbers and still make sense, so the 
+following are illegal:
 
 \begin{verbatim}
 '2'-'1a'    'eggs'/'easy'    'third'*'a charm'
@@ -586,7 +638,7 @@ can be coerced to numbers without any ambiguity:
 
 The \verb'~' operator performs {\bf string concatenation}, which means
 it joins the strings by linking them end-to-end.  For example:
-\index{concatenation}
+\index{string concatenation}
 
 \begin{verbatim}
 > my $first = 'throat'
@@ -599,6 +651,7 @@ throatwarbler
 %
 The {\tt x} operator also works on strings; it performs repetition.
 For example:
+\index{string repetition}
 
 \begin{verbatim}
 > 'ab' x 3;
@@ -643,7 +696,7 @@ comments at the end of a line:
 $percentage = ($minute * 100) / 60;     # percentage of an hour
 \end{verbatim}
 %
-Everything from the {\tt \#} to the end of the line is ignored----it
+Everything from the {\tt \#} to the end of the line is ignored---it
 has no effect on the execution of the program.
 
 Comments are most useful when they document non-obvious features of
@@ -656,7 +709,8 @@ This comment is redundant with the code and useless:
 my $value = 5;        # assign 5 to $value
 \end{verbatim}
 %
-This comment contains useful information that is not in the code:
+This comment, by contrast, contains useful information that 
+is not in the code:
 
 \begin{verbatim}
 my $velocity = 5;     # velocity in meters/second. 
@@ -665,6 +719,7 @@ my $velocity = 5;     # velocity in meters/second.
 Good variable names can reduce the need for comments, but
 long names can make complex expressions hard to read, so there is
 a tradeoff.
+\index{variable name}
 
 
 \section{Debugging}
@@ -680,7 +735,7 @@ to distinguish between them in order to track them down more quickly.
 \item[Syntax error:] ``Syntax'' refers to the structure of a program
   and the rules about that structure.  For example, parentheses have
   to come in matching pairs, so {\tt (1 + 2)} is legal, but 
-{\tt 8)} is a {\bf syntax error}. \footnote{We are using here 
+{\tt 8)} is a \emph{syntax error}. \footnote{We are using here 
 ``syntax error'' as a quasi synonym for ``compile-time error''; 
 they are not exactly the same thing (you may in theory have 
 syntax errors that are not compile-time errors and the other way 
@@ -695,8 +750,9 @@ the error message.}
 \index{syntax!error}
 
 If there is a syntax error
-anywhere in your program, Perl displays an error message and quits,
-and you will not be able to run the program.  During the first few
+anywhere in your program, Perl displays an error message and quits 
+without even starting to run your program, and you will 
+obviously not be able to run the program.  During the first few
 weeks of your programming career, you might spend a lot of
 time tracking down syntax errors.  As you gain experience, you will
 make fewer errors and find them faster.
@@ -704,7 +760,7 @@ make fewer errors and find them faster.
 
 \item[Runtime error:] The second type of error is a runtime error, so
   called because the error does not appear until after the program has
-  started running.  These errors are also called {\bf exceptions}
+  started running.  These errors are also called \emph{exceptions}
   because they usually indicate that something exceptional (and bad)
   has happened.  \index{runtime error} \index{error!runtime}
   \index{exception} \index{safe language} \index{language!safe}
@@ -720,7 +776,8 @@ when we tried to subtract \verb"'2'-'1a'".
   means related to meaning.  If there is a semantic error in your
   program, it will run without generating error messages, but it will
   not do the right thing.  It will do something else.  Specifically,
-  it will do what you told it to do, but not what you intended it to do.
+  it will do what you \emph{told} it to do, but not what you 
+  \emph{intended} it to do.
   \index{semantic error}
   \index{error!semantic} \index{error message}
 
@@ -764,6 +821,7 @@ represents a single result.
 
 \item[evaluate:]  To simplify an expression by performing the operations
 in order to yield a single value.
+\index{evaluate}
 
 \item[statement:]  A section of code that represents a command or action.  So
 far, the statements we have seen are assignments and print statements. Statements usually end with a semi-colon.
@@ -772,7 +830,7 @@ far, the statements we have seen are assignments and print statements. Statement
 \item[execute:]  To run a statement and do what it says.
 \index{execute}
 
-\item[interactive mode or interpreter mode:] A way of using the Perl 
+\item[interactive mode (or interpreter mode):] A way of using the Perl 
 interpreter by typing code at the prompt.
 \index{interactive mode}
 
@@ -824,21 +882,24 @@ other than what the programmer intended.
 \begin{exercise}
 
 Repeating our advice from the previous chapter, whenever you learn
-a new feature, you should try it out in interactive mode and make
-errors on purpose to see what goes wrong.
+a new feature, you should try it out in interactive mode (under 
+the REPL) and make errors on purpose to see what goes wrong.
+\index{interactive mode}
+\index{REPL}
 
 \begin{itemize}
 
 \item We've seen that {\tt \$n = 42} is legal.  What about {\tt 42 = \$n}?
 
-\item How about {\tt \$x = \$y = 1} (hint: note that you will have to declare
-both variables, for example with a statement such as {\tt my \$x; my \$y);} 
-or possibly {\tt my (\$x, \$y);}, 
-before you can run the above)?
+\item How about {\tt \$x = \$y = 1}? (Hint: note that you will 
+have to declare both variables, for example with a statement 
+such as {\tt my \$x; my \$y;} or possibly {\tt my (\$x, \$y);}, 
+before you can run the above.)
 
 \item In some languages, statements don't have to end with a semi-colon, 
 {\tt ;}. What happens in script mode if you omit a semi-colon at the end
 of a Perl statement?
+\index{semi-colon}
 
 \item What if you put a period at the end of a statement?
 
