@@ -3,22 +3,23 @@
 
 Welcome to the art of computer programming and to the 
 new Perl~6 programming language. This is the 
-first published book using the new Perl~6 language, 
+first published book using Perl~6, 
 a powerful, expressive, malleable and highly extensible 
 programming language. But this book is not so much 
-about the Perl~6 language, and more about learning 
+about Perl~6, and more about learning 
 how to write programs for computers. 
 
-This book is intended for beginners, but it is my hope 
+This book is intended for beginners and does not require 
+any prior programming knowledge, but it is my hope 
 that even those of you with programming experience will 
 benefit from reading it.
 
 \section*{The aim of this book}
 
-This aim of this book is not primarily to teach Perl~6. 
-The foremost aim of this book is to try to teach the art 
+This aim of this book is not primarily to teach Perl~6, 
+but instead to teach the art 
 of programming, using the Perl~6 language. After having 
-completed this book, the reader should hopefully be able 
+completed this book, you should hopefully be able 
 to write programs to solve relatively difficult problems in 
 Perl~6, but our main aim is to teach computer science, software 
 programming and problem solving more than to teach the Perl~6 
@@ -31,16 +32,16 @@ language.
 
 It is not possible to learn programming or to learn a new 
 programming language by just reading a book; practicing 
-is essential. This book contains a lot of exercises. The 
-reader is strongly encouraged to really try to do them. And, 
-whether successful or not in solving the exercises, the reader 
-should really take a look at the solutions in the Appendix, 
+is essential. This book contains a lot of exercises. You 
+are strongly encouraged to really try to do them. And, 
+whether successful or not in solving the exercises, you 
+should take a look at the solutions in the Appendix, 
 as, very often, several solutions are suggested with further 
 discussion on the issues involved. Sometimes, the solution 
-section of the Appendix is also introducing with examples topics 
+section of the Appendix also introduces examples of topics 
 that will be covered in the next chapter--and sometimes even 
 things that will not be covered elsewhere in the book. So, 
-please, really try to solve the exercises and also go to 
+please, really try to solve the exercises and also review 
 the solutions, read them and try them.
 
 
@@ -58,8 +59,8 @@ probably made public more material on Perl~6 in French than
 all other authors taken together.
 
 Late 2015, I was feeling that a Perl~6 document for beginners 
-was something missing that I was willing to undertake. At that 
-time, I looked around and found that it did not seem to 
+was something missing that I was willing to undertake. 
+I looked around and found that it did not seem to 
 exist in English either. I came to the idea that, after all, 
 it might be more useful to write such a document initially 
 in English, to give it a broader audience. I was therefore 
@@ -70,15 +71,8 @@ in this direction.
 
 Then, something happened that changed my plans.
 
-To me, the Perl motto, ``there is more than one way to 
-do it'' (TIMTOWTDI) is really not an empty slogan. And, although 
-I really love Perl~5 and even more Perl~6, this motto might 
-also mean to do it in another language if needed, as the 
-case may be.
-
 In December 2015, friends of mine were contemplating translating 
-into French Allen B. Downey's \emph{Think Python--how to think 
-like a computer scientist, second edition} 
+into French Allen B. Downey's \emph{Think Python, second edition} 
 (\url{http://greenteapress.com/wp/think-python-2e/}). I had 
 read an earlier edition and fully supported 
 the idea of translating this excellent book. As it turned out, 
@@ -94,17 +88,18 @@ warmly welcomed the idea. This is how I started to write this
 book late January 2016, just after having completed the 
 work on the Python book French translation.
 
-This book is thus largely derived on Allen's \emph{Think Python--how 
-to think like a computer scientist}, but adapted to Perl~6. As 
-it happened, it is also much more than just a ``Perl~6 
-translation'' of Allen's book, it has become a brand new book, 
+This book is thus largely derived on Allen's \emph{Think Python}, 
+but adapted to Perl~6. As it happened, it is also much more 
+than just a ``Perl~6 translation'' of Allen's book, with 
+quite a lot of new material, it has become a brand new book, 
 largely indebted to Allen's book, but yet a new book for which 
-I take all responsibility. Any error is obviously my error, 
+I take all responsibility. Any error is obviously my fault, 
 not Allen's.
 
 My hope is that this will be useful to the Perl~6 community, and 
 more broadly to the general computer programming community. In 
-an interview with \emph{LinuxVoice} (July 2015), Larry Wall said: 
+an interview with \emph{LinuxVoice} (July 2015), Larry Wall, the 
+creator of Perl~6, said: 
 ``We do think that Perl 6 will be learnable as a first language.''
 Hopefully this book will contribute to make this happen. 
 
@@ -120,7 +115,7 @@ adventure (in no particular order), Tom, Damian,
 chromatic, Nathan, brian, Jan, Jarkko, John, Johan, Randall, 
 Mark Jason, Ovid, Nick, Tim, Andy, Chip, Matt, Michael, Tatsuhiko, 
 Dave, Rafael, Chris, Stevan, Saraty, Malcolm, Graham, Leon, 
-Ricardo, Gurusamy, Scott and so many others that I can't name.  
+Ricardo, Gurusamy, Scott and too many others to name.  
 
 All my thanks also to those who believed in 
 this Perl~6 project and made it happen, including those who 
@@ -146,12 +141,12 @@ following address: \url{think.perl6@gmail.com}.
 % ...
 I would like to thank especially Moritz Lenz and Elizabeth 
 Mattijsen who reviewed in detail drafts of this book 
-and suggested quite a number of improvements and corrections. 
-Liz spent really a lot of time on a detailed 
-review of the full content of this book and I am especially 
-grateful to her. Thanks also to Timo Paulssen and 
+and suggested quite a number of improvements and corrections. Liz 
+spent really a lot of time on a detailed review of the full 
+content of this book and I am especially grateful to her for 
+her numerous and very useful comments. Thanks also to Timo Paulssen and 
 ryanschoppe who also reviewed early drafts and provided some  
-useful comments.
+useful suggestions.
 
 
 \clearemptydoublepage
