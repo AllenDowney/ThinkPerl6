@@ -13,10 +13,12 @@ def main(name, filename, *argv):
     ft.sub_lines(r'\\end{stdout}', r'\\end{verbatim}')
     ft.sub_lines(r'Chapter~\\ref', r'~\\ref')
     ft.sub_lines(r'Section~\\ref', r'~\\ref')
-    ft.sub_lines(r'page~\\pageref', r'~\\ref')
+    ft.sub_lines(r'Subsection~\\ref', r'~\\ref')
     ft.sub_lines(r'Figure~\\ref', r'~\\ref')
     ft.sub_lines(r'Exercise~\\ref', r'~\\ref')
     ft.sub_lines(r'\\java{\\%', r'\\java{%')
+    ft.sub_lines(r'\[fontshape=up\]', r'')
+    ft.sub_lines(r'\(p.~\\pageref\{[^\}]*\}\)', r'')
     print ft
 
 if __name__ == '__main__':
