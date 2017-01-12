@@ -27,7 +27,8 @@ physical characters (bytes).
 
 The Perl built-in function {\tt open} takes the path and 
 name of the file as a parameter and returns a {\bf file 
-handle} ({\tt IO::Handle object}) you can use to read the file.
+handle} ({\tt IO::Handle object}) which you can use to read 
+the file (or to write to it).
 \index{open function}
 \index{function!open}
 \index{plain text}
@@ -42,7 +43,7 @@ my $data = $fh.slurp-rest;
 $fh.close;
 \end{verbatim}
 %
-{\tt :r} is the file mode ({\tt read}). {\tt \$fh} is a common 
+The {\tt :r} option is the file mode ({\tt read}). {\tt \$fh} is a common 
 name for a file handle.  The file object provides methods 
 for reading, such as {\tt slurp-rest} which returns the 
 full content of the file from the current position to the 

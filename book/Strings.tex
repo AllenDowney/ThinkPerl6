@@ -524,10 +524,9 @@ say $count;
 
 \index{counter}
 This program demonstrates another pattern of computation called a {\bf
-counter}.  The variable {\tt count} is initialized to 0 and then
-incremented each time an ``a'' is found.
-When the loop exits, {\tt count}
-contains the result---the total number of ``a's''.
+counter}.  The variable \verb'$count' is initialized to 0 and then
+incremented each time an ``a'' is found. When the loop exits, 
+\verb'$count' contains the result---the total number of ``a's''.
 
 \index{encapsulation}
 As an exercise, encapsulate this code in a subroutine named 
@@ -586,9 +585,9 @@ approximation, whether the expression on the right describes
 the string (or part of it). 
 
 \index{pattern}
-The $/ l (.) w .*? rin /$ part is called a regex pattern and means: 
+The \verb'/ l (.) w .*? rin /' part is called a regex pattern and means: 
 letter ``l'', followed by any single character (the dot) to be 
-captured (because of the parentheses), followed by letter ``w'', 
+captured (thanks of the parentheses), followed by letter ``w'', 
 followed by an unspecified number of characters, followed by the 
 substring ``rin''. Phew! All this in one single code line! Quite 
 powerful, isn't it? If the string matches the pattern, then 
@@ -1394,8 +1393,8 @@ my ($year, $month, $day) = ~$0, ~$1, ~$2;
 
 Using sub-patterns as building blocks is a quite efficient 
 way of constructing step by step complicated regexes, but 
-will see in a later chapter better ways of doing this 
-type of things (see Chapter~\ref{regex_grammars}).
+will see in Chapter~\ref{regex_grammars} better ways 
+of doing this type of things.
 
 \item We could improve the \verb'$m' (month) sub-pattern so 
 that it matches only ``01'' to ``12'' and thus 
@@ -1446,7 +1445,7 @@ the \textsc{yyyy mm, dd} format, please remember that spaces are
 usually not significant in a regex pattern, so you may need 
 either to specify explicit spaces (using for example the \verb'\s' 
 character class or or to use the \verb':s' adverb to make 
-whitespace significant. 
+whitespace significant). 
 
 \subsection{Extracting an IP address}
 \index{extracting IP address}
@@ -1607,7 +1606,7 @@ useful if either the search or the replacement contain slashes):
 
 \begin{verbatim}
 my $str = "<c>foo</c> <a>foo</a>";
-$str ~~ s!'<a>foo</a>'!<a>bar</a>!;         # -> <c>foo</c> <a>bar</a>
+$str ~~ s!'<a>foo</a>'!<a>bar</a>!;           # -> <c>foo</c> <a>bar</a>
 \end{verbatim}
 %
 
@@ -1713,7 +1712,7 @@ whole loop and all the letters match, we return {\tt True}.
 
 If we test this function with the words ``stop'' and 
 ``pots'', we expect the return value {\tt True}, but we get 
-{\tt False} instead. 
+{\tt False} instead. So, what's wrong here?
 \index{False}
 \index{True}
 
