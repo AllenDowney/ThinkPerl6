@@ -12,7 +12,7 @@ this chapter you will learn to write fruitful functions.
 \section{Return values}
 \index{return!value}
 
-Calling the function generates a return
+Calling a fruitful function generates a return
 value, which we usually assign to a variable or use as part of an
 expression.
 
@@ -132,7 +132,7 @@ By the way, Perl provides a built-in function called
 \index{function!abs}
 
 \label{compare}
-As an exercise, write a {\tt compare} subroutine 
+As an exercise, write a {\tt compare} subroutine that 
 takes two numbers, {\tt \$x} and {\tt \$y}, and returns {\tt 1} 
 if {\tt \$x > \$y}, {\tt 0} if {\tt \$x == \$y}, and 
 {\tt -1} if {\tt \$x < \$y}.
@@ -144,6 +144,7 @@ Solution: \ref{sol_compare}
 \section{Incremental development}
 \label{incremental.development}
 \index{development plan!incremental}
+\index{incremental.development}
 
 As you write larger functions, you might find yourself
 spending more time debugging.
@@ -159,6 +160,7 @@ a small amount of code at a time.
 As an example, suppose you want to find the distance between two
 points, given by the coordinates $(x_1, y_1)$ and $(x_2, y_2)$.
 By the Pythagorean theorem, the distance is:
+\index{Pythagorean theorem}
 
 \begin{displaymath}
 \mathrm{distance} = \sqrt{(x_2 - x_1)^2 + (y_2 - y_1)^2}
@@ -232,7 +234,7 @@ sub distance($x1, $y1, $x2, $y2) {
 %
 Again, you would run the program at this stage and check the output
 (which should be 25).
-Finally, you can use the {\tt sqrt} build-in function to compute 
+Finally, you can use the {\tt sqrt} built-in function to compute 
 and return the result:
 \index{sqrt function}
 \index{function!sqrt}
@@ -259,7 +261,7 @@ should remove them.  Code like that is sometimes called
 but is not part of the final product.
 \index{scaffolding}
 
-When you start out, you should add only a line or two of code at a
+When you start programming, you should add only a line or two of code at a
 time.  As you gain more experience, you might find yourself writing
 and debugging bigger chunks.  Either way, incremental development
 can save you a lot of debugging time.
@@ -277,8 +279,8 @@ display and check them.
 
 \item Once the program is working, you might want to remove some of
 the scaffolding or consolidate multiple statements into compound
-expressions, but only if it does not make the program difficult to
-read.
+expressions, but only if doing so does not make the program 
+difficult to read.
 
 \end{enumerate}
 
@@ -344,8 +346,8 @@ sub circle-area($x-c, $y-c, $x-p, $y-p) {
 \label{boolean}
 
 Functions can return Boolean values, which is often convenient for hiding
-complicated tests inside functions.  \index{Boolean function}
-For example:
+complicated tests inside functions. For example:
+\index{Boolean function} 
 
 \begin{verbatim}
 sub is-divisible(Int $x, Int $y) {
@@ -357,8 +359,9 @@ sub is-divisible(Int $x, Int $y) {
 \end{verbatim}
 %
 It is common to give boolean functions names that sound like yes/no
-questions; \verb"is-divisible" returns either {\tt True} or {\tt False}
-to indicate whether {\tt x} is divisible by {\tt y}.
+questions; \verb"is-divisible", for instance, returns either 
+{\tt True} or {\tt False} to indicate whether {\tt x} is 
+divisible by {\tt y}.
 
 Here is an example:
 
@@ -385,13 +388,15 @@ value of expression on the last code line of the subroutine
 since 0 is a false value and any other integer a true value, 
 this could be further rewritten as follows:
 \begin{verbatim}
-sub is-divisible(Int $x, Int $y) { not $x % $y }
+sub is-divisible(Int $x, Int $y) { 
+    not $x % $y 
+}
 \end{verbatim}
 
 The {\tt Int} type declarations in the subroutine signatures above 
-are not necessary, it would work without them, but they can provide 
-some form of protection against using this subroutine with 
-faulty arguments.
+are not necessary. The subroutine would work without them, but 
+they can provide some form of protection against using this 
+subroutine with faulty arguments.
 
 Boolean functions are often used in statement modifiers:
 \index{statement modifier}
@@ -423,6 +428,7 @@ subroutine to check the divisibility of two integers.
 
 In fact, Perl~6 has a ``is divisible'' operator, \verb'%%', which returns {\tt True} if the number on the left is divisible by the one on the right:
 %\index{%%!is divisible operator}
+\index{is divisible operator}
 
 \begin{verbatim}
 > 9 %% 3
@@ -432,13 +438,14 @@ False
 \end{verbatim}
 
 So there was no need to write the {\tt is-divisible} subroutine. 
-But don't worry, that's okay if you did not know that. 
+But don't worry, that's alright if you did not know that. 
 Speakers of natural languages are allowed to have different 
 skill levels, to learn as they go and to put the language 
 to good use before they know the whole language. The same 
 is true with Perl. You (and I) don't know all about Perl~6 
 yet, just as we don't know all of English. But it is in fact 
-``Officially Okay in Perl Culture''. You are 
+``Officially Okay in Perl Culture'' to use the subset of 
+the language that you know. You are in fact 
 encouraged to use what is sometimes called ``baby Perl'' and 
 to write programs, even if they are somewhat clumsy at the 
 beginning. That's the best way of learning Perl, just as using 
@@ -448,7 +455,8 @@ beginning. That's the best way of learning Perl, just as using
 
 The number of different ways of accomplishing a given task, 
 such as checking whether one number is divisible 
-by another, is an example of one of Perl's mottos: \emph{there is more than 
+by another, is an example of one of Perl's mottos: 
+\emph{there is more than 
 one way to do it}, oft abbreviated TIMTOWTDI. Some ways may be 
 more concise or more efficient than others, but, in the Perl 
 philosophy, you are perfectly entitled to do it your way, 
@@ -475,7 +483,7 @@ Turing, one of the first computer scientists (some would argue that he
 was a mathematician, but a lot of early computer scientists started as
 mathematicians).  Accordingly, it is known as the Turing Thesis.
 For a more complete (and accurate) discussion of the Turing Thesis,
-we recommend Michael Sipser's book {\em Introduction to the
+I recommend Michael Sipser's book {\em Introduction to the
 Theory of Computation}.
 
 \section{More recursion}
@@ -523,7 +531,8 @@ which is 6.
 If you can write a recursive definition of something, you can
 write a Perl program to evaluate it. The first step is to decide
 what the parameters should be.  In this case it should be clear
-that {\tt factorial} takes an integer:
+that {\tt factorial} takes a number\footnote{It should really be an 
+integer, but we'll get back to that later in this chapter.}:
 
 \begin{verbatim}
 sub factorial($n){
@@ -625,9 +634,9 @@ sub factorial($n){
 }
 \end{verbatim}
 %
-This is not better, and will probably not run significantly 
-faster, but this is arguably clearer, at least once you get 
-used to this type of syntax.
+This is not better than our initial version, and will probably 
+not run significantly faster, but this is arguably clearer, 
+at least once you get used to this type of syntax.
 
 \section{Leap of faith}
 \index{recursion}
@@ -726,8 +735,8 @@ In the next, it is -0.5.  From there, it gets smaller
 (more negative), but it will never be 0.
 
 We have two choices.  We can try to generalize the {\tt factorial}
-function to work with non-integer numbers, or we can make {\tt
-  factorial} check its argument.  The first option is
+function to work with non-integer numbers, or we can make {\tt 
+factorial} check its argument.  The first option is
 called the gamma function and it's a
 little beyond the scope of this book.  So we'll go for the second.
 \index{function!gamma}
@@ -781,7 +790,7 @@ that the recursion terminates.
 Another way to achieve a similar result is to define your own 
 subset of the built-in types. For example, you can create an 
 {\tt Even-int} subset of integers and then use it more or less 
-as it it where a new type for declaring your variables or 
+as if it were a new type for declaring your variables or 
 typing your subroutine parameters:
 
 \begin{verbatim}
@@ -1043,10 +1052,6 @@ sub c(Int $x, Int $y, Int $z) {
 my $x = 1;
 my $y = $x + 1;
 say c($x, $y + 3, $x + $y);
-
-my $x = 1;
-my $y = $x + 1;
-say c($x, $y + 3, $x + $y);
 \end{verbatim}
 
 \end{exercise}
@@ -1104,14 +1109,16 @@ sub middle_l(Str $word){
 }
 \end{verbatim}
 %
-We'll see how they work in Chapter~\ref{strings}.
+We'll see how they work in Chapter~\ref{strings} on strings. 
+For now:
 
 \begin{enumerate}
 
 \item Type these subroutines into a file named {\tt palindrome.pl6}
 and test them out.  What happens if you call {\tt middle} with
 a string with two letters?  One letter?  What about the empty
-string, which is written \verb"''" and contains no letters? Given that the {\tt .chars} method returns the length of a 
+string, which is written \verb"''" and contains no letters? 
+Given that the {\tt .chars} method returns the length of a 
 string, how could you add a signature constraint to reject invalid input?
 
 \item Write a subroutine called \verb"is-palindrome" that takes

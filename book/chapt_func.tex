@@ -1,33 +1,55 @@
-\chapter{Functions and subroutines}
+\chapter{Functions}
 \label{funcchap}
 
-In the context of programming, a {\bf function} or 
-{\bf subroutine} is a usually named sequence of statements 
-that performs a computation.  When you define a function,
-you specify the name and the sequence of statements.  Later, 
-you can ``call'' the function by name.  
+In the context of programming, a {\bf function} 
+is a usually named sequence of statements 
+that performs a computation.  In Perl, functions are often 
+also called {\bf subroutines} and the two terms can (for now) 
+be considered as more or less equivalent. When you define 
+a function, you specify the name and the sequence of statements.  
+Later, when you want to perform a computation, you can ``call'' 
+the function by name and this will run the sequence of statements 
+contained in the function definition.
 \index{function}
+
+Perl comes with many built-in functions that are quite handy.  
+You've already seen some of them: for example, {\tt say} is a 
+built-in function, and we will see many more in the course of 
+this book. And if Perl doesn't already have a function that does 
+what you want, you can build your own. This teaches you the basics 
+of functions and how to build new ones.
 
 \section{Function calls}
 \label{functionchap}
 \index{function!call}
 
-We have already seen one example of a {\bf function call}:
+We have already seen examples of {\bf function calls}:
 
 \begin{verbatim}
 > say 42;
 42
 \end{verbatim}
 %
-The name of the function is {\tt say}.  The expression following the function name is called the {\bf argument} of the function.  The {\tt say} function causes the argument to be 
-displayed on the screen. If you need to pass several values to a function, then just separate the arguments with commas:
+The name of the function is {\tt say}.  The expression following 
+the function name is called the {\bf argument} of the function. 
+The {\tt say} function causes the argument to be displayed 
+on the screen. If you need to pass several values to a function, 
+then just separate the arguments with commas:
 \begin{verbatim}
 > say "The answer to the ultimate question is ", 42;
 The answer to the ultimate question is 42
 \end{verbatim}
 %
 
-Many programming languages require the arguments of a function to be inserted between parentheses. This is not required (and usually not recommended) in Perl~6 for most built-in functions (except when needed for precedence), but if you do use parentheses, you should make sure to avoid inserting spaces between the function name and the opening parenthesis. For example, the {\tt round} function usually takes two arguments: the value to be rounded and the unit or scale. You may call it in either of the following ways:
+Many programming languages require the arguments of a function to 
+be inserted between parentheses. This is not required (and 
+usually not recommended) in Perl~6 for most built-in functions 
+(except when needed for precedence), but if you do use 
+parentheses, you should make sure to avoid inserting spaces 
+between the function name and the opening parenthesis. 
+For example, the {\tt round} function usually takes two 
+arguments: the value to be rounded and the unit or scale. 
+You may call it in any of the following ways:
 
 \begin{verbatim}
 > round 42.45, 1;
@@ -42,7 +64,7 @@ Many programming languages require the arguments of a function to be inserted be
 \index{parentheses!argument in}
 
 Experienced Perl programmers usually prefer to omit the parentheses 
-when they can. It makes it possible to chain several functions 
+when they can. Doing so makes it possible to chain several functions 
 with a visually cleaner syntax. Consider for example the differences 
 between these two calls:
 
@@ -53,28 +75,47 @@ between these two calls:
 42
 \end{verbatim}
 
-The second statement is explicitly saying what is going on, but the accumulation of parentheses often makes things actually not very clear. By contrast, the first statement can be seen as a pipeline to be read from right to left: the last function on the right, {\tt round}, is taking two arguments, {\tt 42.45, 1}, and the value produced by {\tt round} is passed to {\tt say}.
+The second statement is explicitly saying what is going on, but 
+the accumulation of parentheses makes things actually 
+not very clear. By contrast, the first statement can be seen 
+as a pipeline to be read from right to left: the last function 
+on the right, {\tt round}, is taking two arguments, 
+{\tt 42.45, 1}, and the value produced by {\tt round} is 
+passed as an argument to {\tt say}.
 
-It is common to say that a function ``takes'' one or several arguments and ``returns''
-a result.  The result is also called the {\bf return value}.
+It is common to say that a function ``takes'' one or 
+several arguments and ``returns'' a result.  The result is 
+also called the {\bf return value}.
 \index{argument}
 \index{return!value}
 
-Perl provides functions that convert values
-from one type to another.  The {\tt round} function takes any value and
-converts it to an integer, if it can, or complains otherwise:
+Perl provides functions that convert values from one type 
+to another.  When called with only one argument, the 
+{\tt round} function takes any value and converts it to an 
+integer, if it can, or complains otherwise:
 \index{conversion!type}
 \index{type!conversion}
 \index{round function}
 \index{function!round}
 
 \begin{verbatim}
-> round 42.3
+> round 42.3;
 42
 > round "yes"
 Cannot convert string to number: base-10 number must begin with valid 
 digits or '.' in '<HERE>yes' (indicated by <HERE>)
   in block <unit> at <unknown file> line 1
+\end{verbatim}
+
+%
+Note that, in Perl~6, many of built-in functions can also 
+use a \emph{method invocation} syntax with the so-called 
+dot-notation. The following statements display the same result:
+\begin{verbatim}
+> round 42.7;    # Function call syntax
+43
+> 42.7.round;    # Method invocation syntax
+43
 \end{verbatim}
 %
 The {\tt round} function can round off rational and 
@@ -90,24 +131,12 @@ fraction part:
 43
 > 42.7.Int
 42
-> -42.7.Int
--42
 \end{verbatim}
-%
-Note that, in Perl~6, many of built-in functions can also 
-use a method invocation syntax. The following statements 
-display the same result:
-\begin{verbatim}
-> round 42.7;    # Function call syntax
-43
-> 42.7.round;    # Method invocation syntax
-43
-\end{verbatim}
-%
-We'll come back to that in the next section.
 
-{\tt Rat} converts integers and strings to rational 
-numbers (if possible):
+We'll come back to methods in the next section.
+
+The {\tt Rat} built-in function converts integers and 
+strings to rational numbers (if possible):
 \index{Rat function}
 \index{function!Rat}
 
@@ -140,7 +169,7 @@ Finally, {\tt Str} converts its argument to a string:
 \index{coercion}
 \index{type!coercion}
 Note that these type conversion functions often don't need 
-to be called explicitly, as Perl will often try to do the 
+to be called explicitly, as Perl will in many cases try to do the 
 right thing for you. For example, if you have a string 
 looking like an integer number, Perl will \emph{coerce} 
 the string to an integer for you if you try to apply 
@@ -175,25 +204,24 @@ if needed:
 \index{function}
 \index{method}
 
-
 A method is similar to a function---it takes arguments and
-returns a value---but the syntax is different. With a function,
-you specify the name of the function followed by its arguments.
-A method, by contrast, uses the dot notation: you specify the 
-name of the object on which the method is called, followed 
-by a dot and the name of the method.
+returns a value---but the calling syntax is different. With 
+a function, you specify the name of the function followed 
+by its arguments. A method, by contrast, uses the dot 
+notation: you specify the name of the object on which 
+the method is called, followed by a dot and the name of 
+the method (and possibly additional arguments).
 
 A method call is often called an {\bf invocation}
 \index{invocation}. The deeper differences between functions and
 methods will become apparent much later, when studying 
-object-oriented programming.
+object-oriented programming (in Chapter~{objects}).
 
 For the time being, we can consider that the difference is 
-essentially a matter of a different syntax when using Perl's 
-built-in routines. Most of Perl 
-built-in routines accept both a function call syntax and 
-a method invocation syntax. For example, the following 
-statements are equivalent:
+essentially a matter of a different calling syntax when using Perl's 
+built-ins. Most of Perl built-ins accept both a function 
+call syntax and a method invocation syntax. For example, 
+the following statements are equivalent:
 
 \begin{verbatim}
 > say 42;              # function call syntax
@@ -248,20 +276,20 @@ For most common mathematical functions, however, you don't need any \verb'math' 
 5.5
 > my $signal-power = 125.6;
 125.6
-> my $decibels = log10 $signal-power / $noise-power;
-1.35862694990693
->
-> my $radians = 0.7;
-0.7
-> my $height = sin $radians;
-0.644217687237691
+> my $decibels = 10 * log10 $signal-power / $noise-power;
+13.5862694990693
 \end{verbatim}
 %
-The first example uses \verb"log10" (common logarithm) 
+\index{log10 function}
+\index{function!log10}
+This first example uses \verb"log10" (common logarithm) 
 to compute a signal-to-noise ratio in decibels 
 (assuming that \verb"signal-power" and
-\verb"noise-power" are defined in the proper units).  Perl~6 also provides a {\tt log} function 
-which, when receiving one argument, computes logarithm base {\tt e} of the argument, and, when receiving two arguments, computes the logarithm of the first argument to the base of the second argument.
+\verb"noise-power" are defined in the proper units).  Perl 
+also provides a {\tt log} function which, when receiving 
+one argument, computes logarithm base {\tt e} of the argument, 
+and, when receiving two arguments, computes the logarithm 
+of the first argument to the base of the second argument:
 
 \begin{verbatim}
 > say e;                 # e is predefined as Euler's constant
@@ -278,12 +306,22 @@ which, when receiving one argument, computes logarithm base {\tt e} of the argum
 %
 \index{log function}
 \index{function!log}
+
+
+Perl also provides most common trigonometric functions:
+
+\begin{verbatim}
+> my $radians = 0.7;
+0.7
+> my $height = sin $radians;
+0.644217687237691
+\end{verbatim}
+
 \index{sin function}
 \index{radian}
 \index{trigonometric function}
 \index{function!trigonometric}
-
-The second example finds the sine of {\tt radians}.  The name of the
+This example finds the sine of \verb'$radians'.  The name of the
 variable is a hint that {\tt sin} and the other trigonometric
 functions ({\tt cos}, {\tt tan}, etc.)  take arguments 
 in radians. To convert from degrees to radians, you may 
@@ -323,9 +361,10 @@ So far, we have looked at the elements of a program---variables,
 expressions, and statements---in isolation, without talking about how to combine them.
 
 One of the most useful features of programming languages is their
-ability to take small building blocks and {\bf compose} them.  For
-example, the argument of a function can be any kind of expression,
-including arithmetic operators:
+ability to take small building blocks and {\bf compose} them, i.e. 
+to combine them in such a way that the result of one is the 
+input of another one.  For example, the argument of a function 
+can be any kind of expression, including arithmetic operators:
 
 \begin{verbatim}
 > my $degrees = 45;
@@ -335,8 +374,8 @@ including arithmetic operators:
 \end{verbatim}
 %
 Here, we have used parentheses for the argument to the {\tt sin} 
-function to make sure and clarify that all the arithmetic operations 
-within the parentheses must be completed before the {\tt sin} function 
+function to clarify that all the arithmetic operations 
+within the parentheses are completed before the {\tt sin} function 
 is actually called, so that it will use the result of these operations 
 as its argument. 
 
@@ -352,8 +391,8 @@ You can also compose function calls:
 Almost anywhere you can put a value, you can put an arbitrary
 expression, with one exception: the left side of an assignment
 statement has to be a variable name, possibly along with its
-declaration.  Any other expression on the left
-side is a syntax error (we will see exceptions to this rule
+declaration.  Almost any other expression on the left
+side is a syntax error (we will see rare exceptions to this rule
 later).
 
 \begin{verbatim}
@@ -371,7 +410,7 @@ Cannot modify an immutable Int
 \index{syntax error}
 
 
-\section{Adding new functions or subroutines}
+\section{Adding new functions (a.k.a. subroutines}
 
 \index{subroutine}
 So far, we have only been using the functions that come with Perl,
@@ -418,11 +457,12 @@ required when parameters need to be defined for the subroutine.
 \index{body}
 
 \index{indentation}
-The first line of the subroutine definition is sometimes called the {\bf header};
-the rest is called the {\bf body}.  The body has to be a code block placed between curly braces and it can contain
-any number of statements. Although there is no requirement to do so,
-it is good practice (and highly recommended) to indent statements 
-of the body by a few leading spaces, since it makes it easier to 
+The first line of the subroutine definition is sometimes called 
+the {\bf header}; the rest is called the {\bf body}.  The body 
+has to be a code block placed between curly braces and it can contain
+any number of statements. Although there is no requirement to do 
+so, it is good practice (and highly recommended) to indent body 
+statements by a few leading spaces, since it makes it easier to 
 figure out visually where the function body starts and ends.
 
 Please note that you cannot use a method-invocation syntax 
@@ -432,22 +472,25 @@ you must call them with a function call syntax.
 \index{function!call}
 
 The strings in the print statements are enclosed in double
-quotes.  In this specific case, single quotes could have been used
-as well to do the same thing, but there are many cases where they wouldn't do the same thing, so you'll have to choose one or the other depending on the circumstances.
+quotes.  In this specific case, single quotes could have been 
+used instead to do the same thing, but there are many cases 
+where they wouldn't do the same thing, so you'll have to 
+choose one or the other depending on the circumstances.
 \index{double quote}
 \index{quote!double}
 \index{single quote}
 \index{quote!single}
 
 
-First, most people use double quotes in cases where
-a single quote (which is also an apostrophe) appears in the string:
+Most people use double quotes in cases where a single 
+quote (which is also an apostrophe) appears in the string:
 \index{apostrophe}
 \begin{verbatim}
 say "And so we've come here today to dramatize a shameful condition.";
 \end{verbatim}
 %
-Conversely, you might use single quotes when double quotes appear in the string:
+Conversely, you might use single quotes when double quotes 
+appear in the string:
 \begin{verbatim}
 say 'America has given the Negro people a bad check, 
      a check which has come back marked "insufficient funds."';
@@ -470,11 +513,14 @@ say 'Her age is $var.';            # -> Her age is $var.
 \index{variable!interpolation}
 %
 The reason is not that the lady's age should be kept secret. 
-In the first string, \verb'$var' is replaced within the 
-string by its value because the string is quoted with double 
-quotes; in the second one, it isn't because of the single 
-quotes. There are other quoting constructs which we will 
-study later.
+In the first string, \verb'$var' is simply replaced within the 
+string by its value, 42, because the string is quoted with double 
+quotes; in the second one, it isn't because single 
+quotes are meant to provide a more verbatim type of quoting 
+mechanism. There are other quoting constructs offering finer 
+control over the way variables and special characters are 
+displayed in the output, but simple and double quotes the most 
+useful ones.
 
 The syntax for calling the new subroutine is the same as
 for built-in functions:
@@ -612,10 +658,13 @@ sub print-twice($value) {
 \end{verbatim}
 %
 This subroutine assigns the argument to a parameter
-named \verb"$value".  When the subroutine is called, it 
-prints the content of the parameter (whatever it is) twice.
+named \verb"$value". Another common way to say it is 
+that the subroutine binds the parameter defined in its 
+header to the argument with which it was called. When the 
+above subroutine is called, it prints the content of the 
+parameter (whatever it is) twice.
 
-This function works with any value that can be printed.
+This function works with any argument value that can be printed.
 
 \begin{verbatim}
 > print-twice("Let freedom ring")
@@ -771,10 +820,15 @@ we use that return value; for lack of a better name, we
 may call them {\bf fruitful functions}.  Other functions, 
 like \verb"print-twice", perform an action but don't appear 
 to return a value (it does in fact return a value, {\tt True}, 
-but we don't care about it).  They may be called empty or 
+but we don't care about it).  They are sometimes called empty or 
 {\bf void functions} in some other programming languages.
 
-In some programming languages, such as Pascal or Ada, there is a strong distinction between a \emph{function} (which returns a value) and a \emph{procedure} (which doesn't), they are even defined with different keywords. This distinction does not apply to Perl and to most modern programming languages.
+In some programming languages, such as Pascal or Ada, there 
+is a strong distinction between a \emph{function} (which 
+returns a value) and a \emph{procedure} (which doesn't), 
+they are even defined with different keywords. This 
+distinction does not apply to Perl and to most modern 
+programming languages.
 
 In fact, from a pure syntactic standpoint, Perl functions 
 always return a result. So the distinction between 
@@ -786,7 +840,7 @@ use the return value, or maybe we don't.
 Another distinction commonly made is between functions and 
 mutators: functions do not change the initial state of the 
 arguments they were called on, and mutators do modify it. We 
-will not use this distinction here, but it is important to 
+will not use this distinction here, but it is useful to 
 keep it in mind.
 
 When you call a fruitful function, you almost always
@@ -836,7 +890,7 @@ or have some other effect, but they generally don't have
 a return value, or at least not a useful one.  If you assign 
 the result to a variable, you may get the return value of 
 the subroutine, the value of the last expression which was 
-evaluated in the function or a special value such as 
+evaluated in the function, or a special value such as 
 {\tt Any}, which essentially means something that has not 
 been defined, or {\tt Nil}.
 \index{Any special value}
@@ -884,7 +938,7 @@ When a function receives arguments, which are stored into
 parameters, the part of the function 
 definition describing the parameters between parentheses 
 is called the {\bf function signature}. The function signatures 
-we have seen so far are very simple and consist only in one 
+we have seen so far are very simple and consist only of one 
 parameter or possibly a parameter list.
 
 Signatures can provide a lot more information about the 
@@ -1032,10 +1086,11 @@ now  \emph{bound} to the {\tt \$value} argument, so that any change
 made using {\tt \$number} within the subroutine will immediately 
 be applied to {\tt \$value} at the caller side, because {\tt \$number} 
 and {\tt \$value} are just different names for the same thing (they 
-both refer to the same memory location).
+both refer to the same memory location). The argument is now 
+fully \emph{mutable}.
 
 
-\section{Functions and subroutines as first-class objects}
+\section{Functions and subroutines as first-class citizens}
 \index{first-class object}
 \index{object, first-class}
 \index{function!higher-order}
@@ -1044,10 +1099,11 @@ both refer to the same memory location).
 Subroutines and other code objects can be passed around as values, 
 just like any variable, literal or object. Functions are said 
 to be {\bf first-class objects} or sometimes first-class 
-citizens or higher-order functions. A Perl function is a value you 
-can assign to a variable or pass around as an argument.  For 
-example, \verb"do-twice" is a subroutine 
-that takes a function as an argument and calls it twice:
+citizens or higher-order functions. This means that a Perl 
+function (its code, not the value returned by it) is a value 
+you can assign to a variable or pass around as an argument. 
+For example, \verb"do-twice" is a subroutine that takes a 
+function as an argument and calls it twice:
 
 \begin{verbatim}
 sub do-twice($code) {
@@ -1145,12 +1201,13 @@ do-twice {say "Hello World!"};
 do-twice {say "what's up doc"};
 \end{verbatim}
 
-As it can be seen, \verb"do-twice" is a generic subroutine in 
+As you can see, \verb"do-twice" is a \emph{generic} subroutine in 
 charge of just performing twice any function or code 
 block passed to it, without any knowledge about what 
 this function or code block is doing. This is a powerful 
 concept for some relatively advanced programming techniques to 
 which we will come back later in this book.
+\index{generic subroutine}
 
 Subroutines may also be passed as return values from other 
 subroutines:
@@ -1174,9 +1231,9 @@ Hello dear friend!
 
 Here, \verb"create-func" returns a subroutine greeting someone. 
 It is called twice with two different arguments in order to 
-create two different functions, \verb"$greet_world" and 
+create at run-time two different functions, \verb"$greet_world" and 
 \verb"$greet_friend". A function such as \verb"create-func" 
-is sometimes a \emph{function factory}. You may create as many 
+is sometimes a \emph{function factory} because you may create as many 
 functions as you like by just calling \verb"create-func". This 
 example may seem to be a slightly complicated way of doing 
 something quite simple. At this point, it is 
@@ -1184,8 +1241,8 @@ just a bit too early to give really useful examples, but
 this is also a very powerful programming technique.  
 
 We'll come back to these techniques in various places in this 
-book and even devote an entire chapter (chapter~ref{functional programming}) 
-on this subject and related topics.
+book and even devote an entire chapter (chapter~\ref{functional 
+programming}) on this subject and related topics.
 
 
 \section{Why functions and subroutines?}
@@ -1204,6 +1261,7 @@ to read and debug.
 \item Subroutines can make a program smaller by eliminating 
 repetitive code.  Later, if you make a change, you only have
 to make it in one place.
+\index{code repetition}
 
 \item Dividing a long program into subroutines allows you 
 to debug the parts one at a time and then assemble them 
@@ -1211,12 +1269,14 @@ into a working whole.
 
 \item Well-designed subroutines are often useful for many programs.
 Once you write and debug one, you can reuse it.
+\index{code reuse}
 
 \index{abstraction}
 \item Creating subroutines is one of the major ways to 
 break up a difficult problem into smaller easier subtasks 
 and to create successive layers of abstraction which are 
 the key to solve complex problems.
+\index{abstraction}
 
 \index{black box}
 \item Writing good subroutines lets you create black boxes, with 
@@ -1225,24 +1285,26 @@ about them anymore when you're working on something else.
 They've become a tool.  Once you've assembled an electrical 
 screwdriver, you don't need to think about it works internally 
 when you use it to build or repair something.
+\index{black box}
 
 \item In the current open source world, chances are that your 
 code will have to be understood, maintained or enhanced by 
 people other than you. Coding has become much more of a social 
 activity than before. Breaking up your code into small subroutines 
 whose purpose is easy to understand will make their work easier. 
-And you'll be even more delighted when the other person 
+And you'll be even more delighted when the person 
 having to maintain or refactor your code will be... you.
+\index{open source code}
 
 \end{itemize}
 
 
 \section{Debugging}
 
-One of the most important skills you will acquire is debugging.
-Although it can sometimes be frustrating, debugging is one of 
-the most intellectually rich, challenging, and interesting 
-parts of programming.
+One of the most important programming skills you will 
+acquire is debugging. Although it can sometimes be 
+frustrating, debugging is one of the most intellectually 
+rich, challenging, and interesting parts of programming.
 \index{experimental debugging}
 \index{debugging!experimental}
 
@@ -1264,10 +1326,10 @@ impossible, whatever remains, however improbable, must be the truth.''
 In cases where you are not able to come up with a hypothesis 
 on what's wrong, you can try to introduce code that you expect 
 to create a certain type of error, a ``negative hypothesis'' 
-if you will.  Sometimes one can learn a lot from the fact that 
+if you will.  Sometimes you can learn a lot from the fact that 
 it didn't create the error that was expected. Making a hypothesis 
-does not necessarily mean you have an idea to make it work, 
-it could also be a hypothesis on how it should break.
+does not necessarily mean you have an idea about how to make it 
+work, it could also be a hypothesis on how it should break.
 
 For some people, programming and debugging are the same thing.  That
 is, programming is the process of gradually debugging a program until
@@ -1290,8 +1352,9 @@ to Linux.'' ({\em The Linux Users' Guide} Beta Version 1).
 
 \item[function:] A named sequence of statements that performs 
 some useful operation. Functions may or may not take arguments 
-and may or may not produce a result. In Perl, user-defined 
-functions are often called subroutines.
+and may or may not produce a result. Perl comes with many 
+built-in functions, and you can also create your own. In Perl, 
+user-defined functions are often called subroutines.
 \index{function}
 
 \item[function definition:]  A statement that creates a new function,
