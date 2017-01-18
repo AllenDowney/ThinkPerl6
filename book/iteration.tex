@@ -70,7 +70,7 @@ they don't have to stay that way:
 The third line changes the value of {\tt \$a} but does not change the
 value of {\tt \$b}, so they are no longer equal. 
 
-Reassigning variables is often useful, but you should use it
+Reassigning variables is often useful, but you should use this feature 
 with caution.  If the values of variables change frequently, it can
 make the code difficult to read and debug.
 
@@ -101,7 +101,7 @@ update {\tt \$x} with the new value.''
 
 If you try to update a variable that has not been given a value, 
 you get a warning, because Perl evaluates the right side 
-before it assigns a value to {\tt \$x}:
+of the assignment statement before it assigns a value to {\tt \$x}:
 
 \begin{verbatim}
 > my $x;
@@ -206,7 +206,8 @@ terminates: if {\tt \$n} is zero or negative, the loop never runs.
 Otherwise, {\tt \$n} gets smaller each time through the
 loop, so eventually we have to get to 0.
 
-For some other loops, it is not so easy to tell.  For example:
+For some other loops, it is not so easy to tell whether the 
+loop terminates.  For example:
 
 \begin{verbatim}
 sub sequence($n is copy) {
@@ -244,9 +245,11 @@ The hard question is whether we can prove that this program terminates
 for {\em all} positive values of {\tt n}.  So far, no one has
 been able to prove it {\em or} disprove it!  (See
 \url{http://en.wikipedia.org/wiki/Collatz_conjecture}.)
+\index{Collatz's conjecture}
 
-As an exercise, rewrite the function \verb"print-n-times" from
-Section~\ref{recursion} using iteration instead of recursion.
+As an exercise, you might want to rewrite the function 
+\verb"print-n-times" from Section~\ref{recursion} using 
+iteration instead of recursion.
 
 \index{statement modifier}
 \index{postfix!syntax}
@@ -262,6 +265,7 @@ The {\tt while} loop statement executes the block as long as
 its condition is true. There is also an {\tt until} loop 
 statement, which executes the block as long as its condition 
 is false:
+\index{until loop}
 
 \begin{verbatim}
 my $val = 1;
@@ -274,17 +278,23 @@ print "\n";
 \section{Local variables and variable scoping}
 
 We have seen in Section~\ref{localvar} that variables created 
-within a subroutine (with the {\tt my} keyword) are 
-\emph{local} to that subroutine. Similarly, subroutine 
+within a subroutine (with the {\tt my} keyword or \emph{declarator}
+\footnote{A declarator is just a Perl keyword used for 
+declaring a new variable or other identifier. The most 
+common declarator is \{tt my}, which declares a lexical 
+variable. Others include {\tt our} or {\tt state}, nbriefly 
+mentioned later in this chapter.}) 
+are \emph{local} to that subroutine. Similarly, subroutine 
 parameters are also usually \emph{local} to the subroutine 
 in the signature of which they are declared. 
-We briefly mentioned that \emph{lexically scoped} 
-is probably a term more accurate than local, but it was 
+We briefly mentioned that the term \emph{lexically scoped} 
+is probably more accurate than local, but it was 
 too early at that point to really explain what this means.
 \index{lexical scope}
 \index{lexical variables}
 \index{variable!lexical}
 \index{my}
+\index{declarator}
 
 
 Declaring a variable with {\tt my} gives it \emph{lexical 
@@ -307,7 +317,8 @@ if $condition eq True {
 say $foo;      # ERROR: "Variable '$foo' is not declared ..."
 \end{verbatim}
 %
-will fail on the second print statement, because it is not in 
+will fail on the second print statement, because the \verb'say' 
+function call is not in 
 the lexical scope of the {\tt \$foo} variable, which ends 
 with the closing brace of the condition block. If we want 
 this variable to be accessible after the end of the condition, 
@@ -391,7 +402,7 @@ nowhere();       # -> outside
 % 
 this will still print ``outside'', because the {\tt outer} 
 subroutine knows about the ``outside'' version of the 
-{\tt \$location} variable, which existed when it was defined.
+{\tt \$location} variable, which existed when {\tt outer} was defined.
 In other word, the {\tt outer} code that referenced to the 
 outer variable (``outside'') knows about the variable that existed 
 when it was created, but not about the variable existing where 
@@ -404,7 +415,8 @@ is in fact implicitly present everywhere in Perl~6.
 \index{variable!lexical}
 \index{lexical variable}
 
-While this can give you a lot of expressive power, we would 
+While having different variables with the same name can give 
+you a lot of expressive power, we would 
 advise you to avoid creating different variables with the 
 same name and different scopes, at least until you really understand 
 these concepts well enough to know what you are doing, as this 
@@ -417,6 +429,7 @@ in the signature of subroutines and parameters of pointy
 blocks also have a lexical scope limited to body of the 
 subroutine or the pointy block.
 \index{my}
+\index{declarator}
 
 There are other declarators, such as {\tt our}, which creates 
 a package-scoped variable, and {\tt state}, which creates 
@@ -440,7 +453,7 @@ my sub frobnicate {
 }
 \end{verbatim}
 
-This might add some consistency or some form of 
+This technique might add some consistency or some form of 
 self-documenting feature, but you won't buy very much 
 added functionality with that.
  
@@ -549,7 +562,8 @@ for 1..20 -> $i {
 
 You may have as many {\tt last} and {\tt next} statements as you 
 like, just as you may have as many {\tt return} statements as 
-you like in a subroutine. This is not to be considered poor 
+you like in a subroutine. Using such control flow statements 
+is not to be considered poor 
 practice. During the early days of structured programming, 
 some people insisted that loops and subroutines have only one 
 entry and one exit. The one-entry notion is still a good idea, 
@@ -662,12 +676,12 @@ languages, it is dangerous to test {\tt float} equality, because
 floating-point values are only approximately right. We do not 
 have this problem with Perl~6, because, as we have already 
 mentioned, it is using a better representation of rational 
-numbers than most generalist programming languages. You 
+numbers than most generalist programming languages. (You 
 may want to keep this in mind if you are using some other
-languages. Even if we don't have this problem with Perl, there 
+languages.) Even if we don't have this problem with Perl, there 
 may also be some problems with algorithms that do not behave 
 as well as Newton's algorithm. For example, some algorithms 
-might not converge as fast and as neatly as Newton's algorithm but alternate values above and below the accurate result.
+might not converge as fast and as neatly as Newton's algorithm but might instead alternate values above and below the accurate result.
 \index{floating-point}
 \index{epsilon}
 
@@ -707,8 +721,9 @@ single-digit number by 9.  That's an algorithm!
 \index{subtraction!with borrowing}
 \index{borrowing, subtraction with}
 
-Similarly, the techniques you learned for addition with carrying,
-subtraction with borrowing, and long division are all algorithms.  One
+Similarly, the techniques you learned in school for addition 
+(with carrying), subtraction (with borrowing), and long 
+division are all algorithms.  One
 of the characteristics of algorithms is that they do not require any
 intelligence to carry out.  They are mechanical processes where
 each step follows from the last according to a simple set of rules.
