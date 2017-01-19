@@ -322,9 +322,10 @@ To iterate over a hash, use:
 \index{kv function or method}
 \index{keys function or method}
 \index{values function or method}
+\index{pairs function or method}
 
 \begin{enumerate}
-\item {\tt kv} to retrieve the keys and values;
+\item {\tt kv} to retrieve the interleaved keys and values;
 \item {\tt keys} to retrieve the keys;
 \item {\tt values} to retrieve the values;
 \item {\tt pairs} to retrieve the key-value pairs;
@@ -476,7 +477,8 @@ for %histo.keys.sort -> $key {
 
 Given a hash \verb'%hash' and a key \verb'$k', it is easy to
 find the corresponding value \verb'$val = %hash{$k}'.  
-This operation is called a {\bf lookup}.
+This operation is called a {\bf lookup} and, as already 
+mentioned, this is fast even when the hash is very large.
 
 But what if you have \verb'$val' and you want to find 
 \verb'$k'? You have three problems: first, there might be 

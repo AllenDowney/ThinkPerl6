@@ -168,7 +168,7 @@ A list within another list is {\bf nested}.
 
 An array that contains no elements is
 called an empty array; you can create one with empty
-perentheses, \verb"()":
+parentheses, \verb"()":
 \begin{verbatim}
 > my @empty = ();
 []
@@ -875,7 +875,7 @@ unpractical to have to declare the parameters.
 \index{loop!statement}
 \index{C-style loop}
 \label{C-style loop}
-The second new looping construct we want to introduce 
+The second new looping construct I want to introduce 
 here uses the {\tt loop} keyword and is similar to 
 the C-style {\tt for} loop (i.e. the loop of the 
 C programming language). In this type of loop, you 
@@ -916,7 +916,8 @@ loop {
 
 \subsection{Reducing a list to a value}
 
-To add up all the numbers in a list, you can use a loop like this:
+To add up all the numbers in a list, you can use a {\tt for} 
+loop like this:
 
 
 \begin{verbatim}
@@ -984,7 +985,7 @@ become unnecessary to write a subroutine for that. You could
 just ``inline'' the code:
 
 \begin{verbatim}
-my $fact10 = reduce { $^a * $^b }, 1..10;     # 3628800
+my $fact10 = reduce { $^a * $^b }, 1..10;     # -> 3628800
 \end{verbatim}
 %
 
@@ -1088,8 +1089,9 @@ order to create new values and returns a list of these new
 values.
 \index{topical variable}
 
-To generate a list of even numbers between 1 and 10, we might use the range operator to generate numbers between 1 and 5 
-and use map to multiply them by two:
+To generate a list of even numbers between 1 and 10, we 
+might use the range operator to generate numbers 
+between 1 and 5 and use {\tt map} to multiply them by two:
 
 \begin{verbatim}
 my @evens = map { $_ * 2 }, 1..5;  # -> [2 4 6 8 10]
@@ -1219,10 +1221,15 @@ of the input list and a program using {\tt grep} to keep
 only the numbers of an input list that are perfect squares. Solution: \ref{sol_exercise_squares}.
 
 Most common list operations can be expressed as a combination
-of map, grep and reduce.
+of {\tt map}, {\tt grep} and {\tt reduce}.
+\index{map}
+\index{grep}
+\index{reduce}
 
 \subsection{Higher order functions and functional programming}
 \label{array_functional_programming}
+\index{higher-order function}
+\index{functional programming}
 
 Besides their immediate usefulness, the {\tt reduce}, {\tt map} 
 and {\tt grep} functions we have been using here do something 
@@ -1268,6 +1275,9 @@ Before that, make sure to read the Subsection~\ref{functional_queue}
 in the array and list section of the exercise solution chapter.
 
 \section{Fixed-size, typed and shaped arrays}
+\index{shaped array}
+\index{fixed-size array}
+\index{typed array}
 
 By default, arrays can contain items of any type, including 
 items of different types, and can auto-extend as you need. 
@@ -1320,7 +1330,7 @@ to reallocate memory when you define the tenth item of
 the array. And Perl tells you about your mistake if you 
 accidentally try to access an out-of-range item.
 
-Such arrays are often calles \emph{shaped} arrays.
+Such arrays are often called \emph{shaped} arrays.
 \index{shaped array}
 
 Defining both the type of the elements and the maximal size 
