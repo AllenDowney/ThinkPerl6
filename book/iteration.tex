@@ -10,6 +10,44 @@ in Section~\ref{for_loops}.  In this chapter we'll see yet another
 kind, using a {\tt while} statement.
 But first we want to say a little more about variable assignment.
 
+\section{Assignment versus equality}
+\index{assignment operator}
+\index{equality operator}
+
+Before going further, I want to address a common source of confusion.
+Because Perl uses the equal sign ({\tt =}) for assignment, it is
+tempting to interpret a statement like {\tt \$a = \$b} as a
+mathematical proposition of equality; that is, the claim that 
+{\tt \$a} and {\tt \$b} are equal.  But this interpretation is 
+wrong.
+\index{equality and assignment}
+
+First, equality is a symmetric relationship and assignment is not.  For
+example, in mathematics, if $a=7$ then $7=a$.  But in Perl, the
+statement {\tt \$a = 7} is legal and {\tt 7 = \$a} is not.
+
+Also, in mathematics, a proposition of equality is either true or
+false for all time.  If $a=b$ now, then $a$ will always equal $b$.
+In Perl, an assignment statement can make two variables equal, but
+they don't have to stay that way:
+
+\begin{verbatim}
+> my $a = 5;
+5
+> my $b = $a;   # $a and $b are now equal
+5
+> $a = 3;       # $a and $b are no longer equal
+3
+> say $b;
+5
+\end{verbatim}
+%
+The third line changes the value of {\tt \$a} but does not 
+change the value of {\tt \$b}, so they are no longer equal. 
+
+In brief, remember that {\tt =} is an assignment operator and  
+not an equality operator; the operators for testing equality 
+between two terms are {\tt ==} for numbers and {\tt eq} for strings.
 
 \section{Reassignment}
 \index{assignment}
@@ -38,40 +76,8 @@ value is 7.
 Figure~\ref{fig.assign2} shows what {\bf reassignment} looks
 like in a state diagram. \index{state diagram} \index{diagram!state}
 
-At this point I want to address a common source of
-confusion.
-Because Perl uses the equal sign ({\tt =}) for assignment, it is
-tempting to interpret a statement like {\tt \$a = \$b} as a
-mathematical
-proposition of equality; that is, the claim that {\tt \$a} and
-{\tt \$b} are equal.  But this interpretation is wrong.
-\index{equality and assignment}
-
-First, equality is a symmetric relationship and assignment is not.  For
-example, in mathematics, if $a=7$ then $7=a$.  But in Perl, the
-statement {\tt \$a = 7} is legal and {\tt 7 = \$a} is not.
-
-Also, in mathematics, a proposition of equality is either true or
-false for all time.  If $a=b$ now, then $a$ will always equal $b$.
-In Perl, an assignment statement can make two variables equal, but
-they don't have to stay that way:
-
-\begin{verbatim}
-> my $a = 5;
-5
-> my $b = $a;   # $a and $b are now equal
-5
-> $a = 3;       # $a and $b are no longer equal
-3
-> say $b;
-5
-\end{verbatim}
-%
-The third line changes the value of {\tt \$a} but does not change the
-value of {\tt \$b}, so they are no longer equal. 
-
 Reassigning variables is often useful, but you should use this feature 
-with caution.  If the values of variables change frequently, it can
+with some caution.  If the values of variables change frequently, it can
 make the code difficult to read and debug.
 
 \begin{figure}
@@ -278,28 +284,32 @@ print "\n";
 \section{Local variables and variable scoping}
 
 We have seen in Section~\ref{localvar} that variables created 
-within a subroutine (with the {\tt my} keyword or \emph{declarator}
-\footnote{A declarator is just a Perl keyword used for 
-declaring a new variable or other identifier. The most 
-common declarator is \{tt my}, which declares a lexical 
-variable. Others include {\tt our} or {\tt state}, nbriefly 
-mentioned later in this chapter.}) 
-are \emph{local} to that subroutine. Similarly, subroutine 
-parameters are also usually \emph{local} to the subroutine 
-in the signature of which they are declared. 
-We briefly mentioned that the term \emph{lexically scoped} 
-is probably more accurate than local, but it was 
-too early at that point to really explain what this means.
+within a subroutine (with the {\tt my} keyword are \emph{local} 
+to that subroutine. The {\tt my} 
+keyword if often called a \emph{declarator}, because it 
+is used for declaring a new variable (or other identifier). 
+It is by far the most common declarator. Other declarators 
+include {\tt our} or {\tt state}, briefly described later 
+in this chapter. 
 \index{lexical scope}
 \index{lexical variables}
 \index{variable!lexical}
 \index{my}
 \index{declarator}
 
+Similarly, subroutine 
+parameters are also usually \emph{local} to the subroutine 
+in the signature of which they are declared.
+\index{subroutine parameters}
+
+We briefly mentioned that the term \emph{lexically scoped} 
+is probably more accurate than local, but it was 
+too early at that point to really explain what this means.
 
 Declaring a variable with {\tt my} gives it \emph{lexical 
-scope}. This means it only exists within the current block. A 
-block is loosely a piece of Perl code within curly brackets or 
+scope}. This means it only exists within the current block. 
+Loosely speaking, a 
+block is a piece of Perl code within curly brackets or 
 braces. For example, the body of a subroutine and the code of a 
 {\tt while} or {\tt for} loop or of an {\tt if} conditional
 statement are code blocks. Any variable created with the 
@@ -342,7 +352,7 @@ called a static or a global variable, although these terms are
 somewhat inaccurate). For example, in the last code snippet 
 above, the scope of the {\tt \$foo} variable will extend 
 until the end of the file, which may or may not be a good thing, 
-depending on how you intend to use it in the code below. It 
+depending on how you intend to use it. It 
 is often better to reduce the scope of variables as much as 
 possible, because this helps reduce dependencies between 
 various parts of the code and limits 
@@ -364,7 +374,7 @@ an enclosing block for the sole purpose of limiting the scope:
 % 
 Now, the outer braces create an enclosing block limiting the 
 scope of {\tt \$foo} to where we need it. This may seem to be a 
-somewhat contrived example, but it is not so uncommon to add 
+somewhat contrived example, but it is not uncommon to add 
 braces only for the purpose of precisely defining the scope 
 of something.
 
@@ -468,7 +478,7 @@ added functionality with that.
 
 Sometimes you don't know it's time to end a loop until you get half
 way through the body.  In that case, you can use a control flow 
-statement such as {\tt last} statement to jump out of the loop.
+statement such as {\tt last} to jump out of the loop.
 
 For example, suppose you want to take input from the user until they
 type {\tt done}.  You could write:
@@ -514,7 +524,7 @@ program to break out of the loop. This is commonly used in
 many programming languages, and this works well in Perl. There 
 is, however, another common and more idiomatic way of constructing 
 infinite loops in Perl~6: using the {\tt loop} statement, 
-which we will study only later in Section~\ref{C-style loop} 
+which we will study in Section~\ref{C-style loop} 
 (p.~\pageref{C-style loop}). For now, we'll use the {\tt while True} 
 statement, which is fairly legitimate.
 
@@ -546,7 +556,7 @@ The {\tt last} and {\tt next} control statements also work in
 iterates in theory on a range of integer numbers between 1 and 20, 
 but discards odd numbers by virtue of a {\tt next} statement 
 and breaks out of the loop with a {\tt last} statement as 
-soon as the loop variable is greater than {\tt \$max} (i.e. 10 in the example):
+soon as the loop variable is greater than {\tt \$max} (i.e. 10 in this  example):
 \index{for loop}
 \index{loop!for}
 \index{statement!for}
@@ -563,7 +573,7 @@ for 1..20 -> $i {
 You may have as many {\tt last} and {\tt next} statements as you 
 like, just as you may have as many {\tt return} statements as 
 you like in a subroutine. Using such control flow statements 
-is not to be considered poor 
+is not considered poor 
 practice. During the early days of structured programming, 
 some people insisted that loops and subroutines have only one 
 entry and one exit. The one-entry notion is still a good idea, 
@@ -589,7 +599,7 @@ iteratively improving it.
 For example, one way of computing square roots is Newton's method (also known as Newton-Raphson's method).
 Suppose that you want to know the square root of $a$.  If you start
 with almost any estimate, $x$, you can compute a better
-estimate with the following formula:
+estimate $y$ with the following formula:
 
 \[ y = \frac{x + a/x}{2} \]
 %
@@ -670,7 +680,7 @@ Final result is 2
 \end{verbatim}
 %
 
-For most values of {\tt a} this works fine, but there are a 
+For most values of {\tt \$a} this works fine, but there are a 
 couple of caveats with this approach. First, in most programming 
 languages, it is dangerous to test {\tt float} equality, because 
 floating-point values are only approximately right. We do not 
@@ -681,7 +691,7 @@ may want to keep this in mind if you are using some other
 languages.) Even if we don't have this problem with Perl, there 
 may also be some problems with algorithms that do not behave 
 as well as Newton's algorithm. For example, some algorithms 
-might not converge as fast and as neatly as Newton's algorithm but might instead alternate values above and below the accurate result.
+might not converge as fast and as neatly as Newton's algorithm but might instead produce alternate values above and below the accurate result.
 \index{floating-point}
 \index{epsilon}
 
@@ -693,8 +703,8 @@ absolute value, or magnitude, of the difference between them:
     last if abs($y - $x) < $epsilon:
 \end{verbatim}
 %
-Where \verb"epsilon" has a small value like {\tt 0.0000001} that
-determines how close is close enough.
+where \verb"epsilon" has a very small value like {\tt 0.0000001} 
+that determines how close is close enough.
 
 
 
@@ -714,8 +724,10 @@ knowledge is not algorithmic.
 But if you were ``lazy'', you might have learned a few
 tricks.  For example, to find the product of $n$ and 9, you can
 write $n-1$ as the first digit and $10-n$ as the second
-digit.  This trick is a general solution for multiplying any
-single-digit number by 9.  That's an algorithm!
+digit.  (For example, to figure out $9*7$, $n-1$ is 6 and 
+$10-n$ is 3, so that the product $9*7$ is 63.) This trick 
+is a general solution for multiplying any single-digit 
+number by 9.  That's an algorithm!
 \index{addition with carrying}
 \index{carrying, addition with}
 \index{subtraction!with borrowing}
@@ -874,7 +886,7 @@ Write a function called \verb"estimate-pi" that uses this
 formula to compute and return an estimate of $\pi$.  It 
 should use a {\tt while} loop to compute terms of the 
 summation until the last term is smaller than {\tt 1e-15} 
-(which is Perl~6 notation for $10^{-15}$). You can check
+(which is Perl notation for $10^{-15}$). You can check
 the result by comparing it to {\tt pi} built-in constant.
 Solution: \ref{sol_pi_estimate}.
 
