@@ -1,6 +1,7 @@
 
 \chapter{Strings}
 \label{strings}
+\index{string}
 
 Strings are not like integers, rationals, and booleans.  
 A string is a {\bf sequence} of characters, which means 
@@ -9,8 +10,9 @@ sometimes need to access to some of these individual
 values.  In this chapter you'll see how to analyze, 
 handle and modify strings, and you'll learn about some of the methods strings provide. You will also start to learn about 
 a very powerful tool for manipulating text data, regular 
-expressions or regexes.
+expressions a.k.a. regexes.
 \index{sequence}
+\index{regex}
 
 
 \section{A string is a sequence}
@@ -40,15 +42,18 @@ n
 \end{verbatim}
 %
 The {\tt comb} in the second statement splits the string 
-into a sequence of characters that you can then access 
+into a list of characters that you can then access 
 individually with square brackets.
 \index{comb function and method}
 \index{method!comb}
 \index{function!comb}
 \index{bracket!square}
 \index{square bracket operator}
+\index{index}
+\index{subscript}
 
-The expression in brackets is called an {\bf index}.  
+The expression in brackets is called an {\bf index} 
+(it is sometimes also called a subscript).  
 The index indicates which character in the sequence you
 want (hence the name). But this may not be what you 
 expected: the item with index 1 is the second letter of 
@@ -61,17 +66,18 @@ offset of the first ``a'' is 1, not 2, and so on.
 
 You could also retrieve a ``slice'' of several characters in 
 one go using the range operator within the brackets:
+\index{slice}
 
 \begin{verbatim}
 > say $st[2..5]
 (n a n a)
 \end{verbatim}
 %
-
+\index{substring}
 Again, the ``nana'' substring starts on the third letter of 
 \verb"'banana'", but this letter is indexed 2, and the sixth letter is index 5. 
 
-But, even all if this might be useful at times, this is 
+But, even if all this might be useful at times, this is 
 not the way you would usually handle strings in Perl, 
 whose higher level tools are more powerful and more 
 expressive, so that you seldom need to use indexes or 
@@ -85,6 +91,9 @@ we'll have to come back to that later.
 
 \section{Common string operators}
 \index{string!operators}
+
+Perl provides a number of operators and functions to 
+handle strings. Let's review some of the most popular ones.
 
 \subsection{String length}
 \index{chars function}
@@ -119,11 +128,12 @@ encoding over 2, 3 or 4 bytes.
 \label{find}
 \index{index function}
 \index{function!index}
+\index{substring}
 
 The {\tt index} built-in takes usually two arguments, a string 
 and a substring (sometimes called the ``haystack'' and 
 the ``needle''), 
-searches the substring in the string and returns the position 
+searches for the substring in the string and returns the position 
 where the substring is found (or an undefined value if it not
 found). 
 
@@ -171,13 +181,14 @@ substring within the string:
 \end{verbatim}
 %
 
-Note that the {\tt rindex} function searches the string 
-backwards (from the end), but it returns a position from 
-the start of the string.
+Note that even though the {\tt rindex} function searches the 
+string backwards (from the end), it returns a position 
+computed from the start of the string.
 
 \subsection{Extracting a substring from a string}
 \index{substr function or method}
 \index{function!substr}
+\index{substring}
 
 The opposite of the {\tt index} function is the {\tt substr} 
 function or method, which, given a start position and a length, 
@@ -195,9 +206,11 @@ dream
 \index{Unicode}
 \index{grapheme}
 Note that, just as for the {\tt chars} function, the length 
-is expressed in characters (or Unicode graphemes), not in bytes. The 
-length argument is optional; if it is not provided, the {\tt substr} function returns the substring starting on the start 
-position to the end of the string. 
+is expressed in characters (or Unicode graphemes), not in bytes. 
+Also, as you can see, spaces separating words within the string 
+obviously count as characters. The length argument is optional; 
+if it is not provided, the {\tt substr} function returns the 
+substring starting on the start position to the end of the string. 
 
 \begin{verbatim}
 > say "I have a dream".substr(7)
@@ -215,14 +228,13 @@ nana
 \end{verbatim}
 
 Of course, the start position and length parameters need not be 
-hard-coded as in the examples above, you may use a variable 
+hard-coded numbers as in the examples above; you may use a variable 
 instead (or even an expression or a function returning a numeric 
-value), provided the variable can be coerced into an integer. 
+value), provided the variable or value can be coerced into an integer. 
 But the start position must be within the string range, 
 failing which you would obtain a {\tt Start argument to 
-substr out of range ...} error; so 
-you may have to verify it against the length of the string 
-beforehand.
+substr out of range ...} error; so you may have to verify it 
+against the length of the string beforehand. 
 
 You can also start counting backwards from the end of the 
 string with the following syntax:
@@ -236,6 +248,7 @@ dream
 %
 
 \index{substr function}
+\index{substring}
 
 \subsection{A few other useful string functions or methods}
 \index{string!operators}
@@ -263,6 +276,7 @@ ananab
 \subsubsection{split}
 \index{split function or method}
 \index{function!split}
+\index{delimiter}
 The {\tt split} function or method splits a string 
 into substrings, based on delimiters found in the string:
 
@@ -290,9 +304,12 @@ Mar
 
 By default, the delimiters don't appear in the output produced 
 by the {\tt split} function or method, but this behavior can 
-be changed with the use of an appropriate adverb. For example, 
-the {\tt :v} adverb tells {\tt split} to output the 
-value of the delimiters:
+be changed with the use of an appropriate \emph{adverb}. An adverb 
+is basically a named argument to a function that modifies 
+the way the function behaves. For example, the {\tt :v} (values) adverb 
+tells {\tt split} to also output the value of the delimiters:
+\index{adverb}
+\index{:v adverb}
 
 \begin{verbatim}
 > .perl.say for split  ', ', "Jan, Feb, Mar", :v;
@@ -303,14 +320,19 @@ value of the delimiters:
 "Mar"
 \end{verbatim}
 
-The other adverbs that can be used for this purpose are 
-{\tt :k}, {\tt :kv} and {\tt :p}. Their meaning can be 
-found in the documentation for {\tt split}. The {\tt skip-empty} 
-adverb removes empty chunks from the result list.
+The other adverbs that can be used in this context are 
+{\tt :k} (keys), {\tt :kv} (keys and values) and {\tt :p} 
+(pairs). Their detailed meaning can be 
+found in the documentation for {\tt split} 
+(\url{https://docs.perl6.org/routine/split}). The 
+{\tt skip-empty} adverb removes empty chunks from the result 
+list.
 
 The {\tt split} function can also use a regular expression 
-pattern as delimiter, and this can make it much more powerful, 
-but we will study regular expressions later in this chapter.
+pattern as delimiter, and this can make it much more powerful. 
+We will study regular expressions later in this chapter.
+\index{regular expression}
+\index{regex}
 
 \subsubsection{String concatenation}
 
@@ -371,23 +393,49 @@ of strings as arguments; it interleaves them with the separator,
 concatenates everything into a single string and return the 
 resulting string.
 
-This example illustrates the use of the two last functions:
+This example illustrates the chained use of the {\tt words} and 
+{\tt join} functions or methods:
 \begin{verbatim}
 say 'I have a dream'.words.join('|');    # -> I|have|a|dream
 say join ";", words "I have a dream";    # -> I;have;a;dream
 \end{verbatim}
 %
 
+\index{words function or method}
+In both cases, {\tt words} first splits the original 
+string into a list of words, and {\tt join} stitches 
+the items of this list back into a new string interleaved 
+with the separator.  
+
 \subsubsection{Changing the case}
-\index{lc function or method} \index{uc function or method}
+\index{lc function or method} 
+\index{uc function or method}
+\index{tc function or method}
+\index{upper case}
+\index{lower case}
+\index{title case}
+\index{case!upper}
+\index{case!lower}
+\index{case!title}
+
 The {\tt lc} and {\tt uc} routines return respectively a 
-lower-case and an upper-case version of their arguments.
+lower-case and an upper-case version of their arguments. 
+There is also a {\tt tc} function or method returning its 
+argument with the first letter case-folded to title case or 
+upper case.
+
+\begin{verbatim}
+say lc "April";    # -> april
+say "April".lc;    # -> april
+say uc "april";    # -> APRIL
+say tc "april";    # -> April
+\end{verbatim}
 
 \index{eq, string equality operator}
 Remember also that the {\tt eq} operator checks the equality 
 of two strings. 
 
-\section{Traversal with a {\tt for} loop}
+\section{String traversal with a {\tt for} loop}
 \label{stringtraversal}
 \index{traversal}
 \index{loop!traversal}
@@ -404,6 +452,8 @@ it, and continue until the end.  This pattern of
 processing is called a {\bf traversal}.  One way to write
 a traversal is with a {\tt while} loop and the 
 {\tt index} function:
+\index{while loop}
+\index{index}
 
 \begin{verbatim}
 my $index = 0;
@@ -467,6 +517,7 @@ for 0..$fruit.chars - 1 -> $index {
 
 \index{concatenation}
 \index{abecedarian}
+\index{aphabetic order}
 \index{McCloskey, Robert}
 
 The following example shows how to use concatenation and a 
@@ -518,7 +569,7 @@ my $count = 0;
 for $word.comb -> $letter {
     $count++ if $letter eq 'a';
 }
-say $count;
+say $count;              # -> 3
 \end{verbatim}
 %
 
@@ -526,7 +577,9 @@ say $count;
 This program demonstrates another pattern of computation called a {\bf
 counter}.  The variable \verb'$count' is initialized to 0 and then
 incremented each time an ``a'' is found. When the loop exits, 
-\verb'$count' contains the result---the total number of ``a's''.
+\verb'$count' contains the result---the total number of 
+occurrences of letter ``a''.
+\index{incrementation}
 
 \index{encapsulation}
 As an exercise, encapsulate this code in a subroutine named 
@@ -562,7 +615,8 @@ complete refactoring of the code.
 
 For this type of work, {\bf regular expressions} or 
 {\bf regexes}  are a much more powerful and expressive tool. 
-One way to capture the searched letter above may be this:
+Here's one way to extract letters using the criteria 
+described above::
 
 \begin{verbatim}
 > my $string = "yellow submarine";
@@ -571,8 +625,8 @@ yellow submarine
 o
 \end{verbatim}
 
-Don't worry if you don't understand for the time being, this 
-will hopefully be clear very soon.
+Don't worry if you don't understand this example; 
+hopefully it will be clear very soon.
 
 \index{operator!smart match}
 \index{smart match operator}
@@ -592,20 +646,21 @@ followed by an unspecified number of characters, followed by the
 substring ``rin''. Phew! All this in one single code line! Quite 
 powerful, isn't it? If the string matches the pattern, then 
 the match will return a True value and \verb'$0' will be 
-populated with the character to be captured, letter ``o'' 
+populated with the character to be captured---letter ``o'' 
 in this case.
+\index{capture}
 
-Most of the rest of this chapter will go through constructing 
+Most of the rest of this chapter will cover the basics of constructing 
 such regex patterns and using them. But the concept of 
-regexes is so crucial in Perl that we will devote later a full 
+regexes is so crucial in Perl that we will also devote a full 
 chapter to this subject and some related matters (Chapter~\ref{regex_grammars}).
 
 The notion of regular expressions is originally a concept 
 stemming from the theory of formal languages. The first 
 uses of regular expressions in computing came to being 
 with Unix utilities, some of which still in wide use today, such as 
-{\tt grep}, created by Ken Thomson in the 1970s and 
-{\tt awk}, created a bit later by Aho, Weinberger and Kernighan. 
+{\tt grep}, created by Ken Thomson in 1973, {\tt sed} (ca. 1974) and 
+{\tt awk}, developed a few years later (in 1977) by Aho, Weinberger and Kernighan. 
 Earlier versions of the Perl language in the 1980s included an 
 extended version of regular expressions, that has since 
 been imitated by many other recent languages. The difference, 
@@ -614,7 +669,9 @@ core of the Perl language, whereas most other languages have
 adopted them as an add-on or a plug-in, often based or derived 
 on a library known as Perl Compatible Regular Expressions (PCRE).
 \index{awk}
+\index{grep}
 \index{Thomson, Ken}
+\index{sed}
 \index{Aho, Alfred}
 \index{Weinberger, Peter}
 \index{Kernighan, Brian}
@@ -626,7 +683,7 @@ so much that they have little to do with the original
 language theory concept, so that 
 it has been deemed appropriate to stop calling them 
 \emph{regular expressions} and to speak about \emph{regexes}, 
-i.e. a sort of sub-language working similarly to regular 
+i.e. a sort of sub-language that works similarly to regular 
 expressions.
 
 \section{Using regexes}
@@ -650,6 +707,7 @@ the pattern, the dot in the pattern matches any character in the string (and mat
 the string matches the $e$ in the pattern.
 
 \index{stringify operator}
+\index{matched string}
 The part of the string that was matched is contained in the 
 \verb'$/' variable representing the Match object, which we 
 can stringify with the \verb'~' operator. We can make good 
@@ -663,15 +721,17 @@ say ~$/ if "abcdef" ~~ / bc.e /;           # -> bcde
 
 
 \index{backtracking}
+
 The matching process might be described as follows (but please 
 note that this is a rough simplification): look 
 in the string (from left to right) for a character matching 
-the first atom of the pattern; when found, look if the second 
+the first atom (i.e. the first matchable item) of the 
+pattern; when found, see whether the second 
 character can match the second atom of the pattern, and so on. 
 If the entire pattern is used, then the regex is successful.
 If it fails during the process, start again from the position 
-immediately after the initial match point. This is called 
-{\bf backtracking}. And repeat that until:
+immediately after the initial match point. (This is called 
+{\bf backtracking}). And repeat that until:
 
 \begin{itemize}
 \item There is a successful match, in which case the process 
@@ -680,12 +740,12 @@ ends and success is reported; or
 in which case, the regex failed.
 \end{itemize}
 
-Let us take an example of backtracking:
+Let us examine an example of backtracking:
 \begin{verbatim}
 say "Matched" if "abcabcdef" ~~ / bc.e /;  # -> Matched
 \end{verbatim}
 %
-
+\index{backtracking}
 Here, the regex engine starts by matching ``bca'' with 
 $bc.$, but that initial match attempt fails, because the 
 next letter in the string, ``b'' does not match the ``e'' 
@@ -718,7 +778,7 @@ say "Matched" if "abcdef".match(/ b.d.f /); # -> Matched
 
 In all cases we have seen so far, we directly used a pattern 
 within a pair of $/$ slash delimiters. We can use other 
-delimiters if we prefix our pattern with the ``m'' letter:
+delimiters if we prefix our pattern with the letter ``m'':
 \index{regex!pattern delimiter}
 
 \begin{verbatim}
@@ -732,9 +792,15 @@ say "Matched" if "abcdef" ~~ m! bc.e !;     # -> Matched
 \end{verbatim}
 %
 
+The ``m'' operator does not alter the way a regex works; it 
+only makes it possible to use delimiters other than slashes. 
+Said differently, the ``m'' prefix is the standard way to 
+introduce a pattern, but it is implicit and can be omitted 
+when the pattern is delimited with slashes.
+
 A pattern may also be stored in a variable (or, more 
-accurately, in a regex object, but that makes little 
-difference for the time being), using the $rx//$ operator:
+accurately, in a regex object), using the $rx//$ operator:
+\index{rx regex operator}
 
 \begin{verbatim}
 my $regex = rx/c..f/;
@@ -747,12 +813,15 @@ say "Matched" if 'abcdef' ~~ $regex;        # -> Matched
 \label{pattern}
 \index{pattern}
 
+It is now time to study the basic building blocks of a 
+regex pattern.
+
 \subsection{Literal matching}
 \index{literal matching}
 
 As you have probably figured out by now, the simplest case 
 of a regex pattern is a constant string. Matching a string 
-against that regex is more or less equivalent to searching 
+against such a regex is more or less equivalent to searching 
 for that string with the {\tt index} function:
 \index{index function}
 
@@ -785,14 +854,19 @@ say "Success" if 'name@company.uk' ~~ / name '@' co /; # -> Success
 %
 
 
-\subsection{Character classes}
+\subsection{Wildcards and character classes}
 \index{character class}
 
 Regexes wouldn't be very useful if they could only do literal 
-matching. We are now getting at the more interesting parts.
+matching. We are now getting to the more interesting parts.
+
+In a regex pattern, some symbols can match not a specific character, 
+but a whole family of characters, such as letters, digits, etc. 
+They are calles character classes.
 
 We have already seen that the dot is a sort of wildcard 
 matching any single character of the target string. 
+\index{wildcard character}
 
 \begin{verbatim}
 my $string = "superlative";
@@ -805,6 +879,7 @@ The example above illustrates another feature of regexes:
 whitespace is usually not significant within regex patterns 
 (unless specified otherwise with the $:s$ or $:sigspace$ 
 adverb, as we will see later).
+\index{whitespace in regexes}
 
 There are predefined character classes of the form \verb'\w'. 
 Its negation is written with an upper-case letter, \verb'\W'. 
@@ -855,6 +930,7 @@ the opening angle bracket. For example, a string is not a
 valid hexadecimal integer if it contains any character not 
 in \verb'<[0..9a..fA..F]>', i.e. any character matched by the 
 negated hexadecimal character class:
+\index{negated character class}
 
 \begin{verbatim}
 say "Not an hex number" if $string ~~ /<-[0..9 a..f A..F]>/;
@@ -867,7 +943,7 @@ non-alphanumerical characters in your character classes:
 say ~$/  if "-17.5" ~~ /(<[\d.-]>+)/; # -> -17.5
 \end{verbatim}
 
-In this example, we use the ``+'' quantifier that will be seen 
+In this example, we use the ``+'' quantifier that we'll discuss 
 in the next section, but the point here is that you don't need 
 to escape the dot and the dash within the character class 
 definition.
@@ -905,10 +981,10 @@ say ~$/ if 'aabaababa' ~~ / .+ b /;     # -> aabaabab
 %
 
 Here, the \verb'.+' matches as much as it possibly can 
-of the string, which still being able to match the final ``b''. 
+of the string, while still being able to match the final ``b''. 
 This is often what you want, but not always. Perhaps your 
 intention was to match all letters until the first ``b''. In 
-such cases, you would use the \emph{frugal} (or non-greedy) 
+such cases, you would use the \emph{frugal} (non-greedy) 
 versions of those quantifiers, which are obtained by suffixing 
 them with a question mark: $+?$ and $*?$. A frugal quantifier 
 will match as much as it has to for the overall regex to succeed, 
@@ -925,6 +1001,8 @@ say ~$/ if 'aabaababa' ~~ / .+? b /;     # -> aab
 You can also specify a range ({\tt min..max}) for the number of 
 times an atom may be matched. For example, to match an 
 integer smaller than 1,000:
+\index{range quantifier}
+\index{quantifier!range}
 
 \begin{verbatim}
 say 'Is a number < 1,000' if $string ~~ / ^ \d ** 1..3 $ /;
@@ -933,7 +1011,9 @@ say 'Is a number < 1,000' if $string ~~ / ^ \d ** 1..3 $ /;
 
 This matches one to three digits.
 
-For matching an exact number of times, just replace the range by a single number:
+For matching an exact number of times, just replace the 
+range with a single number:
+\index{quantifier!exact number of times}
 
 \begin{verbatim}
 say 'Is a 3-digit number' if $num ~~ / ^ \d ** 3 $ /;
@@ -949,9 +1029,11 @@ say 'Is a 3-digit number' if $num ~~ / ^ \d ** 3 $ /;
 Sometimes, matching a substring is not good enough, you  
 want to match the whole string, or you want the match to occur 
 at the beginning or at the end of the string, or at some 
-other specific place within the string. Anchors and assertions need to match 
-successfully in order for the whole regex to match, but they 
-do not use up characters while matching.
+other specific place within the string. Anchors and assertions 
+make it possible to specify where the match should occur. 
+They need to match successfully in order for the whole 
+regex to succeed, but they do not use up characters 
+while matching.
 
 \subsubsection{Anchors}
 
@@ -970,7 +1052,7 @@ say "$string ends with 'perl'" if $string ~~ /perl$/;   # (No output)
 say "$string equals 'perl'" if $string ~~ /^perl$/;     # (No output)
 \end{verbatim}
 
-All three regex above fail because, even if 
+All three regex above fail because, even though 
 \verb'$string' contains the ``perl'' substring, the 
 substring is neither at the start, nor at the end of 
 the string.
@@ -985,6 +1067,9 @@ also use the \verb'^^' start of line and \verb'$$' end of line anchors.
 There are some other useful anchors, such as the \verb'<<' 
 start of word (or word left boundary) and \verb'>>' end 
 of word (or word right boundary) anchors.
+\index{anchor!word boundary}
+\index{anchor!start of word}
+\index{anchor!end of word}
 
 \subsubsection{Look-around assertions}
 
@@ -993,9 +1078,10 @@ of word (or word right boundary) anchors.
 \index{assertion!look before}
 \index{assertion!look after}
 
-There are also \emph{look-around assertions}, which make it 
-possible to specify more complex rules as: match ``foo'', but 
-only if preceded (or followed) by ``bar'' (or not preceded or not followed by ``bar''):
+\emph{Look-around assertions} make it possible to 
+specify more complex rules: for example, match ``foo'', 
+but only if preceded (or followed) by ``bar'' (or not 
+preceded or not followed by ``bar''):
 
 \begin{verbatim}
 say "foobar" ~~ /foo <?before bar>/; # -> foo (lookahead assertion)
@@ -1013,13 +1099,14 @@ say "foobar" ~~ /foo <!before baz>/; # -> foo
 say "foobar" ~~ /<!after foo> bar/;  # -> Nil (regex failed)
 \end{verbatim}
 %
-But we won't dwell further on that for the time being. We assume 
-that the examples above are rather clear, look up into the 
-documentation if you need further details. 
+I assume that the examples above are rather clear, look into the 
+documentation 
+(\url{https://docs.perl6.org/language/regexes#Look-around_assertions} 
+if you need further details. 
 
 \subsubsection{Code assertions}
 
-You can also have code assertions \verb'<?{...}>' which 
+You can also include a code assertion \verb'<?{...}>' which 
 will match if the code block returns a true value:
 \index{code assertion}
 \index{assertion!code}
@@ -1039,7 +1126,7 @@ match unless the code block returns a true value:
 50
 \end{verbatim}
 
-Code assertions are useful to express conditions that 
+Code assertions are useful to specify conditions that 
 cannot easily be expressed as regexes. 
 
 They can also be used to display something, for example 
@@ -1066,8 +1153,8 @@ a simple code block for the same purpose:
 \begin{verbatim}
 > say "Matched $/" if "A12B34D50" ~~ /(\D) { say ~$0} \d\d$/;
 \end{verbatim}
-produces the same output, and there is no need to worry about 
-whether the block returns a true value.
+This code produces the same output, and there is no need 
+to worry about whether the block returns a true value.
 
 
 \subsection{Alternation}
@@ -1075,7 +1162,7 @@ whether the block returns a true value.
 
 Alternations are used to match one of several alternatives.
 
-For example, to check if a string represents one of the 
+For example, to check whether a string represents one of the 
 three base image colors (in JPEG and some other image formats), 
 you might use:
 
@@ -1103,7 +1190,7 @@ depending on what you need to do.
 
 \index{longest-match alternation}
 The longest-match alternation uses the \verb'|' operator 
-will try all the alternatives and match the longest one:
+and will try all the alternatives and match the longest one:
 
 \begin{verbatim}
 say ~$/ if "abcdef" ~~ /ab | abcde/;        # -> abcde
@@ -1111,7 +1198,8 @@ say ~$/ if "abcdef" ~~ /ab | abcde/;        # -> abcde
 %
 
 Beware, though, that this will work as explained only if 
-the alternative matches all start on the same position:
+the alternative matches all start on the same position 
+within the string:
 
 \begin{verbatim}
 say ~$/ if "abcdef" ~~ /ab |  bcde/;        # -> ab
@@ -1119,7 +1207,7 @@ say ~$/ if "abcdef" ~~ /ab |  bcde/;        # -> ab
 %
 
 Here, the match on the left-most position wins (this is 
-a quite general rule with regexes).
+a general rule with regexes).
 
 
 \subsection{Grouping and capturing}
@@ -1144,7 +1232,7 @@ things together or to override precedence:
 
 \index{capture}
 The difference between parentheses and square brackets is 
-that round parentheses don't just group things together, 
+that parentheses don't just group things together, 
 they also capture data: they make the string matched within 
 the parentheses available as a special variable (and also 
 as an element of the resulting Match object):
@@ -1193,7 +1281,7 @@ text has the advantage of not cluttering the \verb'$0',
 \verb'$1', \verb'$2', etc. variables, and it is likely 
 to be slightly faster.
 
-\subsection{Adverbs (or modifiers)}
+\subsection{Adverbs (a.k.a. modifiers)}
 \label{adverb}
 \index{adverb}
 \index{regex!adverb}
@@ -1294,7 +1382,7 @@ it without this assumption);
 \item The first word of a string starting with a lower case vowel;
 \item A French mobile telephone number (in France, mobile 
 phone numbers have ten digits and start with ``06'' or ``07''); 
-assume the digits are consecutive (no spacing);
+assume the digits are consecutive (no spaces);
 \item The first word of a string starting with a vowel in 
 either upper or lower case;
 \item The first occurrence of a double letter (twice the
@@ -1318,7 +1406,7 @@ problems.
 \index{date!extraction}
 
 Assume we have a string containing somewhere a 
-date in the \textsc{yyyy-mm-dd} format.
+date in the YYYY-MM-DD format.
 
 \begin{verbatim}
 my $string = "Christmas : 2016-12-25.";
@@ -1355,7 +1443,7 @@ say ~$/ if $string ~~ /(\d ** 4 \- \d\d \- \d\d)/;
 \end{verbatim}
 %
 
-\item The same, using an additional grouping to avoid 
+\item The same regex, but using an additional grouping to avoid 
 repetition of \verb'\- \d\d' sub-pattern: 
 
 \begin{verbatim}
@@ -1369,11 +1457,14 @@ $string ~~ /(\d ** 4) \- (\d\d) \- (\d\d)/;
 my ($year, $month, $day) = ~$0, ~$1, ~$2;
 \end{verbatim}
 %
-Note that using the tilde as a prefix above leads to 
+\index{stringification}
+\index{tilde}
+Note that using the tilde as a prefix above leads 
 \verb'$year', \verb'$month' and \verb'$day' to be 
 populated with strings. Assuming you want these variables 
-to contain integers instead, you might coerce them 
-to numeric values:
+to contain integers instead, you might nummify them, i.e. 
+coerce them to numeric values using the prefix + operator:
+\index{nummification}
 \begin{verbatim}
 $string ~~ /(\d ** 4) \- (\d\d) \- (\d\d)/;
 my ($year, $month, $day) = +$0, +$1, +$2;
@@ -1393,8 +1484,9 @@ my ($year, $month, $day) = ~$0, ~$1, ~$2;
 
 Using sub-patterns as building blocks is a quite efficient 
 way of constructing step by step complicated regexes, but 
-will see in Chapter~\ref{regex_grammars} better ways 
+will see in Chapter~\ref{regex_grammars} even better ways 
 of doing this type of things.
+\index{subpattern}
 
 \item We could improve the \verb'$m' (month) sub-pattern so 
 that it matches only ``01'' to ``12'' and thus 
@@ -1409,11 +1501,12 @@ my $m = rx {   1 <[0..2]>    # 10 to 12
 %
 
 As you can see, using comments and whitespace helps 
-make the regex intent clearer.
+make the regex's intent clearer.
 
 Another way of achieving the same goal is to use a 
-code assertion checking that the value is numerically 
+code assertion to check that the value is numerically 
 between 1 and 12:
+\index{code assertion}
 
 \begin{verbatim}
 my $m = rx /\d ** 2 <?{ 1 <= $/ <= 12 }> /;
@@ -1429,7 +1522,9 @@ above.
 
 The \verb'$/' Match object has the {\tt prematch} and 
 {\tt postmatch} methods for extracting what comes before 
-and after the matched part of the string: 
+and after the matched part of the string:
+\index{prematch}
+\index{postmatch}
 
 \begin{verbatim}
 $string ~~ /(\d ** 4) \- (\d\d) \- (\d\d)/;
@@ -1439,13 +1534,15 @@ say $/.postmatch;                  # -> "."
 %
 
 As an exercise, try to adapt the above regexes for various 
-other date formats (such as \textsc{dd/mm/yyyy} or 
-\textsc{yyyy mm, dd}) and to test them. If you're trying with 
-the \textsc{yyyy mm, dd} format, please remember that spaces are 
+other date formats (such as DD/MM/YYYY or 
+YYYY~MM,~DD) and to test them. If you're trying with 
+the YYYY~MM,~DD format, please remember that spaces are 
 usually not significant in a regex pattern, so you may need 
 either to specify explicit spaces (using for example the \verb'\s' 
-character class or or to use the \verb':s' adverb to make 
+character class or the \verb':s' adverb to make 
 whitespace significant). 
+\index{:s adverb}
+\index{character class}
 
 \subsection{Extracting an IP address}
 \index{extracting IP address}
@@ -1456,6 +1553,7 @@ address. IP addresses are most often written in the
 dot-decimal notation, which consists of four octets of 
 the address expressed individually in decimal numbers and 
 separated by periods, for example {\tt 17.125.246.28}.
+\index{octet}
 
 For the purpose of these examples, our sample target string 
 will be as follows:
@@ -1471,6 +1569,7 @@ in that string, in the same way as we just did for the dates.
 \begin{itemize} 	
 
 \item Using a character class:
+\index{character class}
 
 \begin{verbatim}
 say ~$0 if $string ~~ /(<[\d.]>+)/;        # -> 17.125.246.28
@@ -1478,8 +1577,9 @@ say ~$0 if $string ~~ /(<[\d.]>+)/;        # -> 17.125.246.28
 %
 
 \item Using a character class and a quantifier (note that 
-each number may have 1 to 3 digits, so that the total number 
-of character may vary from 7 to 15):
+each octet may have 1 to 3 digits, so that the total number 
+of characters may vary from 7 to 15):
+\index{quantifier}
 
 \begin{verbatim}
 say ~$0 if $string ~~ /(<[\d.]> ** 7..15)/;  
@@ -1493,6 +1593,8 @@ say ~$/ if $string ~~ /([\d ** 1..3 \.] ** 3 \d ** 1..3 )/;
 %
 
 \item Using sub-patterns as building blocks:
+\index{octet}
+\index{subpattern}
 \begin{verbatim}
 my $octet = rx/\d ** 1..3/;
 say ~$/ if $string ~~ /([<$octet> \.] ** 3 <$octet>)/;
@@ -1511,6 +1613,7 @@ With this definition of the \verb'$octet' pattern, the
 regex would match any number of one or two digits, or a 
 three-digit number starting with digits 1 to 2.
 
+\index{octet}
 \item But that is not good enough if we really want to check 
 that the IP address is valid (for example, it would erroneously 
 accept 276 as a valid octet). The definition of the 
@@ -1533,8 +1636,10 @@ the abundant use of whitespace and comments can help make
 the intent clearer.
 
 \item We could also use 
-a code block to limit the value of an \verb'$octet' to 
+a code assertion to limit the value of an \verb'$octet' to 
 the \verb'0..255' range:
+\index{assertion!code}
+\index{code assertion}
 
 \begin{verbatim}
 my $octet = = rx{(\d ** 1..3) <?{0 <= $0 <= 255 }> };
@@ -1549,7 +1654,7 @@ say ~$/ if $string ~~ /([<$octet> \.] ** 3 <$octet>)/;
 \label{substitutions}
 \index{substitution}
 
-Replacing part of a string by some other substring  is a 
+Replacing part of a string with some other substring is a 
 very frequent requirement in string handling. This can be 
 needed for spelling corrections, data reformatting, removal 
 of personal information from data, etc. 
@@ -1558,7 +1663,7 @@ of personal information from data, etc.
 \index{subst method}
 
 Perl has a {\tt subst} method which can replace some text with 
-some other:
+some other text:
 
 \begin{verbatim}
 my $string = "abcdefg";
@@ -1575,8 +1680,9 @@ $string = $string.subst(/c \w+ f/, "SUBST");  # -> abSUBSTg
 
 \subsection{The {\tt s/search/replace/} construct}
 \index{s/// operator}
+\index{substitution operator}
 
-However, the most common way to perform text substitution 
+The most common way to perform text substitution 
 in Perl is the \verb's/search/replace' construct, which 
 is quite concise, plays well within the general regex syntax
 and has the advantage of enabling in-place substitution.
@@ -1589,7 +1695,8 @@ my $string = "abcdefg";
 $string ~~ s/ c \w+ f /SUBST/;                # -> abSUBSTg
 \end{verbatim}
 
-Here, the search part is a regex and the replacement part a simple string (no quote needed).
+Here, the search part is a regex and the replacement 
+part a simple string (no quotation marks needed).
 
 If the string is contained in the \verb'$_' topical variable,
 you don't  need to use the smartmatch operator:
@@ -1603,6 +1710,7 @@ s/c \w+ f/SUBST/;                             # -> abSUBSTg
 
 The delimiters don't need to be slashes (and this can be quite 
 useful if either the search or the replacement contain slashes):
+\index{delimiter}
 
 \begin{verbatim}
 my $str = "<c>foo</c> <a>foo</a>";
@@ -1628,7 +1736,8 @@ result.
 
 If the regex on the left-hand side contains captures, the 
 replacement part on the right-hand side can use the \verb'$O', 
-\verb'$1', \verb'$2', variables on the right side. A typical 
+\verb'$1', \verb'$2', variables on the right side to insert 
+captured substrings in the replacement text. A typical 
 example of that is date reformatting:
 
 \begin{verbatim}
@@ -1643,8 +1752,8 @@ $string ~~ s/(\d ** 4) \- (\d\d) \- (\d\d)/$2-$1-$0/;
 \index{adverb}
 \index{modifier}
 
-The adverbs seen above (Section~\ref{adverb}) can be used 
-with the substitution operator. 
+The adverbs discussed above (Section~\ref{adverb}) can be 
+used with the substitution operator. 
 
 The modifiers most commonly used in substitutions are the 
 {\tt :ignorecase} (or {\tt :i}) and {\tt :global} (or 
@@ -1653,7 +1762,7 @@ Subsection~\ref{adverb} of the section on regexes
 and matching. 
 
 The one specific point to be made here is that substitutions 
-are usually done only once. With the {\tt :global} (or 
+are usually done only once. But with the {\tt :global} (or 
 {\tt :g}) adverb, they will be done throughout the whole 
 string:
 
@@ -1721,6 +1830,7 @@ blunder in the management of indices (especially perhaps
 an off-by-one error). For debugging this kind of error, 
 the first move might be to print the values of the indices 
 immediately before the line where they are used.
+\index{off-by-one error}
 
 \begin{verbatim}
 sub is-reverse(Str $word1, Str $word2) {
@@ -1749,6 +1859,7 @@ The first time through the loop, the value of {\tt \$j} is 4,
 which is out of range for the string \verb"'pots'".
 The index of the last character is 3, so the
 initial value for {\tt \$j} should be {\tt \$word2.chars - 1}.
+\index{out-of-range error}
 
 Note that in the event that this was still not enough for us to 
 spot the out-or-range error, we could have gone one step 
@@ -1838,10 +1949,6 @@ indices start from 0.
 by two quotation marks.
 \index{empty string}
 
-\item[immutable:] The property of a sequence whose items cannot
-be changed.
-\index{immutability}
-
 \item[traverse:] To iterate through the items in a sequence,
 performing a similar operation on each.
 \index{traversal}
@@ -1888,6 +1995,7 @@ possible match possibilities have failed.
 \label{count_a}
 \index{count method}
 \index{method!count}
+\index{index function}
 
 Write a subroutine that uses the {\tt index} function in a 
 loop to count the number of ``a'' in \verb"'banana'",
@@ -1896,6 +2004,7 @@ any letter in any word passed as arguments to the subroutine.
 
 Write another subroutine counting a given letter in a given 
 word and using the {\tt substr} function.
+\index{substr function}
 
 Solution: \ref{sol_count_a}
 \end{exercise}
@@ -1905,12 +2014,13 @@ Solution: \ref{sol_count_a}
 
 \label{islower}
 \index{lower case!character class}
+\index{character class}
 The \verb'<[a..z]>' character class matches any lower case 
 character (only plain ASCII lower case characters, not 
 Unicode characters). The following subroutine:
 
 \begin{verbatim}[fontshape=up]
-sub is-lower (Str $char) { 
+sub is-lower (Str $input) { 
     return so $char ~~ /^<[a..z]>$/
 }
 \end{verbatim}
@@ -1921,7 +2031,7 @@ expected (and amend it if needed). The {\tt so} function
 coerces the result of the regex match into a boolean value.
 
 The following subroutines use the {\tt is-lower} subroutine 
-and are all supposedly {\em intended} to check 
+and are all {\em intended} to check 
 whether a string contains any lowercase letters, but at 
 least some of them are wrong.  Analyze each subroutine by hand, 
 determine whether it is correct and describe what it 
@@ -1930,6 +2040,8 @@ test them with various input strings to check whether your
 analysis was correct.
 
 \begin{verbatim}[fontshape=up]
+# ATTENTION: some of the subroutines below are wrong
+
 sub any_lowercase1(Str $string){
     for $string.comb -> $char {
         if is-lower $char {
@@ -2036,8 +2148,13 @@ a new string that contains the letters from the original string
 rotated by the given amount.  
 
 You might want to use the built-in functions {\tt ord}, which 
-converts a character to a numeric code, and {\tt chr}, which 
-converts numeric codes back to characters.  
+converts a character to a numeric code (Unicode code point), and 
+{\tt chr}, which converts such numeric codes back to characters.
+\index{ord function}
+\index{chr function}
+\index{function!ord}
+\index{function!chr}
+
 \begin{verbatim}[fontshape=up]
 > say 'c'.ord;
 99
@@ -2048,19 +2165,21 @@ c
 
 Letters of the alphabet are encoded in alphabetical
 order, so for example:
+\index{alphabetic order}
 
 \begin{verbatim}[fontshape=up]
 > ord('c') - ord('a')
 2
 \end{verbatim}
 
-Because \verb"'c'" is the two-eth letter of the alphabet.  But
-beware: the numeric codes for upper case letters are different.
+because \verb"'c'" is the second letter after \verb"'a'" in 
+the alphabet.  But beware: the numeric codes for upper case 
+letters are different.
 
 \index{rot13}
 Potentially offensive jokes on the Internet are sometimes 
 encoded in ROT13, which is a Caesar cipher with rotation 13. 
-Since 13 is the half the number of letters in our alphabet, 
+Since 13 is half the number of letters in our alphabet, 
 applying rotation 13 twice gives back the original word, 
 so that the same procedure can be used for both encoding 
 and decoding in rotation 13. If you are not
