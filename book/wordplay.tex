@@ -2,26 +2,36 @@
 \chapter{Case study: word play}
 \label{wordplay}
 
-This chapter presents a case study, which involves
-solving word puzzles by searching for words that have certain
-properties.  For example, we'll find the longest palindromes
+This chapter is intended to let you practice and 
+consolidate the knowledge you have acquired so far, 
+rather than introducing new concepts. To help you gain 
+experience with programming, we will cover a 
+case study, which involves solving word puzzles by 
+searching for words that have certain properties.  
+For example, we'll find the longest palindromes
 in English and search for words whose letters appear in
-alphabetical order.  And we will present another program 
+alphabetical order.  And I will present another program 
 development plan: reduction to a previously solved problem.
 
 
 \section{Reading from and writing to files}
 
-For the exercises in this chapter, we will need to read 
-text from files. In many programming languages, this often 
-means that we need a statement to open a file, then a statement 
-to read the content and finally a statement to close the file 
-(although this last operation may be performed automatically 
-in some circumstances).
+For the exercises in this chapter, we will need our 
+programs to read text from files. In many programming 
+languages, this often means that we need a statement to 
+open a file, then a statement or group of statements to 
+read the file's content and finally a statement to 
+close the file (although this last operation may 
+be performed automatically in some circumstances).
+\index{file!reading from}
+\index{file!writing to}
+\index{file!open statement}
+\index{file!close statement}
 
 We are interested here with text files that are usually 
-made of lines separated by logical new line characters,
-which may consist in one (Linux, Mac) or two (Windows) 
+made of lines separated by logical new line characters; 
+depending on your operating system, such logical new line 
+characters consist of either one (Linux, Mac) or two (Windows) 
 physical characters (bytes). 
 \index{newline character}
 
@@ -43,8 +53,8 @@ my $data = $fh.slurp-rest;
 $fh.close;
 \end{verbatim}
 %
-The {\tt :r} option is the file mode ({\tt read}). {\tt \$fh} is a common 
-name for a file handle.  The file object provides methods 
+The {\tt :r} option is the file mode ({\tt read}). {\tt \$fh} is a 
+common name for a file handle.  The file object provides methods 
 for reading, such as {\tt slurp-rest} which returns the 
 full content of the file from the current position to the 
 end (and the entire content of the file if we've just 
@@ -52,11 +62,13 @@ opened it).
 
 This is the traditional way of opening and reading files 
 in most languages.
+\index{read mode}
+\index{file mode!read}
 
 However, Perl's {\tt IO} role (in simple terms, a role is 
-a collection of methods) offers simpler methods which 
+a collection of related methods) offers simpler methods which 
 can open a file and read it all in one single instruction (i.e. 
-without having to first open a file handle):
+without having to first open a file handle and then close it):
 \index{role}
 \index{IO role}
 
@@ -89,8 +101,8 @@ to worry about them.
 \index{slurp function}
 %
 
-We haven't studied arrays yet, but you can also read a file 
-line by line into an array, with each line of the file 
+We haven't studied arrays yet, but you can also read all 
+lines of a file into an array, with each line of the file 
 becoming an array item. For example, you can load the 
 {\tt myfile.txt} file into the \verb'@lines' array:
 \index{array}
@@ -112,6 +124,8 @@ say @lines[6];
 To write data to a file, it is possible to {\tt open} a file just 
 as when wanting to read from it, except that the {\tt :w} (write) 
 option should be used:
+\index{write mode}
+\index{file mode!write}
 
 \begin{verbatim}
 my $fh = open("path/to/myfile.txt", :w);
@@ -119,15 +133,18 @@ $fh.say("line to be written to the file");
 $fh.close;
 \end{verbatim}
 
-If the file already existed, any existing content will be 
-clobbered.
+Warning: If the file already existed, any existing content will be 
+clobbered. So be careful when you want to open a file in write mode.
 
 It is also possible to open the file in append mode, using the 
 {\tt :a} option. New data will then be added after the existing 
 content.
+\index{append mode}
+\index{file mode!append}
 
-This can be simplified using the {\tt spurt} function, which 
-opens the file, writes the data to it and closes it:
+Writing to a file can be simplified using the {\tt spurt} 
+function, which opens the file, writes the data to it 
+and closes it:
 \index{spurt function}
 
 \begin{verbatim}
@@ -137,6 +154,7 @@ spurt "path/to/myfile.txt", "line to be written to the file\n";
 Used this way, {\tt spurt} will clobber any existing content in 
 the file. It may also be used in append mode with the {\tt :append} 
 option:
+\index{spurt function!append mode}
 
 \begin{verbatim}
 spurt "path/to/myfile.txt", "line to be added\n", :append;
@@ -148,7 +166,7 @@ spurt "path/to/myfile.txt", "line to be added\n", :append;
 
 For the exercises in this chapter we need a list of English 
 words. There are lots of word lists available on the Web, 
-but the one most suitable for our purpose is one of the 
+but one of the most suitable for our purpose is one of the 
 word lists collected and contributed to the public domain 
 by Grady Ward as part of the Moby lexicon project (see 
 \url{http://wikipedia.org/wiki/Moby_Project}).  It is a 
@@ -159,10 +177,12 @@ you can download a copy, with the simpler name {\tt words.txt},
 from \url{http://thinkpython2.com/code/words.txt}.
 \index{Moby Project}
 \index{crosswords}
+\index{word list}
 
-This file is in plain text, so you can open it with a text
-editor, but you can also read it from Perl. Let's do it for 
-a start in the interactive mode (with the REPL):
+This file is in plain text (with each word of the list on 
+its own line), so you can open it with a text
+editor, but you can also read it from Perl. Let's do so 
+in the interactive mode (with the REPL):
 \index{interactive mode}
 \index{REPL}
 
@@ -176,19 +196,22 @@ aa
 \end{verbatim}
 
 The {\tt get} function reads one line from the file handle. 
+\index{get function}
 
 The first word in this particular list is ``aa'', which is 
 a kind of lava. 
 
 Printing the \verb'$line' variable between angle brackets 
-within a string shows us that {\tt get} removed the trailing 
-newline characters, in this case a \verb'\r\n' (carriage 
-return and newline) character combination, since this file was 
-apparently prepared under Windows, but we don't have to 
-worry about this since they have been removed).
+within a string shows us that the {\tt get} function removed 
+implicitly for us the trailing newline characters, in this 
+case a \verb'\r\n' (carriage return and newline) character 
+combination, since this file was apparently prepared under 
+Windows, but we don't have to worry about them since they 
+have been removed.
 
-The filehandle keeps track of where it is in the file, so
-if you call {\tt get} again, you obtain the next word:
+The filehandle keeps track of what has been read from the 
+file and what it should read next, so if you call {\tt get} 
+again, you obtain the next line:
 
 \begin{verbatim}
 > my $line = get $fh;
@@ -207,6 +230,8 @@ We need a loop to do it for us. We could insert the above
 seen above an easier and more efficient way of doing it 
 using a {\tt for} loop and the {\tt IO.lines} method, 
 without the hassle of having to open or close the file:
+\index{for loop}
+\index{IO.lines method}
 
 \begin{verbatim}
 for 'words.txt'.IO.lines -> $line {
@@ -214,11 +239,18 @@ for 'words.txt'.IO.lines -> $line {
 }
 \end{verbatim}
 %
+This code reads the file line by line, and prints each line 
+to the screen. We'll soon do more interesting things than 
+just displaying the lines on the screen.
 
 \section{Exercises}
 
-There are solutions to these exercises in the next section.
-You should at least attempt each one before you read the solutions.
+This case study chapter consists mainly of exercises and 
+solutions to them within the body of the chapter because solving the 
+exercises is the main teaching material of this chapter. Therefore, 
+solutions to these exercises are in the next sections of 
+this chapter, not in the Appendix. You should at least 
+attempt each one before you read the solutions.
 
 \begin{exercise}
 Write a program that reads {\tt words.txt} and prints only the
@@ -233,22 +265,27 @@ In 1939 Ernest Vincent Wright published a 50,000 word novel
 called {\em Gadsby} that does not contain the letter ``e''. 
 Since ``e'' is the most common letter in English, that's 
 not easy to do. In fact, it is difficult to construct a 
-solitary thought without using that most common letter.
+solitary thought without using that most common letter. 
+Such a  writing in which one letter is avoided is sometimes 
+called a lipogram.
+\index{Wright, Ernest Vincent}
+\index{Gadsby}
+\index{lipogram}
 
 Write a subroutine called \verb"has-no-e" that returns 
 {\tt True} if the given word doesn't have the letter ``e'' 
 in it.
 \label{no_e}
 
-Modify your program from the previous section to print only 
+Modify your program from the previous exercise to print only 
 the words that have no ``e'' and compute the percentage of 
 the words in the list that have no ``e''.
 
-(The word dictionary we are using is entirely in lower-case 
-letters, so you don't need to worry about any upper-case 
-``E''.)
+(The word dictionary we are using, {\tt words.txt}, is 
+entirely in lower-case letters, so you don't need to 
+worry about any upper-case ``E''.)
 
-\index{lipogram}
+
 
 \end{exercise}
 
@@ -260,7 +297,7 @@ that takes a word and a string of forbidden letters, and
 that returns {\tt True} if the word doesn't use any of 
 the forbidden letters.
 
-Modify your program to prompt the user to enter a string
+Next, modify your program to prompt the user to enter a string
 of forbidden letters and then print the number of words that
 don't contain any of them.
 Can you find a combination of 5 forbidden letters that
@@ -314,10 +351,11 @@ in common; they can be solved with the search pattern (and
 the {\tt index} function we saw in Section~\ref{find} 
 (p.~\pageref{find}). Most can also be solved using regexes.
 
-\subsection{Words longer than 20 characters}
+\subsection{Words longer than 20 characters (solution)}
 
-The simplest example ---printing the words of 
-{\tt words.txt} that are longer than 20~characters---  is:
+The solution to the simplest exercise ---printing all the 
+words of {\tt words.txt} that are longer than 
+20~characters--- is:
 
 \begin{verbatim}
 for 'words.txt'.IO.lines -> $line {
@@ -339,13 +377,13 @@ your operating system prompt:
 $ perl6 -n -e '$_.say if $_.chars > 20;' words.txt
 \end{verbatim} 
 %
-The ``-e'' option says to Perl that the script to be run 
+The ``-e'' option tells Perl that the script to be run 
 comes next on the command line between quote marks. The 
-``-n'' tells Perl to read line by line the file after the 
+``-n'' asks Perl to read line by line the file after the 
 end of the command line, to store each line in the \verb'$_' 
 topical variable, and to apply the content of the script to 
 each line. And the one-line script is just printing the 
-content  \verb'$_' if its length is greater than 20.
+content of \verb'$_' if its length is greater than 20.
 \index{topical variable}
 
 To simplify a bit, the two options \verb'-n' and \verb'-e' 
@@ -361,15 +399,15 @@ $ perl6 -ne '.say if .chars > 20' words.txt
 \end{verbatim} 
 %
 Remember that, if you're trying this under Windows, you need to 
-replace the single quotes by double quotes (and vice-versa if 
-the scripts itself contains quotes):
+replace the single quotes with double quotes (and vice-versa if 
+the scripts itself contains double quotes):
 
 \begin{verbatim}
 C:\Users\Laurent>perl6 -ne ".say if .chars > 20" words.txt
 \end{verbatim} 
 %
 
-\subsection{Words with no ``e''}
+\subsection{Words with no ``e'' (solution)}
 
 A subroutine that returns {\tt True} for words that have 
 no ``e'' (Exercise~\ref{no_e}) is also quite straight forward:
@@ -387,12 +425,12 @@ function did not find any ``e'' in the word received as
 a parameter and {\tt False} otherwise. 
 
 Note that this works correctly because the word list used 
-is entirely in lower-case letters. The above subroutine 
-would need to be modified if it might be called with words 
-containing upper-case letters. 
+{\tt words.txt}) is entirely in lower-case letters. The 
+above subroutine would need to be modified if it might 
+be called with words containing upper-case letters. 
 
-Since the {\tt defined} function returns a boolean value, this 
-could be made shorter:
+Since the {\tt defined} function returns a boolean value, we 
+could shorten our subroutine to this::
 \begin{verbatim}
 sub has-no-e (Str $word) {
     not defined index $word, "e";
@@ -447,10 +485,10 @@ Words without 'e': 37641
 Percentage of words without 'e': 33.07 %
 \end{verbatim}
 
-So, in other words, less than one third of the words of 
+So, less than one third of the words of 
 our list have no ``e''.
 
-\subsection{Avoiding other letters}
+\subsection{Avoiding other letters (solution)}
 
 \index{generalization}
 The {\tt avoids} subroutine is a more general version of 
@@ -470,12 +508,12 @@ We can return {\tt False} as soon as we find a forbidden letter;
 if we get to the end of the loop, we return {\tt True}. Since 
 a subroutine returns the last evaluated expression, we don't 
 need to explicitly use a {\tt return True} statement in the last 
-code line above. This is just here as an example, you might 
+code line above. I used this feature here as an example, you might 
 find it clearer to explicitly {\tt return} values, except 
 perhaps for very simple one-line subroutines.
 
-Note that we have here two nested loops. We could reverse the 
-outer and the inner loops:
+Note that we have here implicitly  two nested loops. We could 
+reverse the outer and the inner loops:
 
 \begin{verbatim}
 sub avoids (Str $word, Str $forbidden) {
@@ -510,10 +548,10 @@ printf "Percentage of words with no forbidden letter: %.2f %%\n",
 %
   
 
-\subsection{Using only some letters}
+\subsection{Using only some letters (solution)}
 
-\verb"uses-only" is similar except that the sense of the 
-condition is reversed:
+\verb"uses-only" is similar to our {\tt avoids} subroutine 
+except that the sense of the condition is reversed:
 
 \begin{verbatim}
 sub uses-only (Str $word, Str $available) {
@@ -530,10 +568,11 @@ of available letters.  If we find a letter in {\tt word} that
 is not in {\tt available}, we can return {\tt False}. And 
 we return {\tt True} if we reach the loop end.
 
-\subsection{Using all letters of a list}
+\subsection{Using all letters of a list (solution)}
 
-\verb"uses-all" is similar except that we reverse the role
-of the word and the string of letters:
+\verb"uses-all" is similar to the previous two subroutines, 
+except that we reverse the role of the word and the string 
+of letters:
 
 \begin{verbatim}
 sub uses-all(Str $word, Str $required) {
@@ -552,7 +591,9 @@ do not appear in the word, we can return {\tt False}.
 
 If you were really thinking like a computer scientist, you would
 have recognized that \verb"uses-all" was an instance of a
-previously solved problem, and you would have written:
+previously solved problem in reverse: if word~A uses all 
+letters of word~B, then word~B uses only letters of word~A. So, 
+we can call the {\tt uses-only} subroutine and write:
 
 \begin{verbatim}
 sub uses-all ($word, $required) {
@@ -567,7 +608,7 @@ problem and apply an existing solution.
 \index{reduction to a previously solved problem} 
 \index{development plan!reduction}
 
-\subsection{Alphabetic order}
+\subsection{Alphabetic order (solution)}
 
 For \verb"is_abecedarian" we have to compare adjacent letters. 
 Each time in our {\tt for} loop, we define one letter as our 
@@ -622,10 +663,10 @@ If we get to the end of the loop without finding a fault, then the
 word passes the test.  To convince yourself that the loop ends
 correctly, consider an example like \verb"'flossy'".  The
 length of the word is 6, so
-the last time the loop runs is when {\tt i} is 4, which is the
+the last time the loop runs is when \verb'$i' is 4, which is the
 index of the second-to-last character.  On the last iteration,
-it compares the second-to-last character to the last, which is
-what we want.
+it compares the second-to-last character (the second ``s'') to 
+the last (the ``y''), which is what we want.
 
 \subsection{Another example of reduction to a previously solved problem}
 
@@ -663,8 +704,9 @@ sub is-palindrome (Str $word) {
 \end{verbatim}
 %
 using \verb"is-reverse" from Section~\ref{isreverse} (but
-you should probably prefer to choose the corrected version 
-in the solutions chapter: see Subsection~\ref{sol_isreverse}).
+you should probably choose the corrected version of the 
+{\tt is-reversed} subroutine given in the solutions chapter: 
+see Subsection~\ref{sol_isreverse}).
 
 
 \section{Debugging}
@@ -685,7 +727,7 @@ trouble coming up with one of each.
 Within each case, there are some less obvious subcases.  Among the
 words that have an ``e'', you should test words with an ``e'' at the
 beginning, the end, and somewhere in the middle.  You should test long
-words, short words, and very short words, like the empty string.  The
+words, short words, and very short words, like an empty string.  The
 empty string is an example of a {\bf special case}, which is one of
 the non-obvious cases where errors often lurk.
 \index{special case}
