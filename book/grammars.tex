@@ -1389,11 +1389,11 @@ through a regex match. Most of what has been described
 there also applies to debugging grammars.
 
 \index{debugger!debugging grammars}
-Finally, there is a very good module, \verb'Regex::Tracer', for 
+Finally, there is a very good module, \verb'Grammar::Tracer', for 
 debugging regexes and grammars (\url{https://github.com/jnthn/grammar-debugger/}), working with Rakudo. If you add:
 
 \begin{verbatim}
-use Regex::Tracer;
+use Grammar::Tracer;
 \end{verbatim}
 
 to your program, then any grammar within the lexical scope will 
@@ -1403,8 +1403,11 @@ match, those which succeeded and those which failed.
 You can also use the following:
 
 \begin{verbatim}
-use Grammar::Tracer;
+use Grammar::Debugger;
 \end{verbatim}
+
+to do the same thing step by step. Just type ``h'' at the 
+prompt for a list of available commands.
 
 
 \section{Glossary}
