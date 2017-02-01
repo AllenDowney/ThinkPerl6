@@ -458,7 +458,7 @@ the distance between the object and the origin;
 \index{polar coordinates}
 \index{coordinates!polar}
 \item{\tt polarCoordinates}, a method to compute the radius 
-and azimuth ({\tt theta}) of the object in the polar 
+and azimuth (\verb'$theta') of the object in the polar 
 coordinates system (notice that {\tt polarCoordinates} 
 invokes the {\tt distanceToCenter} method to find the radius 
 component of the polar coordinates).
@@ -641,7 +641,7 @@ class Rectangle {
 \end{verbatim}
 %
 The new feature compared to the previous {\tt Point2D} class 
-definition is that the {\tt Rectangle} class can now use the 
+definition is that the \verb'Rectangle' class can now use the 
 {\tt Point2D} type created previously for defining the corner 
 attribute. 
 
@@ -950,8 +950,8 @@ bodies) or is a video game. In such a case, we probably want
 our points (or sets of points) to move. We need a new class, 
 {\tt MovablePoint}, enabling the modification of coordinates.
 
-Do we need to redefine all the attributes and methods for 
-the new class? No, we don't. We can define a new class that 
+We don't need to redefine all the attributes and methods for 
+the new class. We can define a new class that 
 \emph{inherits} the properties of the {\tt Point2D} base class 
 and only modify what is no longer suitable or add whatever 
 new features we need, for example:
@@ -1040,7 +1040,7 @@ Polar coordinates: radius = 15.6205, theta (rad) = 0.8761
 Here, when the user code invokes the {\tt coordinates}, 
 {\tt distanceToCenter} and {\tt polarCoordinates} methods, 
 Perl find that they do not exist in {\tt MovablePoint}. But, 
-as {\tt MovablePoint} subclasses {\tt Point2D}, the program 
+as \verb'MovablePoint' subclasses {\tt Point2D}, the program 
 looks for method having this name in the parent class and 
 invokes them if it finds them. 	If it did not find them, it 
 might look up into the parent's parent if there is any, and 

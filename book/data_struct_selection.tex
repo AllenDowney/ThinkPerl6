@@ -112,7 +112,7 @@ forms to illustrate some of the various possibilities:
 the \verb'0..9' range;
 \item The second one compares explicitly \verb'$_' to 99;
 \item The third one uses a regex to check if \verb'$_' has 
-three digit.
+three digits.
 \item The \verb'default' statement runs only if the other 
 conditions have failed.
 \end{itemize}
@@ -156,7 +156,7 @@ you might write this:
 \begin{verbatim}
 given $value {
     when 0..9      { say "One digit"}
-    when 10..99    { say "Two digits" ; proceed}
+    when 10..99    { say "Two digits"; proceed}
     when 42        { say "The response to the ultimate question"}
     when /^\d**3$/ { say "Three digits" }
     default        { say "More than three digits" }
@@ -215,7 +215,7 @@ say divide(divisor => 128, dividend => 2048);      # -> 16
 \end{verbatim}
 
 The arguments are supplied at the subroutine call as a list of 
-pairs using the colon-pair syntax. In the signature, 
+pairs using the pair-constructor syntax. In the signature, 
 the parameters are retrieved with the 
 so-called colon-pair syntax: the \verb'$dividend' parameter is 
 bound to the value of the pair whose key is ``dividend'' (2048), 
@@ -238,6 +238,8 @@ my $rect = Rectangle.new(
     color     => 'black'
 );
 \end{verbatim}
+
+Clearly, using five positional parameters would be unpractical. 
 
 \subsection{Optional parameters}
 \index{optional parameter}
@@ -488,7 +490,7 @@ with probability $1/3$.
 
 You should attempt the previous exercises before you go on. 
 Use the {\tt emma.txt} file that we have downloaded earlier 
-if you want to compare your solutions and results with ours. 
+if you want to compare your solutions and results with mine. 
 
 Here is a program that reads a file and builds a histogram of the
 words in the file:
@@ -1308,8 +1310,9 @@ your needs). In those programming languages, a linked list
 is often used to represent a variable-size collection of items.
 
 We have seen in Section~\ref{stacks_queues} how to use arrays 
-to build stacks and queues. It was fairly easy. In some lower-
-level programming languages, you would need linked lists for that.
+to build stacks and queues. It was fairly easy. In some 
+lower-level programming languages, you would need linked 
+lists for that.
 \index{stack}
 \index{queue}
 
@@ -1355,9 +1358,11 @@ Once populated, the resulting stack looks like this:
 \end{verbatim}
 
 This is just given as an example for the construction of a 
-linked list. There is no need to use anything like 
-this in Perl, since  it is much easier to implement 
-a stack using an array, as seen in Section~\ref{stacks_queues}.
+linked list. There is usually no need to use anything like 
+this in Perl, since it is much easier to implement 
+a stack using an array, as seen in Section~\ref{stacks_queues}, 
+although the same principle can be used for building more 
+advanced data structures.
 
 You might still want, as an exercise, to implement a queue 
 (see section~Section~\ref{stacks_queues}) using a linked list. 
@@ -1439,7 +1444,7 @@ The children of an element are the two locations where the
 indices are about double its index; conversely, the parent 
 of a node is located at about half its index. If the heap 
 starts at index 0, the exact formulas for a node with index 
-\verb'$n' are as follows:
+\verb'$n' are commonly as follows:
 \begin{itemize}
 \item parent: \verb'int( ($n-1)/2 )';
 \item left child: \verb'2*$n + 1';
@@ -1720,9 +1725,9 @@ doesn't know Perl.
 If you are familiar with Morse code, you know that it is a 
 system for encoding the letters of the alphabet as a series 
 of dots and dashes. For example, the famous signal {\tt ...---...} 
-represents the letters SOS, which comprise an internationally-
-recognized call for help. The table in Figure~\ref{fig.morse} 
-shows the rest of the codes.
+represents the letters SOS, which comprise an 
+internationally-recognized call for help. The table 
+in Figure~\ref{fig.morse} shows the rest of the codes.
 \index{Morse code}
 
 \begin{figure}
