@@ -2,10 +2,10 @@
 \chapter{Hashes}
 \label{hashes}
 
-This chapter presents another built-in type called a hash 
-(or sometimes hash table). Hashes are one of Perl's best 
-and most commonly used features; they are the building 
-blocks of many efficient and elegant algorithms.
+This chapter presents another built-in type called a hash. 
+Hashes are one of Perl's best and most commonly used 
+features; they are the building blocks of many efficient 
+and elegant algorithms.
 
 
 \section{A hash is a mapping}
@@ -16,6 +16,7 @@ blocks of many efficient and elegant algorithms.
 \index{key}
 \index{key-value pair}
 \index{index}
+\index{mapping}
 A {\bf hash} is like an array, but more general.  In an 
 array, the indices or subscripts have to be integers; in a hash, 
 they can be (almost) anything.
@@ -28,7 +29,7 @@ are sometimes called {\bf items} or elements.
 \index{item}
 
 In other programming languages, hashes are sometimes called 
-dictionaries, maps or associative arrays.
+dictionaries, hash tables, maps or associative arrays.
 
 In mathematical language, a hash represents a {\bf mapping}
 from keys to values, so you can also say that each key
@@ -37,14 +38,15 @@ maps from English to Spanish words, so the keys and the
 values are all strings.
 
 In Perl, hash names start with the ``\verb"%"'' sigil. To create 
-a new hash, you can just declare it this way:
+a new hash, you just declare it this way:
 
 \begin{verbatim}
 > my %eng2sp;
 \end{verbatim}
 
 This creates an empty hash. To add items to the hash, 
-you can use braces or curly brackets (or sometimes ``curlies''):
+you can use braces a.k.a. curly brackets (sometimes also 
+called ``curlies''):
 \index{curly bracket}
 \index{bracket!curly}
 \index{brace}
@@ -175,6 +177,7 @@ values, and then use a loop (or possibly a {\tt grep}) to
 look for the searched item.
 \index{values method}
 \index{method!values}
+\index{grep}
 
 \begin{verbatim}
 my @vals = values %eng2sp;
@@ -183,7 +186,7 @@ for @vals -> $value {
 }
 \end{verbatim}
 %
-Or possibly more concisely:
+Or more concisely:
 \begin{verbatim}
 say "Found it!" if grep {$_ eq 'uno'}, %eng2sp.values;
 \end{verbatim}
@@ -247,6 +250,7 @@ Remember that you can also do the same without having to
 quote the keys if you use the angle brackets quote-word 
 operator (if the keys are strings):
 \index{quote-word operator}
+\index{angle bracket}
 
 \begin{verbatim}
 %months<apr> = 4;       # same as: %months{'apr'} = 4;
@@ -268,7 +272,7 @@ apr => 4, feb => 2, jan => 1, jun => 6, mar => 3, may => 5
 
 Using {\tt push} to add a pair to a hash is not exactly the same, 
 though, as making a hash assignment: if the key already 
-exists, the old value is not replaced by the new one, but 
+exists, the old value is not replaced by the new one---instead,  
 the old and the new ones are placed into an array (or, 
 if the old value is already an array, then the new value 
 is added to the array):
@@ -278,7 +282,7 @@ is added to the array):
 {apr => 4, feb => 2, jan => [1 01], jun => 6, mar => 3, may => 5}
 \end{verbatim}
 
-To check is an element exists, use the {\tt :exists} 
+To check whether an element exists, use the {\tt :exists} 
 subscript adverb:
 \index{exists adverb}
 \index{adverb!:exists}
@@ -287,7 +291,7 @@ subscript adverb:
 True
 \end{verbatim}
 
-To check if a value is defined for a given key, 
+To check whether a value is defined for a given key, 
 use {\tt defined}:
 \index{defined}
 
@@ -324,12 +328,12 @@ To iterate over a hash, use:
 \index{values function or method}
 \index{pairs function or method}
 
-\begin{enumerate}
+\begin{itemize}
 \item {\tt kv} to retrieve the interleaved keys and values;
 \item {\tt keys} to retrieve the keys;
 \item {\tt values} to retrieve the values;
 \item {\tt pairs} to retrieve the key-value pairs;
-\end{enumerate}
+\end{itemize}
 
 For example:
 
@@ -357,7 +361,7 @@ feb => 2
 Suppose you are given a string and you want to count how many
 times each letter appears.  There are several ways you could do it:
 
-\begin{enumerate}
+\begin{itemize}
 
 \item You could create 26 variables, one for each letter of the
 alphabet.  Then you could traverse the string and, for each
@@ -374,7 +378,7 @@ and counters as the corresponding values.  The first time you
 see a character, you would add an item to the hash.  After
 that, you would increment the value of an existing item.
 
-\end{enumerate}
+\end{itemize}
 
 Each of these options performs the same computation, but each
 of them implements that computation in a different way.
@@ -403,6 +407,8 @@ term for a collection of counters (or frequencies).
 \index{histogram}
 \index{frequency}
 \index{traversal}
+\index{comb function or method}
+\index{counter}
 
 The first line of the
 function creates an empty hash.  The {\tt for} loop traverses
@@ -412,6 +418,7 @@ not in the hash, Perl creates a new item with key
 operator is called on it, so that the first value immediately 
 thereafter is 1.  If \verb'$letter'  is already in the hash,
 the value is incremented.
+\index{increment operator}
 
 Here's how it works:
 
@@ -479,10 +486,12 @@ Given a hash \verb'%hash' and a key \verb'$k', it is easy to
 find the corresponding value \verb'$val = %hash{$k}'.  
 This operation is called a {\bf lookup} and, as already 
 mentioned, this is fast even when the hash is very large.
+\index{lookup}
+\index{hash lookup}
 
 But what if you have \verb'$val' and you want to find 
 \verb'$k'? You have three problems: first, there might be 
-more than one key that maps to the value \verb'$val'. Depending 
+more than one key that maps to the value \verb'$val'; depending 
 on the application, you might be able to pick one, or you 
 might have to make an array that contains all of them.  
 Second, there is no simple syntax to do a {\bf reverse lookup}; 
@@ -491,6 +500,7 @@ the hash is large.
 
 Here is a function that takes a value and returns the first
 key that maps to that value:
+\index{reverse lookup}
 
 \begin{verbatim}
 sub reverse-lookup (%hash, $val) { 
@@ -556,13 +566,14 @@ Section~\ref{whatever star parameter} for details on the
 A reverse lookup is much slower than a forward lookup; if you
 have to do it often, or if the hash gets big, the performance
 of your program will suffer.
+\index{reverse lookup}
 
 \section{Testing for existence}
 \index{existence!testing for}
 
-A quite common task to determine whether something exists or 
+A quite common task is to determine whether something exists or 
 if a given value has already been seen in a program. Using a 
-hash is usually the best solution because finding out if 
+hash is usually the best solution because finding out whether 
 there is an entry for a given key is very simple and also 
 very efficient: you just need to store the values that you 
 want to watch as a key entry in a hash, and then check for 
@@ -575,12 +586,14 @@ you might as well store {\tt True} or any other value you
 like.
 
 Suppose we want to generate 10 random integers between 0 and 
-49, but want to make sure that the integers are unique. The 
-likelihood to have twice the same number is far from 
+49, but want to make sure that the integers are unique. We 
+can use ten times the {\tt rand} method on the desired range. But 
+the likelihood to hit twice the same number is far from 
 negligible (see Exercise~\ref{birthdays} on the so-called 
 birthday paradox and its solution (Subsection~\ref{sol_birthdays}) 
 for a similar situation). For example, trying this:
 \index{duplicate!checking}
+\index{rand function or method}
 
 \begin{verbatim}
 > my @list;
@@ -598,7 +611,7 @@ And the second try produced three pairs of duplicates:
 [45 29 29 27 12 27 20 5 28 45]
 \end{verbatim}
 
-We can use a hash to reject a generated random integer 
+We can use a hash to reject any generated random integer 
 that has already been seen. The following is a possible way to 
 code this:
 \index{rand function}
@@ -615,19 +628,19 @@ while @list.elems < 10 {
 say @list;
 \end{verbatim}
 
-Every valid integer generated is added to the \verb'%seen' 
-hash at the same time as to the output list. But before doing 
+Every valid integer generated is added to both the \verb'%seen' 
+hash and the output list. But before doing 
 that, the generated integer is checked against the 
 \verb'%seen' hash to verify that it has not been seen yet. 
-At the end, the list has ten unique (pseudo-)random integers.
+When this program is finished running, the list has ten unique (pseudo-)random integers.
 
 We have made it step by step and kept two separate data 
 structures, the \verb'@list' output array and the 
 \verb'%seen' hash, to make the process as clear as possible. 
 If you think about it, however, \verb'@list' and \verb'%seen' 
 have essentially the same content at any step through the 
-loop. We don't really need to keep track twice of the same 
-data. Since having a hash is important for checking that the 
+loop. We don't really need to keep track of the same data in 
+two places. Since having a hash is important for checking that the 
 output values are unique, we can get rid of \verb'@list' 
 and write a more concise and probably more idiomatic version 
 of the same program:
@@ -643,7 +656,7 @@ say keys %seen;      # -> (39 12 46 27 14 21 4 38 25 47)
 \end{verbatim}
 
 This can be further simplified. It is not really necessary 
-here to check if the generated integer exists in the 
+here to check whether the generated integer exists in the 
 hash: if it does exist, the old hash element will be replaced 
 by the new one, and the hash will be essentially unchanged. In 
 addition, when evaluated in a scalar numeric context, a 
@@ -664,20 +677,26 @@ perfectly fine if you prefer the second or the first version,
 maybe because you find it clearer. Use whichever version you 
 like better, or your own modified version provided it does 
 the expected work. This is Perl, \emph{there 
-is mode than one way to do it} (TIMTOWTDI).
+is more than one way to do it} (TIMTOWTDI).
 \index{TIMTOWTDI}
 
-Note however that the hash version doesn't keep the order 
+Note however that the pure hash version doesn't keep the order 
 in which the numbers were generated, so (pseudo-)randomness 
 might not be as good.
+
+Also note, by the way, that Perl has a {\tt pick} function or 
+method to choose elements at random from a list without 
+repetition.
+\index{pick}
 
 
 \section{Hash keys are unique}
 
 It is not possible to have the same key in a hash more than once. 
 Trying to map a new value to a key will replace the old 
-value with the new one. This is an example of hash creation 
+value with the new one. Here is an example of hash creation 
 with duplicates keys:
+\index{duplicate}
 
 \begin{verbatim}
 > my %friends = (Tom => 5, Bill => 6, Liz => 5, Tom => 7, Jack => 3)
@@ -686,7 +705,7 @@ Bill => 6, Jack => 3, Liz => 5, Tom => 7
 
 Because two of our friends are named Tom, we lose the data 
 associated with the first of them. This is something you should 
-be careful about: hash keys are unique, you'll lose some items  
+be careful about: hash keys are unique, so you'll lose some items  
 if the data associated with your keys has duplicates. The 
 next section will show some ways of dealing with this 
 possible problem.
@@ -706,11 +725,13 @@ a => 1, b => 1, c => 1, d => 1, e => 1, r => 1, s => 1, z => 1
 [z a e s d c b r]
 \end{verbatim}
 
-As you can see, duplicates have been removed from the output array. In such a simple case, the {\tt unique} built-in function 
+As you can see, duplicates have been removed from the output 
+array. In such a simple case, the {\tt unique} built-in function 
 would have been sufficient to remove duplicates from 
 \verb'@array', but within a more complex program, 
 it is quite common to use a hash (often called \verb'%seen') 
-to check if a value has already been seen.
+to check whether a value has already been seen.
+\index{unique function or method}
 
 \section{Hashes and arrays}
 \label{invert}
@@ -736,6 +757,8 @@ hash:
 > my %rev_months = %months.kv.reverse;
 1 => jan, 2 => feb, 3 => mar, 4 => apr, 5 => may
 \end{verbatim}
+\index{kv function or method}
+\index{reverse function or method}
 %
 
 We now have a new hash mapping month numbers to their names.
@@ -773,7 +796,7 @@ sub invert-hash (%in-hash) {
 %
 Each time through the loop, a hash item is assigned to the  \verb'$key' and \verb'$val' variables, and \verb'$key' is 
 appended to the value \verb'%output-hash' for the \verb'$val' 
-key; if that value does not exist yet, it is just created. At 
+key; if that value does not exist yet, it is created. At 
 the end of the process, the values of \verb'%output-hash' are 
 all anonymous arrays.
 
@@ -797,7 +820,13 @@ of the hash data, and that the new {\tt dd} (short for ``data
 dumper'') function used here gives more detailed information. 
 {\tt dd} is not very commonly used in normal programs, but 
 can be quite useful while debugging a program to display a 
-detailed description of a complex data structure.
+detailed description of a complex data structure 
+\footnote{To tell the full truth, {\tt dd} is not standard 
+Perl~6, it is a Rakudo-specific debugging feature. A future 
+implementation of Perl~6 not based on Rakudo might not have 
+it.}.
+\index{say function or method}
+\index{dd function}
 
 \verb'%output-hash' contains two items (two pairs) whose 
 values are anonymous arrays. You can access the second 
@@ -836,7 +865,7 @@ say %h;  # -> a => 5, b => (Any), c => (Any)
 \end{verbatim}
 
 Here, Perl interpreted the \verb'%h{@a} = 5;' assignment 
-as a a slice assignment, i.e. considered that we were 
+as a a slice assignment, i.e. assumed that we were 
 trying to populate three items in one go, one for each 
 element of the array.
 
@@ -864,7 +893,7 @@ or you might not be able to find a key.  Either way, the
 hash wouldn't work correctly.
 
 That's why keys have to be hashable, and why mutable types like
-arrays aren't. So Perl is doing something else that can be 
+arrays aren't. So Perl will do something else that can be 
 useful (such as creating three distinct hash items in the 
 example above), but will not hash the array itself.
 
@@ -909,7 +938,7 @@ calls.  At the top of the graph, {\tt fibonacci} with
 
 Count how many times {\tt fibonacci(0)} and {\tt fibonacci(1)} 
 are called.  This is an inefficient solution to the problem, 
-and it gets worse as the argument gets bigger.
+and it gets much worse as the argument gets bigger.
 \index{memo}
 
 One solution is to keep track of values that have already been
@@ -938,15 +967,16 @@ immediately.  Otherwise, it has to
 compute the new value, add it to the hash, and return it.
 
 If you run this version of {\tt fibonacci} and compare it with
-the original, you will find that it is much faster, especially for a large argument (say more than 30).
+the original, you will find that it is much faster, especially 
+for a large argument (say more than 30).
 
 \index{cache}
 \index{memoize}
-Memoizing is a form of \emph{caching}, i.e. the idea of storing 
-in memory the result of a (presumably costly) computing 
-operation in order to avoid computing it again. It is 
+Memoizing is a form of \emph{caching}, i.e. storing in memory 
+the result of a (presumably costly) computing operation in 
+order to avoid computing it again. This process is 
 sometimes called ``trading memory against CPU cycles''.  In 
-some cases, such as the Fibonacci recursive example, the gain 
+some cases, such as our Fibonacci recursive example here, the gain 
 can be absolutely huge: calculating the 100th Fibonacci 
 number would take billions of years with the original recursive 
 subroutine and it takes only a split second with the memoized 
@@ -959,7 +989,7 @@ in a hash (and it might even be slightly more efficient), but
 using a hash for such purpose is a more general solution, 
 working even when the memo keys are not consecutive integers.
 
-As an exercise, you may try to rewrite the {\tt fibonacci} subroutine 
+As an exercise, try to rewrite the {\tt fibonacci} subroutine 
 using an array instead of a hash to memoize the calculated 
 Fibonacci numbers.
 
@@ -969,8 +999,9 @@ Fibonacci numbers.
 
 You may 
 need a procedure to launch some action depending on the 
-value of a parameter received by the program. You could 
-use a series of \verb'if {...} elsif {...} else {...}' 
+value of a parameter received by the program. To do that, 
+you could use a series of 
+\verb'if {...} elsif {...} else {...}' 
 statements like this:
 
 \begin{verbatim}
@@ -992,12 +1023,12 @@ if $param eq "stop" {
 }
 \end{verbatim}
 
-This is boring and error prone. Using a dispatch table is often 
-be a simpler solution.
+This approach is boring and error prone. Using a dispatch table 
+is often a simpler solution.
 
 A dispatch table is a data structure mapping identifiers to 
-code references or subroutine objects. This could look like 
-this:
+code references or subroutine objects. Applied to the 
+above scenario, it could look like this:
 
 \begin{verbatim}
 sub run-stop  { ... };
@@ -1016,9 +1047,10 @@ die "Unknown option $param" unless %dispatch{$param}:exists;
 
 The \verb'%dispatch' hash defines the action depending on 
 the parameter used as a key. The \verb'%dispatch{$param}()' 
-calls the required action.
+statement calls the required action.
 
-This is a bit more concise and slightly cleaner, but there are some other advantages. It is more maintainable: if you need 
+This approach is a bit more concise and slightly cleaner, but there 
+are some other advantages. It is more maintainable: if you need 
 to add one option, you just need to add one entry to the hash 
 and don't have to add code in the middle of a complicated 
 chain of nested \verb'if {...} elsif {...} else {...}' 
@@ -1039,18 +1071,20 @@ and this is the most common way to implement them. If it
 makes sense to have small integers as keys, you could also 
 implement a dispatch table as an array. This is the case, 
 for example, with numbered menu items where the user is 
-prompted to type a number, for example between 1 and 5, to 
-indicate which menu option to activate.
+prompted to type a number to indicate which menu option 
+to activate.
 
 
 \section{Global variables}
 \index{global variable}
 \index{variable!global}
+\index{lexical variable}
+\index{variable!lexical}
 
 In the previous example, \verb'%known' is created outside the subroutine,
 so it belongs to the whole main package.
 Such variables are sometimes called {\bf global} 
-because they can be accessed from any function.  Unlike local
+because they can be accessed from any function.  Unlike ``local'' 
 lexical variables, which usually disappear when their scope 
 ends, global variables persist from one subroutine call to 
 the next.
@@ -1075,7 +1109,7 @@ Global variables are also sometimes used for environment
 variables and parameters passed to the program, as well
 as for storing a large 
 data structure that is the centerpiece of a program, in order 
-to avoid copying it when passing it around as arguments to 
+to avoid copying it when passing it around as an argument to 
 subroutines.
 
 But, asides from those specific cases, it is usually 
@@ -1186,7 +1220,7 @@ our previous use of the word ``value''.
 \index{hashtable}
 
 \item[hash function:] A function used by a hashtable to 
-compute the location for a key.
+compute the location of a key.
 \index{hash!function}
 
 \item[hashable:] A type that has a hash function.  Immutable
@@ -1232,8 +1266,8 @@ is true.
 \index{membership!set}
 
 Write a subroutine that reads the words in {\tt words.txt} and
-stores them as keys in a hash.  It doesn't matter what the
-values are.  Then you can use the {\tt exists} adverb
+stores them as keys in a hash.  (It doesn't matter what the
+values are.)  Then you can use the {\tt exists} adverb
 as a fast way to check whether a string is in
 the hash.
 
@@ -1264,8 +1298,8 @@ Solution: \ref{sol_mem_ackerman}.
 
 If you did Exercise~\ref{has_duplicates}, you already have
 a function named \verb"has-duplicates" that takes a list
-as a parameter and returns {\tt True} if there is any object
-that appears more than once in the list.
+as a parameter and returns {\tt True} if any object
+appears more than once in the list.
 
 Use a hash to write a faster, simpler version of
 \verb"has-duplicates". 
@@ -1280,10 +1314,11 @@ Solution: \ref{sol_has_duplicates_hash}.
 \index{rotation, letters}
 
 Two words are ``rotate pairs'' if you can rotate one of them
-and get the other (see \verb"rotate_word" in Exercise~\ref{rotate}) using the Caesar Cypher.
+and get the other (see \verb"rotate_word" in 
+Exercise~\ref{rotate}) using the Caesar Cypher.
 
-Write a program that reads a wordlist and finds all the rotate
-pairs.  
+Write a program that reads a wordlist (e.g. {\tt words.txt} 
+and finds all the rotate pairs.  
 Solution: \ref{sol_exrotatepairs}.
 
 \end{exercise}
@@ -1325,13 +1360,14 @@ the word?
 \index{word, reducible}
 
 You can use the hash from Exercise~\ref{wordlist2} above to check
-whether a string is in the word list.
+whether a string is in {\tt words.txt}.
 
 To check whether two words are homophones, you can use the CMU
 Pronouncing Dictionary.  You can download it from
 \url{http://www.speech.cs.cmu.edu/cgi-bin/cmudict}.
 
-Write a program that lists all the words that solve the Puzzler.
+Write a program that lists all the words in {\tt words.txt} 
+(or in the CMU dictionary) that solve the Puzzler.
 Solution: \ref{sol_homophones}.
 
 \end{exercise}

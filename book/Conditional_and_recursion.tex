@@ -382,6 +382,7 @@ Perl does not try to check whether the number is positive or
 even whether it is defined. It is sometimes said that 
 these operators ``short circuit'' unnecessary conditions.
 \index{short-circuit boolean operators}
+\index{short-circuit evaluation}
 
 Similarly, in the following code, the {\tt compute-pension} 
 subroutine will not even be called if the person's age is 
@@ -638,7 +639,8 @@ if 0 < $x and $x < 10 {
 }
 \end{verbatim}
 
-For this kind of conditions, Perl~6 provides a more concise option using the chained relational operators described earlier:
+For this kind of conditions, Perl~6 provides a more concise 
+option using the chained relational operators described earlier:
 
 \begin{verbatim}
 if 0 < $x < 10 {
@@ -1047,7 +1049,9 @@ take the good habit of treating the base case first.
 \section{Keyboard input}
 \index{keyboard input}
 
-The programs we have written so far accept no input from the user. They just do the same thing every time. Perl provides built-in functions that stop the program and
+The programs we have written so far accept no input from 
+the user. They just do the same thing every time. Perl 
+provides built-in functions that stop the program and
 wait for the user to type something. 
 
 For example, the {\tt prompt} function prompts the user with 
@@ -1069,7 +1073,8 @@ This is probably one of the most common ways to obtain
 interactive user input, because it is usually a good idea 
 to tell the user what is expected.
 
-Another possibility is to use the {\tt get} method (which reads a single line) on standard input:
+Another possibility is to use the {\tt get} method (which
+ reads a single line) on standard input:
 \index{get function}
 \index{function!get}
 
