@@ -44,6 +44,7 @@ check whether the \verb'$str' string matches the
 \verb'/a <[bc]>+ (\d*) [B|C]/' pattern. Remember that 
 spaces are usually not significant in a regex pattern 
 (unless specified otherwise).
+\index{pattern}
 
 The pattern is made of the following components:
 \begin{itemize}
@@ -158,7 +159,7 @@ data.
 This form of programming is widely used in logic programming 
 (e.g. Prolog), artificial intelligence, expert systems, 
 data analysis, database query languages (e.g. SQL), text and 
-code source recognition (e.g. Lex and Flex), program 
+source code recognition (e.g. Lex and Flex), program 
 compilation (e.g. Yacc or Bison), configuration management, 
 makefiles, and also in some ways functional programming.
 
@@ -290,16 +291,17 @@ Notice that the syntax with a block of code is akin
 to a subroutine or method definition. This is not a 
 coincidence, we will see that named rules are very 
 similar to methods. Especially, rules can call 
-each other (or even in some cases call themselves 
+each other (or even sometimes call themselves 
 recursively) just like methods and subroutines, and we will see 
 that this is a very powerful and expressive feature.
+\index{recursive rules}
 
 \index{named!regex}
 A named regex can be declared with 
 \verb'my regex name { regex body }', and called with 
 {\tt <name>}. 
 
-As it can be seen in the example above, a successful named 
+As you can see in the example above, a successful named 
 regex creates a named capture with the same name. If you 
 need a different name for the capture, you can do this 
 with the syntax {\tt <capturename=regexname>}. For example,
@@ -385,6 +387,7 @@ if "abc\ndef" ~~ /<line> def/ {
 
 Collectively, they are usually referred to as rules, 
 independently of the keyword used for their definition.
+\index{rule}
 
 Remember the various regexes we experimented for 
 extracting dates from a string in 
@@ -392,8 +395,9 @@ Subsection~\ref{extracting_dates}
 (p.~\pageref{extracting_dates})? The last example was 
 using subpatterns as building blocks for constructing 
 the full pattern. We could now rewrite it, with the 
-added feature of recognizing a multi-format date, as 
+added feature of recognizing a multiple date formats, as 
 follows:
+\index{date format}
 
 \index{matching a date}
 \begin{verbatim}
@@ -424,6 +428,7 @@ possible separators. Then, the {\tt date}
 named rule uses these building blocks to define an 
 alternation between three possible date formats.
 \index{token}
+\index{rule}
 
 \index{date validation}
 This checks that the day in the month is between 0 and 31 
@@ -456,6 +461,7 @@ other date formats. Solution: \ref{sol_february_rule}
 \end{exercise}
 \index{leap year}
 \index{February!number of days}
+\index{date format}
 
 Rules can (and usually should) be grouped in 
 grammars, that's in fact what they have been designed 
@@ -504,13 +510,13 @@ named rules, just in the same way as a class groups
 a number of methods. A grammar is actually a class that 
 inherits from the {\tt Grammar} superclass, which provides 
 methods such as {\tt parse} to analyze a string and 
-{\tt .parsefile} to analyze a file. Moreover, although 
-we will not do it in the scope of this book, you can 
+{\tt .parsefile} to analyze a file. Moreover, you can 
 actually write some methods in a grammar, and even import 
 some roles. And, as we shall see, grammars are often 
 associated with some actions classes or objects.
 
 \index{TOP rule}
+\index{parsing}
 Unless told otherwise, the parsing methods will look for 
 a default rule named ``TOP'' (which may be a named regex, 
 token or rule) to start the parsing. The date parsing rules 
@@ -545,6 +551,7 @@ This will print out:
  2016-02-25
 \end{verbatim}
 
+\index{code assertion}
 The code assertion within the ``TOP'' rule prevents invalid 
 dates such as ``31/04/2016'' from being matched, you would 
 need to add some code for handling the end of February dates,
@@ -577,6 +584,8 @@ important because, within a grammar, you can have many rules
 that call each other (or rules that call themselves 
 recursively), which would be unpractical if the order of 
 the rule definitions mattered.
+\index{recursive rules}
+
 
 \index{parse method}
 \index{subparse method}
@@ -587,7 +596,7 @@ the whole string to be successful. This is why we had to
 add patterns for spaces at the beginning and at the end of 
 our {\tt TOP} rule to match our strings which have some 
 spaces before and after the date itself. There is another 
-method, {\tt .subparse}, which does not have to reach the 
+method, \emph'.subparse', which does not have to reach the 
 end of the string to be successful, but we would still need to 
 have the space pattern at the beginning of the rule.
 
@@ -652,10 +661,11 @@ grammar FormalMessage is Message {
 
 The {\tt is Message} trait in the header tells Perl that 
 {\tt FormalMessage} should inherit from the {\tt Message} grammar. 
-Only two rules {\tt greet} and {\tt end} need to be 
+Only two rules, {\tt greet} and {\tt end}, need to be 
 redefined; the others (the {\tt TOP} rule 
 and the {\tt line} token) will be inherited from the 
 {\tt Message} grammar.
+\index{grammar inheritance}
 
 Let's try some code to run it:
 
@@ -880,8 +890,9 @@ possible JSON description of a person:
 \end{verbatim}
 
 \index{JSON!number}
-We've just added a {\tt Bank-account} object to provide the 
-possibility of testing JSON non-integer numbers.
+Compared to the Wikipedia example, we've just added a 
+\verb'Bank-account' object to provide the possibility 
+of testing JSON non-integer numbers.
  
 \subsection{Writing the JSON grammar step by step}
 
@@ -958,8 +969,11 @@ rule pair       { <string> ':' <value>  }
 We can use a regex feature that we haven't seen yet, the 
 quantifier modifier, to simplify the {\tt pairlist} 
 rule. To more easily match things like comma separated 
-values, you can tack on a \verb'%' modifier to any of the regular quantifiers to specify a separator that must occur between each of the matches. So, for example \verb"/a+ % ','/" will match ``a'' or 
-``a,a'' or ``a,a,a'', etc.
+values, you can tack on a \verb'%' modifier to any of 
+the regular quantifiers to specify a separator that must 
+occur between each of the matches. So, for example 
+\verb"/a+ % ','/" will match ``a'' or ``a,a'' or 
+``a,a,a'', etc.
 
 Thus, the {\tt pairlist} rule can be rewritten as follows:
 
@@ -1080,7 +1094,8 @@ really powerful. Test it for yourself. Try to change
 the grammar in various places to see if it still works. 
 You could also try to introduce errors into the JSON 
 document (for example to remove a comma between two values 
-of a list) and the match should no longer occur.
+of a list) and the match should no longer occur (or, at least, 
+should not be the same).
 
 It may be objected that this grammar covers only a subset 
 of JSON. This is sort of true, but not really: it is almost complete. 
@@ -1100,6 +1115,7 @@ as it holds in about 35~code lines.
 \subsection{Adding actions}
 \index{actions!object}
 \index{actions!class}
+\index{parse tree}
 
 The JSON grammar works fine, but printing out the tree of 
 parse objects just for our relatively small JSON document 
@@ -1171,6 +1187,8 @@ say $match.made;
 Notice that, here, we've used an actions object rather than the
 actions class, but this is just for the purpose of showing 
 how to do it, we could have used the class directly as before.
+\index{actions!object}
+\index{actions!class}
 
 \index{abstract syntax tree (AST)}
 \index{AST, abstract syntax tree}
@@ -1252,12 +1270,13 @@ element, and to run this program with the same Perl~6 compiler,
 but with this locally modified grammar.
 
 This means that it is actually possible to dynamically extend 
-the language for new needs, perhaps without even changing the compiler 
+the language for new needs, often without even changing the compiler 
 or the virtual machine. These are however advanced topics which 
 are more geared towards language gurus than to beginners. So 
 we only mention these exciting possibilities with the hope of 
 whetting your appetite and pushing you to study these further, 
 but will not dwell further on them in this book.
+\index{extending the language}
 
 \section{Debugging}
 
@@ -1378,6 +1397,7 @@ it wasn't supposed to have spaces) and needed to be fixed.
 
 If you have an actions class, you can also add print statements 
 to the actions methods.
+\index{actions!class}
 
 \index{debugger}
 \index{debugger!stepping through a regex}
@@ -1395,6 +1415,7 @@ debugging regexes and grammars (\url{https://github.com/jnthn/grammar-debugger/}
 \begin{verbatim}
 use Grammar::Tracer;
 \end{verbatim}
+\index{Grammar::Tracer}
 
 to your program, then any grammar within the lexical scope will 
 print out debugging information about the rules which tried to 
@@ -1405,6 +1426,7 @@ You can also use the following:
 \begin{verbatim}
 use Grammar::Debugger;
 \end{verbatim}
+\index{Grammar::Debugger}
 
 to do the same thing step by step. Just type ``h'' at the 
 prompt for a list of available commands.
@@ -1477,6 +1499,7 @@ be called whenever the rule matches.
 \index{calculator}
 \index{calculator!grammar}
 \index{grammar!arithmetic calculator}
+\index{arithmetic calculator}
 
 The arithmetic calculator presented in Section~\ref{actions_object} 
 above is very simplistic. In particular, it can parse only 
@@ -1497,6 +1520,7 @@ multiplications should be performed prior to additions);
 
 These are a few examples of expressions the calculator should 
 parse and compute correctly:
+\index{parse}
 \begin{verbatim}
 3 + 4 + 5;
 3 + 4 * 5;   # result should be 23
@@ -1507,6 +1531,7 @@ parse and compute correctly:
 Your mission, \verb'[Dan|Jim]', should you choose to accept it, 
 is to write such a grammar. As usual, should you fail, the 
 Government shall deny any knowledge of your actions class.
+\index{actions class}
 
 There are many possible ways to do that, the solution presented 
 in Section~\ref{sol_calculator} is only one of them.

@@ -1497,7 +1497,7 @@ Schiller
 
 Polymorphism is a way to supply a common or close interface 
 to different types. In a certain way, the inheritance examples 
-studies previously offer a form of polymorphism: the 
+studied previously offer a form of polymorphism: the 
 {\tt coordinates}, {\tt distanceToCenter} and {\tt PolarCoordinates} 
 methods are polymorphic, since they can apply to 
 {\tt Point2D}, {\tt movablePoint} and {\tt pixel} types. But 
@@ -1600,7 +1600,7 @@ of OOP.
 \index{mutator}
 \index{getter}
 \index{setter}
-In object-orienting programming, encapsulation consists in 
+In object-oriented programming, encapsulation consists in 
 protecting the data in an object from being tampered 
 directly (and possibly made inconsistent) 
 by their user, who can access such data only through
@@ -1622,7 +1622,7 @@ the open-source world, it is easy to know that), but it
 is hidden in the sense that it is usually not possible to 
 use that knowledge to bypass the supplied interface. This 
 means that the internal implementation of the object may 
-change without modifying the external behavior. If you 
+change without having to modify the external behavior. If you 
 are going to use insider knowledge, your code will 
 probably break when the internal implementation is 
 modified, so don't do that.
@@ -2259,6 +2259,8 @@ string was progressively populated letter by letter:
 
 \subsection{Stepping through a regex match}
 \label{regex-debugging}
+\index{regex}
+\index{regex!debugging}
 \index{debugger!stepping through a regex}
 The debugger can also provide useful information when the 
 code is trying to match a regex. For example, suppose we're 
@@ -2283,6 +2285,7 @@ that it matches the whole string; then, when the regex engine
 tries to match the final ``b'' of the pattern, you'll see that 
 the regex engine backtracks and gives away the ``r'' and then the 
 ``a''; finally, the regex engine succeeds with ``foob'.
+\index{backtracking}
 
 If you have difficulties understanding how regexes work or are 
 mystified by backtracking, just run the debugger on a few 
@@ -2296,7 +2299,7 @@ Windows, just type the following command at the prompt:
 C:\Users\Laurent>perl6-debug-m -e "'foobar' ~~ /f.+b/;"
 \end{verbatim}
 
-As usual, change double quotes to single quote and the other 
+As usual, change double quotes to single quotes and the other 
 way around under Unix-like platforms.
 
 Our final word on the debugger: remember you can always hit 

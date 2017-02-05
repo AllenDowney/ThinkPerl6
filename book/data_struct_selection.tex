@@ -16,7 +16,7 @@ a couple of new possibilities about subroutine signatures.
 \label{ternary operator}
 \index{ternary conditional operator}
 
-Consider the following code testing the value of a positive 
+Consider the following code that tests the value of a positive 
 integer:
 
 \begin{verbatim}
@@ -50,11 +50,12 @@ This statement checks if \verb'$num' is less than ten and, if
 true, prints ``"One digit''; if the 
 condition is false, it prints ``More than one digit''.
 
-This operator does not bring anything breaking new, it just offers 
-a more concise syntax.
+This operator does not provide any new functionality, it just 
+offers a more concise syntax.
 
 It is possible to nest several ternary operators to examine 
 successively multiple choices:
+\index{ternary conditional operator, nesting}
 
 \begin{verbatim}
 say $value < 10    ?? "One digit"     !! 
@@ -107,24 +108,30 @@ evaluation is stored (and cached) into \verb'$_'.
 Each of the {\tt when} conditions is checked against \verb'$_'. 
 We have written these conditions in three different syntactical 
 forms to illustrate some of the various possibilities:
+\index{topical variable}
+\index{alias}
 \begin{itemize}
 \item The first one checks \verb'$_' (implicitly) against 
 the \verb'0..9' range;
+\index{range operator}
 \item The second one compares explicitly \verb'$_' to 99;
-\item The third one uses a regex to check if \verb'$_' has 
+\item The third one uses a regex to check whether \verb'$_' has 
 three digits.
+\index{regex}
 \item The \verb'default' statement runs only if the other 
 conditions have failed.
+\index{default statement}
 \end{itemize}
 
-One and only one message will be printed, because the 
+Only one message will be printed, because the 
 matching process stops as soon as one condition has been 
 satisfied, and the \verb'default' clause will run if 
 no other condition has been met.
 
 If there is no specific operator in the {\tt when} clause, 
-then it will smartmatch the expression in the {\tt when} 
+then it will smart match the expression in the {\tt when} 
 clause against \verb'$_':
+\index{smart match}
 
 \begin{verbatim}
 when $foo { ... }
@@ -137,6 +144,7 @@ The {\tt when} clauses are doing the bulk of the real work. In fact,
 you can even use the {\tt when} clauses without a {\tt given}, 
 provided you assign the right value to \verb'$_', which, as you 
 hopefully remember, can be done with a {\tt for} block:
+\index{for block}
 
 \begin{verbatim}
 my $val = 7;
@@ -169,7 +177,7 @@ because the {\tt proceed} clause in the second code block
 prevents the process from stopping on the first successful match.
 
 Good, it seems, but there is a problem. The {\tt proceed} clause 
-should be used with great care, as it can easily lead 
+should be used with some care, as it can easily lead 
 to unexpected results. In fact, \emph{the code above 
 is actually wrong}: if \verb'$value' has two digits but is 
 not 42 (if it is, say, 43), the default block will also run, 
@@ -179,17 +187,12 @@ although this is obviously false.
 
 \label{proceed_ex}
 As an exercise, test the above code with various values and 
-try to find a way to fix the problem.
+try to find a way to fix the bug with the {\tt proceed} 
+clause.
 
 Solution: \ref{sol_proceed_ex}
 
-\section{Subroutines named and optional parameters}
-
-\subsection{Named parameters}
-\index{named parameter}
-\index{parameter!named}
-\index{positional parameter}
-\index{parameter!positional}
+\section{Subroutine named and optional parameters}
 
 The subroutines that we have seen so far used \emph{positional} 
 parameters, i.e. parameters whose binding with the subroutine 
@@ -197,9 +200,15 @@ call arguments rely on their order within the list of
 arguments and in the signature. This is usually fine when 
 the number of arguments passed to the subroutine is small 
 (say, three or less). 
+\index{positional parameter}
+\index{parameter!positional}
 
 When the subroutine signature becomes longer, using positional 
-arguments might become cumbersome and error-prone.
+arguments might become cumbersome and error-prone. 
+
+\subsection{Named parameters}
+\index{named parameter}
+\index{parameter!named}
 
 Named arguments may be supplied in any order: the name of 
 the parameter is bound to the argument having the same 
@@ -222,6 +231,7 @@ bound to the value of the pair whose key is ``dividend'' (2048),
 and \verb'$divisor' is similarly bound to 128, irrespective of 
 the order of the arguments in the subroutine call.
 \index{colon-pair syntax}
+\index{pair constructor}
 
 These named parameters are especially useful when the number of 
 the arguments is large. For example, we haven't covered 
@@ -247,7 +257,7 @@ Clearly, using five positional parameters would be unpractical.
 \index{variadic subroutine}
 \index{signature}
 
-Sometimes, the actual number of the arguments is not known 
+Sometimes, the actual number of arguments is not known 
 in advance: for example, a subroutine may be called with 
 a variable number of arguments. Such a subroutine is said 
 to be \emph{variadic}. You can define a parameter to be 
@@ -268,7 +278,7 @@ sub my-sub($x, $y?) {  # simple optional parameter
 \index{positional parameter}
 \index{parameter!positional}
 When using positional parameters, the optional parameters 
-always have to be the last ones of the list (after the 
+always have to be the last ones in the list (after the 
 mandatory ones).
 
 A parameter can also be made optional by supplying a default 
@@ -287,19 +297,24 @@ say my-log(32, 2);   # Log base 2              -> 5
 say my-log(100, 10); # Common log (base 10)    -> 2
 \end{verbatim}
 
+Here, if the second argument is not supplied, the default 
+value (\emph{e}) is be used instead. Conversely, if there 
+is a second argument, it overrides the default value.
+
 \index{slurpy parameters}
 \index{parameter!slurpy}
 \label{slurpy_parameters}
 Sometimes, having optional or default parameters is not good 
 enough. For example, the subroutine may have to process a list 
-containing any number of values. For this, you can use a 
-\emph{slurpy parameter}, i.e. a kind of array placed at the 
-end of the parameter list that will slurp all the remaining 
-arguments. This kind of slurpy parameter uses the ``\verb"*@"'' 
-twigil. In the following example, the subroutine takes one 
-mandatory parameter (the first number of the list) and a list 
-of additional arguments that will be stored in the \verb'@rest' 
-array:
+containing any number of values. For situations like this, 
+you can use a \emph{slurpy parameter}, i.e. a kind of array 
+placed at the end of the parameter list that will slurp up 
+all the remaining arguments. This kind of slurpy parameter 
+uses the ``\verb"*@"'' twigil. In the following example, 
+the subroutine takes one mandatory parameter (the first 
+number of the list) and a list of additional arguments 
+that will be stored in the \verb'@rest' array:
+\index{twigil}
 
 \begin{verbatim}
 sub my-sum($first-num, *@rest) {
@@ -318,7 +333,8 @@ provided in Section~\ref{sol_exercise_queue}.
 Now, let's get to the case study.
 
 As usual, you should at least attempt the exercises
-before you read the suggested solutions.
+before you read the suggested solutions, which are 
+provided in the next sections of this chapter.
 
 \begin{exercise}
 
@@ -355,7 +371,7 @@ Which author uses the most extensive vocabulary?
 \begin{exercise}
 
 Modify the program from the previous exercise to print the
-20 most frequently used words in the book.
+20 most frequently used words in a given book.
 
 \end{exercise}
 
@@ -423,12 +439,13 @@ $ perl6 -e 'say 10.rand for 1..5'
 1.82329894347025
 \end{verbatim}
  
-You should hopefully get a different output. If you want to run 
-such a one-liner under Windows, remember that you'll need to 
-replace single quotes with double quotes.
+You should hopefully get a different output than we did. If 
+you want to run such a one-liner under Windows, remember 
+that you'll need to replace single quotes with double quotes.
 
 To obtain random integers between 1 and 10, you may use 
 the {\tt Int} and {\tt rand} methods:
+\index{Int function or method}
 
 \begin{verbatim}
 $ perl6 -e 'say 11.rand.Int for 1..5'
@@ -441,6 +458,7 @@ $ perl6 -e 'say 11.rand.Int for 1..5'
 
 The {\tt pick} function or method takes a number \verb'$count'  and a list as arguments and returns \verb'$count' items chosen at 
 random and without repetition. For example:
+\index{pick function or method}
 
 \begin{verbatim}
 > say <1 3 4 5 7 9 10 12 14 42>.pick(5);
@@ -488,12 +506,21 @@ with probability $1/3$.
 
 \section{Word histogram}
 
-You should attempt the previous exercises before you go on. 
-Use the {\tt emma.txt} file that we have downloaded earlier 
-if you want to compare your solutions and results with mine. 
+You should attempt the previous exercises before you go on.
 
-Here is a program that reads a file and builds a histogram of the
-words in the file:
+For the purpose of presenting the solutions to the above 
+exercises, I've used the plain text of {\em Emma} (1816), the 
+novel by Jane Austen, downloaded from the Gutenberg project 
+(\url{http://www.gutenberg.org/files/158/158-0.txt}) and 
+saved in a file called \verb'emma.txt'. Use the same 
+text if you want to compare your solutions and results 
+with mine.
+\index{Austin, Jane}
+\index{Emma}
+\index{Project Gutenberg}
+
+Here is a program that reads the \verb'emma.txt' file and 
+builds a histogram of the words in the file:
 \index{histogram!word frequencies}
 
 \begin{verbatim}
@@ -501,7 +528,10 @@ my %histogram;
 my $skip = True; # flag to skip the header
 
 sub process-line(Str $line is copy) {
-    $skip = False if defined index $line, "*END*THE SMALL PRINT!";
+    if defined index $line, "*END*THE SMALL PRINT!" {
+        $skip = False ;
+        return;
+    }
     return if $skip;
     $line ~~ s:g/<[-']>/ /; # Replacing dashes and apostrophes with spaces
     $line ~~ s:g/<[;:,!?.()"_`]>//; # removing punctuation symbols
@@ -510,28 +540,24 @@ sub process-line(Str $line is copy) {
         %histogram{$word}++;
     }
 }
-
 process-line $_ for "emma.txt".IO.lines; 
-
 \end{verbatim}
 %
-This program reads {\tt emma.txt}, which contains the text of 
-{\em Emma} by Jane Austen.
-\index{Austin, Jane}
 
 The program reads each line of the ``emma.txt'' file and, for 
 each line, calls \verb"process-line". 
 
 \index{accumulator!histogram}
 The \verb"process-line" subroutine skips the header lines 
-(lines until a line containing the string ``*END*THE SMALL PRINT!'' 
+(i.e. all the lines until a line containing the string
+``*END*THE SMALL PRINT!'' 
 is met). It replaces dashes and apostrophes with spaces, removes 
 various punctuation characters and sets the line to lower case. 
 Finally, it splits the line into individual words which are 
 stored and counted with an accumulator in the \verb'%histogram' 
 hash.
 
-To know whether the program is doing something looking like what 
+To know whether the program is doing something like what 
 it is supposed to do, we can display a few entries of the 
 \verb'%histogram' hash:
 
@@ -590,6 +616,7 @@ say "There are $distinct-words distinct words in the book.";
 %
 Note that you could reduce the above to one code line by 
 interpolating a code block within the output string:
+\index{interpolating a code block in a string}
 
 \begin{verbatim}
 say "There are {%histogram.elems} distinct words in the book."
@@ -607,9 +634,11 @@ There are 7110 distinct words in the book.
 \section{Most common words}
 \label{most_common_words}
 
-To find the most common words, we can sort the \verb'%histogram' 
-hash according to the values (word frequencies) and retrieve the
-ten most frequent words into an array.
+To find the most common words in \verb'emma.txt', we can 
+sort the \verb'%histogram' hash according to the values 
+(word frequencies) and retrieve the ten most frequent words 
+into an array.
+\index{sort}
 
 \begin{verbatim}
 my @most_commons = (sort { %histogram{$^b} cmp %histogram{$^a} }, 
@@ -621,12 +650,13 @@ The {\tt sort} functions receives the keys of the histogram and
 its comparison function compares the values associated with 
 those keys. Since we use the key \verb'$^b' before the key 
 \verb'$^a', the sort will produce a reverse (descending) sort 
-order. The whole {\tt sort} procedure is placed within brackets, 
+order. The whole {\tt sort} procedure is placed within parentheses, 
 so that the subscript range {\tt [0..9]} acts as a slice on 
 the list produced by sort and retains only the first ten most 
 frequent words. And the result is stored into the 
 \verb'@most_commons' array. The next code line just reprocesses 
 the array to display the words and their respective frequency.
+\index{slice}
 
 This displays the following output:
 
@@ -643,6 +673,9 @@ was     2400
 she     2364
 \end{verbatim}
 %
+If you want to see more interesting words, you might, as a
+further exercise, filter the histogram and retain only 
+words that have more than, say, four letters.
 
 The \verb'@most_commons ' temporary array is not really needed. 
 We could do the whole thing in a single statement:
@@ -663,6 +696,21 @@ completed, the subscript range \verb'[0..9]' retains the ten
 most frequent words and feeds them into the map statement, 
 which produces the list of words and frequencies for the final 
 output.
+
+Let me add one word of caution here: sorting the histogram by 
+values and picking up the top ten to get the most frequent 
+words is probably the easiest way to solve the problem and the 
+shortest code to do it. That's the reason I have used this 
+solution here. But it is not the most efficient solution 
+from the standpoint of the run time, because it involves the 
+cost of sorting a relatively large data set, whereas we are 
+using only a small part of the sorted data. There are some 
+better algorithms to do that from the standpoint of runtime 
+efficiency, but they are more complicated. So, there is a 
+trade-off here between coding efficiency and performance. 
+Assuming this is code that we want to run only once, I have 
+chosen to favor coding efficiency.
+
 \index{data pipeline programming}
 
 
@@ -672,7 +720,8 @@ output.
 
 We have seen earlier in this chapter that subroutines can 
 take optional parameters. We can use this functionality to 
-write a subroutine that prints the most common words.
+write a subroutine that prints the most common words in the 
+\verb'%histogram' hash extracted from \verb'emma.txt'.
 
 \begin{verbatim}
 display-most-common(%histogram, 5);
@@ -702,11 +751,11 @@ the default value for the second parameter is 10.
 \index{hash!subtraction}
 \index{subtraction!hash}
 
-Finding the words from the book that are not in the word list
-from {\tt words.txt} is a problem you might recognize as set
+Finding the words from \verb'emma.txt' that are not in the word list
+{\tt words.txt} is a problem you might recognize as set
 subtraction; that is, we want to find all the words from one
-set (the words in the book) that are not in the other (the
-words in the list).
+set (the words in \verb'emma.txt') that are not in the other (the
+words in \verb'words.txt').
 
 {\tt subtract} takes hashes \verb'%main' and \verb'%dict' and 
 returns a new hash that contains all the keys from \verb'%main' 
@@ -723,7 +772,7 @@ sub subtract (%main, %dict) {
 }
 \end{verbatim}
 %
-To find the words in the book that are not in {\tt words.txt},
+To find the words in \verb'emma.txt' that are not in {\tt words.txt},
 we need to load the word list into a hash and to call 
 {\tt subtract}, passing the two hashes as arguments. We also 
 add some code to print the first twenty words not found in the 
@@ -739,7 +788,10 @@ say %unknown-words.keys.head(20);
 Notice that rather than using a subscript slice, we have used 
 here the {\tt head} method to print out the first twenty words of 
 the list. This is just another way to get the first ``n'' items 
-of a list or array.
+of a list or array. There is also a {\tt tail} method to 
+retrieve the last ``n'' items of a list or an array.
+\index{head method}
+\index{tail method}
 
 Here are some of the results from {\em Emma}:
 
@@ -749,11 +801,12 @@ italian sunday solicitously blockhead unbleached ult 26th
 christian 7th untouched iii greensward houseroom tete)
 \end{verbatim}
 %
-Some of these words are names and possessives.  Others are rare 
-or no longer in common use.  But a few are common
+Some of these words are names and ordinal numbers.  Others 
+are rare or no longer in common use.  But a few are common
 words that should really be in the list!
 
-Note that we have used a hash here to store the missing words. 
+Note that I have used a hash (\verb'%unknown-words') here to 
+store the words of \verb'emma.txt' not found in the word list. 
 Since we are using the data only to print a sample of 20 words, 
 we could have used an array as well.
 
@@ -765,8 +818,9 @@ we could have used an array as well.
 \index{new operators!creating}
 \index{overload operators}
 \index{operator!overloading}
+\index{operator construction}
 
-The previous section about hash subtraction is an excellent 
+Learning about hash subtraction is an excellent 
 opportunity to introduce a very interesting functionality of 
 Perl~6: the capacity to construct new operators or to 
 redefine existing ones.
@@ -799,7 +853,7 @@ on the signature. Here we define the minus operator as a
 multi subroutine whose parameters are two hashes; this will be 
 enough for the Perl compiler to know that we don't want 
 the regular subtraction between numerical values, but something 
-else applying to two hashes. The minus operator is defined as 
+else that applies to two hashes. The minus operator is defined as 
 ``infix'', which means that the operator will be placed 
 between its two operands.
 
@@ -830,7 +884,8 @@ postfix ``!'' operator for computing the factorial of an integer:
 say 5!;     # -> 120
 \end{verbatim}
 %
-Also try to think how you would test it against various input values.
+Also try to think how you would test this new ``!'' operator 
+against various input values.
 Solution: \ref{sol_fact_operator}
 
 
@@ -885,13 +940,17 @@ bag(banana(2), orange(3), pear, apple(2))
 2
 \end{verbatim} 
 
-Mixes are similar to bags, except that the element's weights don't 
+Mixes are similar to bags, except that the elements' weights don't 
 have to be integers.
 
 The interesting thing about these collections is that they can use 
-many set operators, such as the \verb'∈' or \verb'(elem)' 
-set membership operator, the \verb'∩' or \verb'(&)' set intersection 
-operator or the \verb'⊂' or \verb'(<)' subset operator:
+many set operators commonly used in mathematics, such as the 
+\verb'∈' set membership operator (or use \verb'(elem)' instead 
+if you don't know how to type \verb'∈' in your 
+editor~\footnote{I can't teach you here how to type these characters, 
+because each editor will require a different method.}), the \verb'∩' or 
+\verb'(&)' set intersection operator or the \verb'⊂' or 
+\verb'(<)' subset operator:
 
 \begin{verbatim}
 > say "Found it!" if 'apple' ∈ $s;
@@ -902,9 +961,9 @@ Is subset!
 set(banana, orange)
 \end{verbatim}
 
-Notice that we haven't used the {\tt set} keyword to define 
-the \verb'<orange banana>' list in the second example above. 
-This list has been coerced to a {\tt Set} to check if it was a subset 
+Notice that we haven't used the {\tt set} keyword to define the 
+\verb'<orange banana>' list in the second example above. This list 
+has been coerced to a {\tt Set} to check whether it was a subset 
 of the \verb'$s' set. This is one of the great things about these 
 collections: most of these set operators can be used with lists, 
 arrays and hashes.
@@ -966,7 +1025,7 @@ say $unknown-words.keys.head(20);
 \end{verbatim}
 
 There are more than 30~set operators available, covering most of 
-the set operators commonly used in mathematics, I've only shown 
+the set operators used in mathematics, I've only shown 
 some that are the most likely to be useful. Check into the 
 official documentation (\url{https://doc.perl6.org/language/setbagmix} 
 if you need some others.
@@ -974,9 +1033,9 @@ if you need some others.
 \label{diff_with_set}
 As an exercise, you may rewrite the {\tt process-line} 
 subroutine or replace it to use a set or a bag instead of a hash 
-to store the words of the book (and possibly adapt the rest of 
-the program where needed), in order to find the words of the book 
-that are not in the word list.
+to store the words of \verb'emma.txt' (and possibly adapt the rest of 
+the program where needed), in order to find the words of the \verb'emma.txt' 
+that are not in the \verb'words.txt'.
 Solution: \ref{sol_diff_with_set}
 
 
@@ -986,7 +1045,8 @@ Solution: \ref{sol_diff_with_set}
 
 To choose random words from the histogram, the simplest algorithm
 is to build a list with multiple copies of each word, according
-to the observed frequency, and then choose from the list:
+to the observed frequency, and then choose from the list with the 
+\verb'pick' function:
 \index{pick}
 
 \begin{verbatim}
@@ -1009,7 +1069,8 @@ An alternative is:
 
 \begin{enumerate}
 
-\item Use {\tt keys} to get a list of the words in the book.
+\item Use {\tt keys} to get a list of the words in \verb'emma.txt'.
+\index{keys function}
 
 \item Build a list that contains the cumulative sum of the word
   frequencies (see Exercise~\ref{cumulative}).  The last item
@@ -1018,8 +1079,10 @@ An alternative is:
 \item Choose a random number from 1 to $n$.  Use a bisection search
   (See Exercise~\ref{bisection}) to find the index where the random
   number would be inserted in the cumulative sum.
+\index{bisection search}
 
-\item Use the index to find the corresponding word in the word list.
+\item Use the index to find the corresponding word in the newly 
+created word list.
 
 \end{enumerate}
 
@@ -1027,8 +1090,8 @@ An alternative is:
 \label{randhist}
 \index{algorithm}
 
-Write a program that uses this algorithm to choose a random word from
-the book.  
+Write a program that uses this algorithm to choose a random 
+word from \verb'emma.txt'.  
 Solution: \ref{sol_randhist}
 \end{exercise}
 
@@ -1062,7 +1125,7 @@ picked more often than the others, and the least common,
 draw. 
 
 As an exercise, you may want to adapt this code to 
-choose random words from the book.
+choose random words from \verb'emma.txt'.
 
 
 
@@ -1070,7 +1133,7 @@ choose random words from the book.
 \label{markov}
 \index{Markov analysis}
 
-If you choose words from the book at random, you can get a
+If you choose words from \verb'emma.txt' at random, you can get a
 sense of the vocabulary, but you probably won't get a sentence:
 
 \begin{verbatim}
@@ -1086,9 +1149,11 @@ or adverb.
 One way to measure these kinds of relationships is Markov
 analysis, which characterizes, for a given sequence of words, 
 the probability of the words that might come next.  For example, 
-the second chapter of \emph{The Little prince} (1943), the 
+the second chapter of \emph{The Little Prince} (1943), the 
 famous novella written by French writer and pioneer aviator 
 Antoine de Saint-Exupéry, begins:
+\index{The Little Prince (novella by Saint-Exupéry)}
+\index{Saint-Exupéry, Antoine de}
 
 \begin{quote}
 The first night, then, I went to sleep on the sand, a thousand miles from any human habitation. I was more isolated than a shipwrecked sailor on a raft in the middle of the ocean. Thus you can imagine my amazement, at sunrise, when I was awakened by an odd little voice. It said:
@@ -1161,9 +1226,9 @@ Markov analysis:
 analysis.  The result should be a hash that maps from
 prefixes to a collection of possible suffixes.  The collection
 might be an array, a hash, a set, a bag, etc.; it is up to you 
-to make an appropriate choice.  You can test your program with prefix
-length two, but you should write the program in a way that makes
-it easy to try other lengths.
+to make an appropriate choice.  You can test your program with 
+prefix length two, but it would be nice to write the program 
+in a way that makes it easy to try other lengths.
 
 \item Add a function to the previous program to generate random text
 based on the Markov analysis.  Here is an example from {\em Emma}
@@ -1207,6 +1272,8 @@ study our solution in Subsection\ref{sol_markov_analysis}.
 Using Markov analysis to generate random text is fun, but there is
 also a point to this exercise: data structure selection.  In your
 solution to the previous exercises, you had to choose:
+\index{fun}
+\index{data structure selection}
 
 \begin{itemize}
 
@@ -1221,9 +1288,11 @@ the collection of possible suffixes.
 
 The last one is easy: a hash is the obvious choice
 for a mapping from keys to corresponding values.
+\index{hash}
 
 For the prefixes, the most obvious options are a string or
 a list of strings.
+\index{string}
 
 For the suffixes,
 one option is a list; another is a histogram (hash).
@@ -1232,7 +1301,7 @@ one option is a list; another is a histogram (hash).
 How should you choose?  The first step is to think about
 the operations you will need to implement for each data structure.
 For the prefixes, we need to be able to remove words from
-the beginning and add to the end.  For example, if the current
+the beginning and add words to the end.  For example, if the current
 prefix is ``draw me'', and the next word is ``a'', you need
 to be able to form the next prefix, ``me a'' in order to find 
 the next suffix, ``sheep''.
@@ -1320,6 +1389,7 @@ In Perl, a linked list item may be represented by a pair
 (an object of type \verb'Pair'). The 
 following code is a very simple example showing how 
 we could implement a stack using a linked list in Perl:
+\index{pair}
 
 \begin{verbatim}
 sub add-to-stack (Pair $stack-top, $item) {
@@ -1363,6 +1433,7 @@ this in Perl, since it is much easier to implement
 a stack using an array, as seen in Section~\ref{stacks_queues}, 
 although the same principle can be used for building more 
 advanced data structures.
+\index{linked list}
 
 You might still want, as an exercise, to implement a queue 
 (see section~Section~\ref{stacks_queues}) using a linked list. 
@@ -1370,6 +1441,15 @@ You might still want, as an exercise, to implement a queue
 \subsection{Trees}
 \label{tree}
 \index{tree}
+\index{node (tree)}
+\index{leaf (tree)}
+\index{root (tree)}
+\index{tree!node}
+\index{tree!leaf}
+\index{tree!root}
+\index{forest}
+\index{child node (tree)}
+\index{parent node (tree)}
 
 A tree is usually a collection of items in which each 
 item (or \emph{node}) holds a value (or possibly 
@@ -1388,13 +1468,13 @@ their descriptions have filled entire books about computer
 science algorithms. Some are designed 
 to keep the data sorted, others to maintain balance between 
 the tree branches, and so on. The data structure is often 
-not very complicated, but the algorithms to maintain the 
+not very complicated, but the algorithms needed to maintain the 
 required properties sometimes can be a bit hairy.
 
 For example, a 
 typical tree might hold one value and two links, one to 
 the left child and one to the right child. You 
-might implement such a binary tree in a similar way as the 
+might implement such a \emph{binary tree} in a similar way as the 
 linked list described above, except that the value 
 would no longer be a link to the next element, but an 
 array of two elements, the links to the two children. 
@@ -1416,6 +1496,7 @@ The next section examines such an example.
 \subsection{Binary heaps}
 \label{heap}
 \index{heap}
+\index{binary heap}
 
 A binary heap is a binary tree that keeps a partial order: each 
 node has a value larger that its parent and less than 
@@ -1589,7 +1670,7 @@ children):
 \index{debugging}
 
 When you are debugging a program, and especially if you are
-working on a hard bug, there are some things to try:
+working on a hard bug, here are some things to try:
 
 \begin{description}
 
@@ -1606,7 +1687,7 @@ program that enables you to run a program step by step,
 to follow the execution path and to check the content of important 
 variables at crucial points in the program execution, to set 
 break points, etc. Perl~6 provides a debugger, called 
-{\tt perl6-debug}, making all these things possible. With the 
+{\tt perl6-debug}, that makes all these things possible. With the 
 advent of modern high-level languages, many people balk at 
 using a debugger. This is a mistake, a debugger will not help 
 solve every kind of problem, but it can be immensely 
@@ -1624,8 +1705,8 @@ last, before the problem appeared?
 sometimes find the answer before you finish asking the question.
 Often you don't need the other person; you could just talk to a rubber
 duck.  And that's the origin of the well-known strategy called {\bf
-rubber duck debugging}.  We are not making this up; see
-  \url{https://en.wikipedia.org/wiki/Rubber_duck_debugging}.
+rubber duck debugging}.  I am not making this up; see 
+\url{https://en.wikipedia.org/wiki/Rubber_duck_debugging}.
 \index{rubber duck debugging}
 
 \item[Retreating:] At some point, the best thing to do is back
@@ -1719,6 +1800,10 @@ doesn't know Perl.
 \section{Exercises: Huffman coding}
 \label{huffman_exercise}
 
+Huffman coding is a technique used for data compression, i.e. 
+to reduce the size of a piece of data (such as, for example, 
+compressing a file).
+
 \subsection{Variable-length codes}
 \index{variable-length code}
 
@@ -1761,7 +1846,8 @@ uses a variety of data structures.
 Here is an outline of what we will do until the end of this 
 chapter.
 
-\begin{itemize}
+\begin{enumerate}
+
 \item First, we will use a sample of English text to generate 
 a table of characters and their frequencies.
 
@@ -1771,7 +1857,7 @@ table.
 \item Finally, we will encode a message with this code table 
 and then decode it.
 
-\end{itemize}
+\end{enumerate}
 
 \subsection{The frequency table}
 \index{frequency table}
@@ -1801,9 +1887,8 @@ a variety of other Web sites.
 \begin{exercise}
 \label{letter_frequency}
 Write a program that counts the number of times each letter 
-appears in a sample text. Download the text of your favorite 
-public-domain short story, and analyze the frequency of 
-the letters.
+appears in a sample text. Download the text of ``The Gold Bug'' 
+and analyze the frequency of the letters.
 
 Solution: see Section~\ref{sol_letter_frequency}
 \end{exercise}
@@ -1811,10 +1896,12 @@ Solution: see Section~\ref{sol_letter_frequency}
 \subsection{Building the Huffman code}
 \index{Huffman!code}
 
-For our purpose, the Morse code has one defect: it is not using  
-two symbols, but actually three: in addition to the dots and 
-dashes, it it also implicitly using the space between two symbols, 
-as well as a longer space between two letters.
+For our purpose, the Morse code has one defect: it does not 
+use just two symbols as you might think, but actually three: 
+in addition to the dots and dashes, it it also implicitly 
+using the space between two symbols, as well as a longer space 
+between two letters.
+\index{Morse code}
 
 The reason why some space is needed is quite simple. Refer to the Morse 
 code table above and suppose you receive three dots (\verb'...'). 
@@ -1827,7 +1914,7 @@ transmission much slower.
 David A. Huffman invented in 1951 a code-building technique avoiding 
 this problem: provided that you know where a given letter starts, 
 it is totally unambiguous. For example, we will meet later a Huffman 
-code for a small subset of the alphabet looking like this:
+code for a small subset of the alphabet that looks like this:
 \index{Huffman, David A.}
 \index{Huffman!code}
 
@@ -1855,8 +1942,10 @@ possible to unambiguously decode a letter.
 
 \index{DNA}
 How can we build such a Huffman code? Let's do it by hand with a 
-simple alphabet: the four letters of the nucleo-bases of DNA: A, 
+very simple alphabet: the four letters of the nucleo-bases of DNA: A, 
 C, T and G. Suppose we want to encode the following input string:
+\index{DNA (deoxyribonucleic acid)}
+\index{alphabet}
 
 \begin{verbatim}
 CCTATCCTCGACTCCAGTCCA
@@ -1873,8 +1962,8 @@ G :     2        9.52
 \end{verbatim}
 
 To build the Huffman code, we start with the two less frequent 
-letters, merge them into one new temporary symbol, ``GA'', which 
-we pretend for a while to be a new composite letter with a 
+letters, merge them into one new temporary symbol, ``\verb"[GA]"'', 
+which we pretend is a new composite letter with a 
 frequency of 6. At this point, we decide that, between two letters, 
 the less frequent one will have an appended dot and the other 
 an appended dash (this is an arbitrary choice, it could be done 
@@ -1904,8 +1993,13 @@ G => --.
 A => ---
 \end{verbatim}
 
-Encoding manually the \verb'CCTATCCTCGACTCCAGTCCA' input string 
+Notice that, by construction, the most frequent letter (C) 
+has the shortest code and the least common letters (G and A) 
+the longest codes.
+
+Manually encoding the \verb'CCTATCCTCGACTCCAGTCCA' input string 
 with this code yields the following pseudo-Morse code:
+\index{pseudo-Morse code}
 
 \begin{verbatim}
 ..-.----...-..--.---.-...-----.-...---
@@ -1923,13 +2017,17 @@ and \verb'-.' can only be a ``T'', and so on.
 In a real-life Huffman encoding for text file compression, 
 we would not use dots and dashes, but 0 and 1 bits; however,  
 dots and dashes are just another nice way of representing 
-those binary values.
+those binary values. So, let's just pretend that dots and dashes 
+are really 0 and 1 binary numbers.
+\index{binary number}
+\index{bit}
 
 \index{data compression}
 Did we really achieve data compression? Our pseudo-Morse string has 
 38~binary symbols. The original input string had 21 characters 
 or bytes, that is 168 bits. The data has been compressed by a 
 factor of about 4.4. 
+\index{byte}
 
 Is Huffman coding better than a fixed-length code? A string 
 representation where each letter would be represented by two 
@@ -1938,12 +2036,12 @@ bits (two bits can represent four letters) would require
 than a fixed-length encoding (by about 10\%). This may seem 
 to be a small achievement, but this is actually quite good with 
 such a small alphabet. With real text data, Huffman coding can 
-achieve real significant data compression.
+achieve significant data compression.
 
 
 \begin{exercise}
 \label{huffman_code_2}
-\begin{itemize}
+\begin{enumerate}
 \item Write a program that performs Huffman encoding of a simple string 
 of characters. You may start with the DNA example above. Don't 
 worry, though, if you don't get the same Huffman table as the one 
@@ -1952,13 +2050,14 @@ string; but check that you obtain an unambiguous code.
 \index{Huffman!code}
 \item Try it 
 then with strings having a larger alphabet (but you'll probably 
-want to stay at start with a relatively small alphabet, because it can 
+want to start with a relatively small alphabet, because it can 
 otherwise be tedious to check the result by hand).
 \item Write a subroutine to encode an input string into 
 pseudo-Morse using the generated Huffman table.
-\item Write a subroutine to decode the pseudo-Morse output of 
-the previous question.
-\end{itemize}
+\index{alphabet}
+\item Write a subroutine to decode the pseudo-Morse output 
+you've just generated for the previous question.
+\end{enumerate}
 %
 Solution: see Section~\ref{sol_huffman_code_2}.
 \index{Huffman!code}
