@@ -19,7 +19,7 @@ way to implement abstraction and encapsulation.
 
 Perl~6 is an {\bf object-oriented programming language}, which means
 that it provides features that support object-oriented
-programming, which in turn has these defining characteristics:
+programming, which has these defining characteristics:
 \index{object-oriented programming}
 
 \begin{itemize}
@@ -56,7 +56,7 @@ introduction to the jargon associated with it.
 
 \index{object}
 In computer science, an object may loosely describe a memory 
-location or an entity having a value and often referred to 
+location or an entity having a value, and often be referred to 
 by an identifier. This can be a variable, a data structure, 
 an array, or possibly even a function. This general meaning 
 is not the sense that we will use in this chapter.
@@ -111,6 +111,13 @@ method on a simple string:
 "foo".say;           # -> foo
 \end{verbatim}
 
+Note that ``foo'' isn't an object, but a simple string, but 
+you can invoke the \verb'say' method on it, because Perl 
+can treat it internally as an object when needed. In some 
+OOP languages, this implicit conversion of a native type 
+into an object is sometimes called autoboxing.
+\index{autoboxing}
+
 You probably also remember that methods can be chained in a 
 process where the value returned by a method becomes the 
 invocant for the next method:
@@ -138,17 +145,17 @@ object is a kind of black box that hides its internals
 (data and code) from the user; the user can consult or change 
 the state of an object through the methods. Hiding the 
 internals of objects is called {\bf encapsulation}. This 
-often enables a better data abstraction than what we have 
-seen so far; this in turns helps to make programs less 
-buggy (especially large programs).
+often enables a higher-level view and a better data 
+abstraction than what we have seen so far; this in turns 
+helps to make programs less buggy (especially large programs).
 
 In addition, OOP usually also offers the following concepts:
 \begin{itemize}
-\item{polymorphism}
+\index{polymorphism}
 \item polymorphism, i.e. the possibility for a function or 
 a method to do different things depending of the type of 
 object which calls it;
-\item{inheritance}
+\index{inheritance}
 \item inheritance, i.e. the possibility to derive a class from 
 another class, so that the child class inherits some of 
 the properties of the parent class, which is a powerful tool 
@@ -250,7 +257,7 @@ You can of course create as many points as you wish.
 \index{object!constructor}
 The {\tt new} method is called a {\bf constructor} and has not 
 been defined in this example; this is not needed because 
-Perl~6 is supplying a default {\tt new} constructor method for 
+Perl~6 supplies a default {\tt new} constructor method for 
 every class (we'll see later how). The method invocation 
 syntax, with the dot-notation, is the same as what we have 
 used throughout the book to invoke built-in methods. You 
@@ -265,10 +272,10 @@ and the object is an {\bf instance} of the class.
 \index{object!instance}
 \index{instantiation}
 
-Every object is an instance of some class, so ``object'' and
-``instance'' are interchangeable.  But we will often use
-``instance'' to indicate that we are talking about an 
-object belonging to a programmer-defined type.
+Every object is an instance of some class, so the terms 
+``object'' and ``instance'' are interchangeable.  But 
+we will often use ``instance'' to indicate that we are 
+talking about an object belonging to a programmer-defined type.
 \index{type}
 \index{programmer-defined type}
 
@@ -278,16 +285,16 @@ object belonging to a programmer-defined type.
 \index{attribute!instance}
 \index{dot notation}
 
-The attributes that have been defined are properties associated 
+The attributes that we have defined are properties associated 
 with the {\tt Point2D} class, but they are specific to the 
 instance of the class that has been created. They are 
 instance attributes. If we create another {\tt Point2D} object, 
 it will also have these attributes, but the values of 
 these attributes are likely to be different. 
 
-The following diagram shows the result of these assignments.
+Figure~\ref{fig.point2d} shows the result of these assignments.
 A state diagram that shows an object and its attributes is
-called an {\bf object diagram}; see Figure~\ref{fig.point2d}.
+called an {\bf object diagram}.
 \index{state diagram}
 \index{diagram!state}
 \index{object diagram}
@@ -356,7 +363,8 @@ my $dist-to-center = sqrt($point.abscissa ** 2 + $point.ordinate ** 2);
 %
 
 There is another way to declare an attribute in a class, with 
-an exclamation mark instead of a dot:
+an exclamation mark twigil instead of a dot:
+\index{twigil}
 
 \begin{verbatim}
     has $!abscissa;  
@@ -381,8 +389,8 @@ This means you cannot modify them once the object has been created.
 This is fine for some attributes: if an object represents a 
 person, that person's name and birth date are unlikely to 
 change. Some other attributes may need to be updated, sometimes 
-very frequently. Attributes can be declared to be mutable 
-with the {\tt is rw} trait:
+very frequently. In such cases, attributes can be declared 
+to be mutable with the {\tt is rw} trait:
 \index{is rw trait}
 \index{trait!is rw}
 
@@ -409,12 +417,13 @@ say $point;    # -> Point2D.new(abscissa => 5, ordinate => 4)
 
 \index{class attribute}
 \index{attribute!class}
-Almost all of the above related to instance attributes. You 
-can also have attributes pertaining to the whole class, which 
-are named \emph{class attributes}. They are less common than 
-instance attributes and are declared with the 
-{\tt my} declarator (instead of {\tt has}). A typical example 
-of a class attribute would be a counter at the class level 
+Almost all of the information presented so far about attributes 
+related to instance attributes, i.e. to properties related to 
+individual objects. You can also have attributes pertaining 
+to the whole class, which are named \emph{class attributes}. 
+They are less common than instance attributes and are declared 
+with the {\tt my} declarator (instead of {\tt has}). A typical 
+example of a class attribute would be a counter at the class level 
 to keep track of the number of objects that have been 
 instantiated. 
 
@@ -481,14 +490,14 @@ is that, since there may be several methods with the same name
 defined in different classes (or different roles), a method 
 invocation involves a \emph{dispatch} phase, in 
 which the object system selects which method to call, usually 
-based on the class or type of the invocant. Except that, in 
+based on the class or type of the invocant. However, in 
 Perl~6, that difference is blurred by the fact that you can 
 have multi subroutines, i.e. subroutines with the same name 
 and a different signature that are also resolved at run time, 
 depending on the \emph{arity} (number of arguments) and type of 
 the arguments. 
 \index{arity}
-
+\index{type}
 
 Within a method definition, {\tt self} refers to the 
 \emph{invocant}, the object that invoked the method. 
@@ -560,7 +569,7 @@ given $point {
 }    
 \end{verbatim}
 
-As an exercise, you may write a method called 
+As an exercise, you could write a method called 
 \verb"distance_between_points" that takes two Points 
 as arguments and returns the distance between
 them using the Pythagorean theorem.
@@ -606,8 +615,8 @@ Sometimes it is obvious what the attributes of an object should be,
 but other times you have to make decisions.  For example, imagine you
 are designing a class to represent rectangles.  What attributes would
 you use to specify the location and size of a rectangle?  You can
-ignore angle; to keep things simple, assume that the rectangle is
-either vertical or horizontal.
+ignore angle; to keep things simple, assume that the rectangle's edges 
+are either vertical or horizontal.
 \index{representation}
 
 There are at least two possibilities: 
@@ -647,13 +656,14 @@ attribute.
 
 The {\tt topLeft} method returns the coordinates of 
 the top left angle of the rectangle. This {\tt topLeft} 
-method is an opportunity to explain a bit more 
+method gives us an opportunity to explain a bit more 
 the difference between the \verb'$.' and \verb'$!' twigils. We have 
-used \verb'$.corner.abscissa' to access to the abscissa of 
-the corner, i.e. in effect two accessor invocations. We could 
-have accessed directly to the {\tt corner} and {\tt height} 
+used \verb'$.corner.abscissa' to obtain the abscissa of 
+the corner, i.e. in effect an accessor invocation. We could 
+have directly accessed the {\tt corner} and {\tt height} 
 attributes of the {\tt Rectangle} class and used the following 
 method definition:
+\index{twigil}
 
 \begin{verbatim}
     method topLeft { $!corner.abscissa, $!corner.ordinate + $!height; }
@@ -688,6 +698,7 @@ in the class definition. We did that on purpose
 to show that the order is unimportant because we 
 are using named arguments.
 
+Figure~\ref{fig.rectangle} shows the state of this object.
 
 \begin{figure}
 \centerline
@@ -695,9 +706,6 @@ are using named arguments.
 \caption{Object diagram.}
 \label{fig.rectangle}
 \end{figure}
-
-
-Figure~\ref{fig.rectangle} shows the state of this object.
 
 \index{state diagram}
 \index{diagram!state}
@@ -713,9 +721,9 @@ of another class, is called {\bf object composition}. An object
 that is an attribute of another object is {\bf embedded}. Object 
 composition makes it possible to easily define nested layers of 
 abstraction and is a powerful feature of object oriented 
-programming. In our ``geometry'', we started to define a low 
-level object, a {\tt Point2D} instance, and then used that point 
-to define a higher level type, {\tt Rectangle}.
+programming. In our ``geometry'' example, we started to define 
+a low level object, a {\tt Point2D} instance, and then used 
+that point to build a higher level type, {\tt Rectangle}.
 
 
 \section{Instances as return values}
@@ -801,7 +809,7 @@ types.
 The {\tt Point2D} class is very general and could be used for 
 a variety of purposes: geometry, vector graphics, animated mangas 
 and so on. We may want to use it to display graphic data on a 
-screen. For this, we may want to create a new derived class, 
+screen. For this scenario, let's create a new derived class, 
 {\tt Pixel}, adding new properties to the point, such as color, 
 perhaps transparency, etc. 
 
@@ -820,6 +828,7 @@ green and blue (RGB) components of the pixel:
 \index{class!child}
 \index{pixel class}
 \index{RGB}
+\index{octet}
 
 \begin{verbatim}
 class Pixel is Point2D {
@@ -862,7 +871,8 @@ as well as the methods such as {\tt coordinates} defined
 in the parent class. The child class  has a new 
 attribute (the color) and two new methods.
 
-We have written here two different methods for changing the color 
+In the preceding code example, we have written two different 
+methods for changing the color 
 only to illustrate two possible syntax formats, for pedagogical 
 purpose. The first one receives a hash as a parameter, and 
 the second one uses positional parameters, which forces 
@@ -912,8 +922,8 @@ New colors:  R: 90, G: 180, B: 30
 
 To tell the truth, it was not necessary to use two different 
 method names, \verb'change_color' and \verb'change_color2', as 
-we did in the {\tt Pixel} class definition. It would just 
-work the same way if we use these definitions:
+we did in the {\tt Pixel} class definition to simplify matters. 
+It would just work the same way if we use these definitions:
 \index{pixel class}
 \index{method dispatch}
 
@@ -951,7 +961,7 @@ our points (or sets of points) to move. We need a new class,
 {\tt MovablePoint}, enabling the modification of coordinates.
 
 We don't need to redefine all the attributes and methods for 
-the new class. We can define a new class that 
+the new class. Again, we can define a new class that 
 \emph{inherits} the properties of the {\tt Point2D} base class 
 and only modify what is no longer suitable or add whatever 
 new features we need, for example:
@@ -991,10 +1001,11 @@ of the point.
 
 Note that we have used here positional parameters for the 
 {\tt move} method. We said that it is often better for the sake of clarity 
-to use named parameters, but we have here only two parameters, 
-and, as it is fairly simple to remember that the \verb'$x' 
+to use named parameters, but we have here only two parameters; 
+as it is fairly simple to remember that the \verb'$x' 
 parameter should come before the \verb'$y' parameter, this 
-was a good occasion to illustrate this possibility.
+was a good occasion to illustrate the possibility of using 
+positional parameters.
 \index{positional parameter}
 \index{parameter!positional}
 \index{parameter!named}
@@ -1039,7 +1050,7 @@ Polar coordinates: radius = 15.6205, theta (rad) = 0.8761
 \index{coordinates!polar}
 Here, when the user code invokes the {\tt coordinates}, 
 {\tt distanceToCenter} and {\tt polarCoordinates} methods, 
-Perl find that they do not exist in {\tt MovablePoint}. But, 
+Perl find that they do not exist in {\tt MovablePoint}. But,  
 as \verb'MovablePoint' subclasses {\tt Point2D}, the program 
 looks for method having this name in the parent class and 
 invokes them if it finds them. 	If it did not find them, it 
@@ -1093,9 +1104,9 @@ multiple inheritance.
 
 Perl~6 does not want to forbid such things and allows you 
 to do multiple inheritance if you wish, and it can be useful 
-for simple cases; so don't necessarily rule it out, but, 
-contrary to early expectations, it often leads to a mess and
-turns out to be quite unmanageable.
+for simple cases; so don't necessarily rule it out, but 
+remember that, contrary to early expectations, it often 
+leads to a mess and turns out to be quite unmanageable.
 
 Perl offers better concepts for tackling such situations,
 as we will see shortly.
@@ -1124,7 +1135,7 @@ edges and opposite sides of equal length).
 \item Rectangle (a parallelogram with four right angles).
 
 \index{square}
-\item Square (a rectangle with all four sides of equal length).
+\item Square (a rectangle with all four edges of equal length).
 \end{enumerate}
 
 \index{rhombus}
@@ -1162,7 +1173,7 @@ second difference, perhaps more important, is that roles
 don't inherit: they are used through application to a class 
 and/or composition.
 
-\subsection{A mammal class and a pet-animal role}
+\subsection{Classes and roles: an example}
 
 \index{vertebrate} \index{mammal} \index{dog}
 Let's come back to vertebrates, mammals and dogs. A dog is 
@@ -1186,11 +1197,11 @@ descended from domesticated individuals) or stray dogs. All
 these additional behaviors might be added to the dog class. 
 Similarly, a cat, another mammal, may also be a pet 
 or a feral animal. Mustangs, North-American free-roaming horses, 
-are also feral animals, descending from once-domesticated horses; 
+are also feral animals, descended from once-domesticated horses; 
 but a mustang may also be captured and brought back to 
 domesticated state. This return to the wild of feral animals 
 is not limited to mammals: pigeons living in our cities are 
-often descending from once-domesticated homing pigeons used 
+often descended from once-domesticated homing pigeons used 
 in the past. It can even happen with invertebrates, such 
 as swarms of honey bees.
 
@@ -1290,7 +1301,8 @@ unseen for a while.
 \subsection{Role composition and code reuse}
 
 Classes are meant for managing instances and roles are 
-meant for managing behaviors and code reuse.
+meant for managing behaviors and code reuse. The following 
+example shows how classes and roles can play together.
 \index{class}
 \index{role}
 \index{code reuse}
@@ -1320,14 +1332,14 @@ Rectangle.new(width => 10, height => 4).draw;
 
 \index{ellipsis}
 Please note that the ellipsis \verb'...' used in the code 
-above is really meant here to represent some code that is left 
+above is meant here to represent some code that is left 
 to your implementation. However, this is actually valid code 
 and it will compile and even run without any problem. The 
 ellipsis is used to figure a functionality that is not yet 
 there but is supposed to be implemented at a later point. This 
 will work so long as you don't invoke these methods (you would 
 get a runtime error) or don't setup a situation where it would 
-need to be defined (which would cause a compile time error. 
+need to be defined (which would cause a compile time error). 
 In the case of the {\tt draw} method in the 
 {\tt Drawable} role, role composition into the {\tt Rectangle} 
 class works only because {\tt draw} is redefined in the 
@@ -1339,10 +1351,11 @@ were called without having been redefined in the {\tt Rectangle}
 class. The ellipsis has been used here only as a convenient way 
 to represent code whose implementation is not important for 
 our example because it is being redefined anyway. In real coding, 
-it is probably best advised not to use it except as an expedient 
-for code that is not yet developed but will be really implemented.
+it is probably best advised not to use ellipsis, except as a 
+temporary expedient for code that is not yet developed but
+will be implemented.
 
-This draws an ASCII rectangle:
+The code example above draws an ASCII rectangle:
 \begin{verbatim}
 ~ perl6 test_drawable.pl6
 xxxxxxxxxx
@@ -1463,8 +1476,8 @@ Note that the {\tt Uses} class does not know from where the
 methods will be imported; it only knows about the names of 
 the methods that will be imported. It is only when the 
 \verb'$user' object is created and the \verb'$user.base' 
-attribute added to it that the methods defined in {\tt BaseClass} 
-that the object is dynamically associated with these methods. 
+attribute added to it that the object is dynamically 
+associated with the methods defined in {\tt BaseClass}. 
 By the way, this process could be done in just one step:
 
 \begin{verbatim}
@@ -1503,13 +1516,14 @@ methods are polymorphic, since they can apply to
 {\tt Point2D}, {\tt movablePoint} and {\tt pixel} types. But 
 these are trivial forms of polymorphism. We will speak of 
 polymorphism when the relevant methods or functions are 
-doing something different, at least at the implementation 
-level, even if they share the same name and interface.
+doing something different from each other, at least at the 
+implementation level, even if they share the same name and 
+interface.
 
 \index{multi!subroutine}
 Outside of the object-oriented programming, Perl's 
 \emph{multi} subroutines implement a form of polymorphism, 
-since they can do something very different according to the 
+since they can behave differently depending on the 
 type and number of their arguments. Within the OOP context, 
 it is often the type of the invocant (its class or possibly one 
 of its roles) which will determine, usually at run-time, 
@@ -1558,7 +1572,7 @@ The {\tt distanceToCenter} method has exactly the same interface.
 The {\tt coordinates} method returns a list of three values 
 instead of two, but the calling convention is the same. Note 
 that it might also have been possible to design {\tt Point2D} 
-so that this method would also a third zero value, in order 
+so that this method would return also a third zero value, in order 
 to have exactly the same interface (after all, a point in 
 the plane might be considered as a point in the 3D space 
 with a zero height); complying to exactly the same 
@@ -1618,8 +1632,8 @@ is a black box having some specified properties and
 behaviors. This way, these properties and behaviors are 
 \emph{hidden} from the user. They're not hidden in the 
 sense that the user cannot know about them (at least in 
-the open-source world, it is easy to know that), but it 
-is hidden in the sense that it is usually not possible to 
+the open-source world, it is easy to know that), but 
+hidden in the sense that it is usually not possible to 
 use that knowledge to bypass the supplied interface. This 
 means that the internal implementation of the object may 
 change without having to modify the external behavior. If you 
@@ -1628,7 +1642,7 @@ probably break when the internal implementation is
 modified, so don't do that.
 
 Various programming languages don't have same rules for 
-guaranteeing encapsulation, some are stricter than others, 
+guaranteeing encapsulation. Some are stricter than others, 
 some are less restrictive for read access than for write access, 
 others don't make such a distinction but rather rely on the 
 visibility level specified for an attribute, for example 
@@ -1702,7 +1716,8 @@ from outside the class.
 \index{public method}
 
 But a class may also contain numerous methods that are part 
-of the internal cooking recipes of the class and that are not 
+of the internal cooking recipes of the class, i.e. the way it does 
+things internally, and that are not 
 meant to be used from outside the class. It is possible to prevent 
 their use from outside the class by making these methods private. 
 A Perl~6 private method is prefixed with an exclamation mark:
@@ -1762,7 +1777,7 @@ Oops, what is going on? It seems that the {\tt get}
 method is not able to read \verb'$!z', since it returns 
 an undefined value. This method is defined within the 
 class; so it should be able to access this attribute. In 
-fact, {\tt get} is not guilty, it is \verb'$!z' which is 
+fact, {\tt get} is not the problem, it is \verb'$!z' which is 
 not defined within the object, because it hasn't been properly 
 initialized during object construction.
 
@@ -1779,8 +1794,8 @@ submethod in the class definition.
 \index{submethod}
 \index{subclass}
 \index{type}
-A \emph{submethod} is a public method that is not inherited 
-in child class. Semantically, it is really equivalent 
+A \emph{submethod} is a public method of a class that is not inherited 
+in its child classes. Semantically, it is really equivalent 
 to a subroutine, but it is called with a method syntax (hence 
 the name). Submethods are especially useful to perform object 
 construction and destruction tasks which should not be 
@@ -1788,7 +1803,8 @@ inherited by subclasses, as well as for tasks that are
 so specific to a given type that classes derived from it  
 will almost for sure have to redefine them.
 
-This might look like this:
+Initializing private attributes at object instantiation 
+might look like this:
 
 \begin{verbatim}
 class Point3D {
@@ -1811,7 +1827,8 @@ my $a = Point3D.new(x => 23, y => 42, z => 2);
 say $_ for $a.get;
 \end{verbatim}
 
-This now works as desired and displays all three attributes:
+The program now works as desired and displays all 
+three attributes:
 
 \begin{verbatim}
 Initialization!
@@ -1850,12 +1867,12 @@ above could also have been written simply as:
 \index{constructor!new}
 \index{new!constructor}
 
-While we are briefly speaking about the intricacies of object 
+While we are speaking about the intricacies of object 
 construction, note that since {\tt new} is a method inherited 
 from the {\tt Mu} superclass, you can override it if you wish. 
 The default {\tt new} constructor can only be used with named 
-arguments. Assuming you want to use positional parameters, you 
-could override {\tt new} with your own method:
+arguments. Assuming you absolutely want to use positional parameters, you 
+could override {\tt new} with your own method, like so:
 \index{new!constructor} \index{constructor!new}
 
 \begin{verbatim}
@@ -1878,13 +1895,14 @@ say $_ for $point.coordinates;
 
 This will duly display the two coordinates. {\tt bless} is a 
 low-level method for object construction, inherited from 
-{\tt Mu} and called automatically for you when you invoke 
+{\tt Mu} and called automatically when you invoke 
 {\tt new} to construct an object. You usually don't need 
 to know about it, except when you want to write your own custom 
 constructor.
 
 \index{constructor!custom}
-You can give the constructor another name than {\tt new}, for example:
+You can give the constructor another name than {\tt new}, 
+for example:
 
 \begin{verbatim}
 class Point2D {
@@ -1906,7 +1924,7 @@ say $_ for $point.coordinates;
 
 Think twice, though, before you override {\tt new} or create your 
 own custom constructor with a different name, as it may make it 
-more delicate to subclass your {\tt Point2D} class.
+more complicated to subclass your {\tt Point2D} class.
 
 
 
@@ -1930,10 +1948,11 @@ should not depend on how the attributes are represented.
 For example, we designed a {\tt Point2D} class in which the main 
 attributes were the point's Cartesian coordinates. We may find 
 out that, for the purpose of our application, it would be easier 
-or faster to store in the object attributes the point's polar 
-coordinates. It is entirely possible to change the internal 
+or faster to store the point's polar coordinates in the object 
+attributes. It is entirely possible to change the internal 
 implementation of the class, and yet keep the same interface. 
-We would need the constructor to convert input parameters from 
+In order to do that, we would need the constructor 
+to convert input parameters from 
 Cartesian into polar coordinates, and store the latter in the 
 object attribute. The {\tt polarCoordinates} method would 
 return the stored attributes, whereas methods returning the 
@@ -1984,7 +2003,7 @@ $shepherd.move_flock($home);
 \end{verbatim}
 
 Eventually, due to successful wool sales, he expanded 
-his farming activities and his day become like this:
+his farming activities and his day became like this:
 
 \begin{verbatim}
 $shepherd.move_flock($pasture);
@@ -2027,6 +2046,8 @@ a win for the farmer.
 
 \subsection{The moral}
 
+We can learn a few things from this parable.
+
 \subsubsection{Delegation}
 \index{delegation}
 
@@ -2053,7 +2074,7 @@ At a high level, we do not particularly care
 what the internals of the object are. We only 
 care what the object can do.
 
-But an object becomes harder to change the 
+An object becomes harder to change the 
 more its internals are exposed.
 
 \subsubsection{Polymorphism}
@@ -2064,7 +2085,7 @@ latter with the former was easier than it would
 have been otherwise. 
 \index{tale about OOP}
 
-\emph{The fable of this section is freely adapted 
+\emph{The fable of this section is adapted 
 from a post by ``Arunbear'' on the ``Perlmonks'' 
 website: \url{http://www.perlmonks.org/?node_id=1146129}. 
 Thanks to ``Arunbear'' for having authorized me 
@@ -2084,11 +2105,11 @@ is not going to do the debugging for you, you'll still have
 to do the hard investigation work, but a debugger can help 
 you very much figuring out why your program isn't doing 
 what you think it should be doing. Or, rather, why what your 
-program is doing that isn't quite what you want it to do.
+program is doing isn't quite what you want it to do.
 
 Debuggers are a bit like persons with a strong personality: 
 some people love them and others hate them. Often, people 
-who don't like them simply never took the time to learn 
+who don't like debuggers simply never took the time to learn 
 how to use them, but there are also many expert programmers 
 who don't like them and whom we can't suspect of not having 
 seriously tried. Whether you like debuggers or not is 
@@ -2102,7 +2123,7 @@ invaluable help, if you know how to use them.
 \index{debugging!using a debugger}
 \index{debugging!the Perl 6 debugger}
 Rakudo-Perl~6 ships with an interactive debugger which 
-you might call with the {\tt perl6-debug} command (or, on 
+you call with the {\tt perl6-debug} command (or, on 
 some installs at least, {\tt perl6-debug-m}). You can 
 just fire this command, followed by the name of the program 
 to be debugged, just as you would normally use {\tt perl6} with 
@@ -2126,8 +2147,8 @@ like this:
 
 \index{prompt}
 This says that it is loading the \verb'while_done.pl6' program, 
-and displays the first lines of the program and the last line at 
-the bottom (``\verb"<"'') is a prompt where you can enter some 
+and displays the first lines of the program; the last line at 
+the bottom (``\verb">"'') is a prompt where you can enter some 
 commands. The program 
 is stopped at the first statement that actually does something 
 and waits for your input. The code line that is waiting to be 
@@ -2161,7 +2182,8 @@ above, just use ``q'' or ``quit'' to exit the debugger.
 \index{debugger!stepping over subroutines}
 \index{debugger!stepping out of subroutines}
 
-The main characteristic of a debugger is that it lets you run the program step 
+The main characteristic of a debugger is that it 
+lets you run the program step 
 by step. Each time you hit the {\tt enter} key, the 
 program will move forward one step (e.g. one code line). 
 It will enter into any subroutine if the code line 
@@ -2177,7 +2199,8 @@ command to step out of it.
 \index{debugger!accessing variables}
 At any point through that process, you can look at the 
 content of variables or even call methods on them. To 
-view a variable, just type its name and {\tt enter}:
+view a variable, just type its name and then press 
+{\tt enter}:
 
 \begin{verbatim}
 > $line
@@ -2210,8 +2233,8 @@ you can still access variables to try to figure out what went
 wrong. If it does not hit a breakpoint or an exception, it 
 will run to the end.
 
-You can also view all breakpoints (``{\tt bp list}''), remove 
-one breakpoint (``{\tt bp rm line}''), or all breakpoints 
+You can view all breakpoints (``{\tt bp list}''), remove 
+one breakpoint (``{\tt bp rm line}''), or remove all breakpoints 
 (``{\tt bp rm all}''). You can also set a breakpoint in 
 another file (for example if you are using a module) by 
 using the following syntax: ``{\tt bp add file:line}'', where 
@@ -2232,9 +2255,10 @@ We'll cover a couple of additional goodies, though.
 It is possible to set trace points on specific lines of code 
 and variables (or expressions), with the command {\tt tp add 
 line \$var}. This will record the value of \verb'$var' each 
-time the programs hits the chosen line. Then you run the program 
-for a while and, at some point, you can visualize how the 
-variable changed over time, using the command {\tt tp show}.
+time the programs hits the chosen line. Then you simply run 
+the program for a while and, at some point, you can visualize 
+how the variable changed over time, using the command 
+{\tt tp show}.
 
 For example, we used it to log variable \verb'$rotated-word' 
 in the solution to the Caesar's cypher exercise 
@@ -2262,6 +2286,7 @@ string was progressively populated letter by letter:
 \index{regex}
 \index{regex!debugging}
 \index{debugger!stepping through a regex}
+
 The debugger can also provide useful information when the 
 code is trying to match a regex. For example, suppose we're 
 running under the debugger a program in which we have the 
@@ -2272,10 +2297,10 @@ following code:
 \end{verbatim}
 
 \index{backtracking}
-Running the regex step by step, color highlighting will show 
+If you run the regex step by step, color highlighting will show 
 atom by atom where it is in the regex and which part of the 
-string has been matched. We can't show the color highlighting 
-here, but you should really try it to see it.
+string has been matched. (We can't show the color highlighting 
+here, but you should try it to see it.)
 
 With the above regex, you'll see that 
 the regex engine tries to match the ``f'' of the pattern and that 
@@ -2300,7 +2325,7 @@ C:\Users\Laurent>perl6-debug-m -e "'foobar' ~~ /f.+b/;"
 \end{verbatim}
 
 As usual, change double quotes to single quotes and the other 
-way around under Unix-like platforms.
+way around if you are using a Unix-like platform.
 
 Our final word on the debugger: remember you can always hit 
 ``h'' to get help on the command you need. 
@@ -2310,8 +2335,8 @@ Our final word on the debugger: remember you can always hit
 
 \begin{description}
 
-\item[object:] An entity that encloses its state (the attributes) 
-and its behavior (the methods).
+\item[object:] An entity that encloses its state (attributes) 
+and its behavior (methods).
 \index{object}
 
 \item[class:] A programmer-defined type.  A class definition 

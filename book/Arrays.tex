@@ -835,10 +835,16 @@ for @letters {
 \index{placeholder parameter}
 \index{twigil}
 \index{self-declared parameter}
-The \verb'^' in the \verb'$^a-letter' variable is called a \emph{twigil}, i.e. sort of a second sigil. This twigil 
-states that the \verb'$^a-letter' variable is a  \emph{placeholder parameter} or a \emph{self-declared 
-positional parameter}. This is a positional parameter 
-of the current block that needs not be declared in 
+The \verb'^' in the \verb'$^a-letter' variable is called 
+a \emph{twigil}, i.e. sort of a secondary sigil. When there is 
+a twigil, the first symbol (here, the \verb'$' sign) has the 
+same meaning as usual sigils (here, it denotes a scalar variable), 
+and the second one (here, \verb'^') extends the variable 
+description and usually modifies its scope. In this specific 
+case, the second character states that the \verb'$^a-letter' 
+variable is a  \emph{placeholder parameter} or a 
+\emph{self-declared positional parameter}. This is a positional 
+parameter of the current block that needs not be declared in 
 the signature.
 
 If the block uses more than one placeholder, they are 
