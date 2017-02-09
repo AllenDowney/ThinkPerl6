@@ -34,8 +34,8 @@ subroutines and other code objects are \emph{first-class
 objects} or \emph{first-class citizens} in Perl, which 
 means that they can be passed around as values. A Perl~6 
 function is a value you can assign to a variable or pass 
-around as an argument or a return value from another 
-function.
+around as an argument to a funtion or a return value from 
+another function.
 \index{first-class object}
 \index{object, first-class}
 \index{first-class citizen}
@@ -159,6 +159,7 @@ in the \verb'$greet' variable; we can pass it directly as an
 argument to the {\tt do-twice} subroutine:
 
 \begin{verbatim}
+
 do-twice(sub {say "Hello World!"} );
 \end{verbatim}
 
@@ -168,6 +169,7 @@ syntax further and pass a simple anonymous code block
 to {\tt do-twice}:
 
 \begin{verbatim}
+
 do-twice {say "Hello World!"};   # prints "Hello World" twice
 \end{verbatim}
 
@@ -179,6 +181,7 @@ details):
 the first 20 integers:
 \index{reduce function}
 \begin{verbatim}
+
 my $sum = reduce { $^a + $^b }, 1..20; # -> 210
 \end{verbatim}
 \item With the {\tt map} function to capitalize the first 
@@ -197,6 +200,7 @@ Madrid
 numbers by filtering out odd numbers:
 \index{grep function}
 \begin{verbatim}
+
 my @evens = grep { $_ %% 2 }, 1..17; # -> [2 4 6 8 10 12 14 16]
 \end{verbatim}
 \end{itemize} 
@@ -415,7 +419,7 @@ the items of a list and apply simple actions,
 callback functions or code blocks to these items. 
 Among those, we have already seen and used abundantly 
 the following:
-\begin{enumerate}
+\begin{itemize}
 \item {\tt map} applies a transformation of each item 
 of a list;
 \index{map} \index{function!map}
@@ -430,7 +434,7 @@ a single scalar value;
 to the rules defined in the passed code-block or 
 subroutine. 
 \index{sort} \index{function!sort}
-\end{enumerate}
+\end{itemize}
 
 We have seen several examples where these functions can 
 be used together in a sort of data pipe-line in which 
@@ -536,14 +540,14 @@ my $out <== join(",")
 We have already met this meta-operator in Section~\ref{map_filter}. 
 A meta-operator acts on other operators. Given 
 a list and an operator, the [...] reduction meta-operator 
-applies repeatedly the operator to all the values of the
+applies the operator iteratively to all the values of the
 list to produce a single value.
 \index{metaoperator}
 \index{reduction}
 \index{reduction!metaoperator}
 
 For example, the following prints the sum of all the 
-elements of a list:
+elements of a list or a range:
 
 \begin{verbatim}
 say [+] 1..10;      # -> 55
@@ -800,7 +804,7 @@ say % 21;   # -> 42
 
 This is just an example to show how it works, \% would 
 probably not be a good name for a double operator. The 
-interesting point, though, is we have re-used an existing 
+interesting point, though, is that we have re-used an existing 
 operator (the modulo operator), but the compiler does not 
 get confused because modulo is an infix operator and our 
 new operator is defined as a prefix operator.
@@ -834,7 +838,7 @@ As another example, you could define the $\Sigma$ (sum)
 operator as follows:
 
 \begin{verbatim}
-multi sub prefix:<Σ> (*@num-list) {
+multi sub prefix:<Σ> (@*num-list) {
     [+] @num-list;
 }
 say Σ (10, 20, 12);         # -> 42
@@ -1012,6 +1016,9 @@ like to be able to create our own.
 
 \subsection{Custom versions of map, grep, etc.}
 
+Let's see how we could write out own custom versions 
+of such functions.
+
 \subsubsection{my-map, a pure Perl version of map}
 \index{my-map}
 
@@ -1050,7 +1057,7 @@ behaving essentially the same way as {\tt map}.
 \index{my-grep}
 \index{grep}
 
-Writing our version of {\tt grep} is just about as 
+Writing our pure-Perl version of {\tt grep} is just about as 
 easy:
 \begin{verbatim}
 sub my-grep (&code, @values) { 
@@ -1172,7 +1179,7 @@ comb_sort {$^a <=> $^b}, @v;
 The inner loop compares items that are distant from each 
 other by \verb'$gap' values, and swaps them if they are 
 not in the proper order. At the beginning, \verb'$gap' 
-is large and is divided by a shrink factor at each 
+is large, and it is divided by a shrink factor at each 
 iteration of the outer loop. Performance heavily depends
 on the value of the shrink factor. At the end, the gap 
 is 1 and the comb sort becomes equivalent to a bubble 
@@ -1211,7 +1218,7 @@ necessary for the program, not more than that.
 \index{lazy!list processing}
 The idea 
 of processing now only what is strictly required is often call 
-{\tt laziness}, and this is a very useful idea. Lazy 
+\emph{laziness}, and this is a very useful idea. Lazy 
 list processing can be very useful not only because it 
 avoids processing data that is not needed, and therefore 
 can contribute to better resource usage and better 
@@ -1420,7 +1427,7 @@ support for lazy lists and lazy operators, as we will see soon.
 
 A useful construct for creating (possibly lazy) lists 
 is  \verb'gather { take }'. A \verb'gather' block 
-acts more or less like a loop and executes until 
+acts more or less like a loop and runs until 
 \verb'take' supplies a value. This construct is also 
 a form of iterator.
 
@@ -1644,7 +1651,7 @@ on arrays and lists, we said that parentheses are usually not
 necessary for constructing a list, unless needed for 
 precedence reasons. The above code is one such example: try 
 to run that code without parentheses and observe the content 
-of the \verb'$odds' and \verb'evens' variables.
+of the \verb'$odds' and \verb'$evens' variables.
 
 When three numbers in geometric progression are supplied, the 
 sequence operator will produce a geometric sequence, as in 
@@ -1836,8 +1843,10 @@ under the REPL:
 
 Okay, it does stop the series of numbers, but not quite exactly 
 where we wanted: we really wanted it to stop at the last 
-Fibonacci under 100, and we're getting one more. A slight 
-change in the syntax will solve this last little problem:
+Fibonacci under 100, and we're getting one more. It would be 
+quite easy to remove or filter out the last generated Fibonacci 
+number, but it's even better not to generate it at all. A slight 
+change in the syntax will do that for us:
 
 \begin{verbatim}
 > my @fibo = 0, 1, -> $a, $b { $a + $b } ...^ -> $c { $c > 100}
@@ -2409,13 +2418,13 @@ compute it again, thereby hopefully saving some computation time.
 
 \item[currying:] currying a function taking several arguments is 
 to create another function taking fewer arguments (where the missing 
-arguments are stored within the curried function).
+arguments are stored within the new curried function).
 \index{curry}
 
 \item[test-driven development:] a development methodology 
 where the tests are written from the specifications before 
 the actual program, so that it becomes easier to check that 
-the program complies with the specification.
+the program complies with the specifications.
 \index{test-driven development}
 
 \end{description}

@@ -15,7 +15,7 @@ Writing a real-life program is not the same thing as learning
 the art of programming or learning a new language.
 
 Because the very nature of this book is to lead you to learn 
-more advanced concepts or new syntax, we have often been 
+more advanced concepts or new syntax, I have often been 
 pushing new ways of doing things. This does not mean that 
 you should try to pack your most advanced knowledge into 
 each of your programs. Quite to the contrary.
@@ -87,7 +87,7 @@ and modules when you can, it is likely that they have
 been thoroughly tested and will work better than the 
 quick fix you're about to write. The Perl~6 ecosystem 
 has a large and growing collection of software modules 
-(see \url{modules.perl6.org} that you can use in your 
+(see \url{modules.perl6.org}) that you can use in your 
 programs.
 \index{Reinventing the wheel}
 
@@ -99,7 +99,7 @@ then your code will be clearer and might need fewer
 comments. Very short names like \verb'$i' or \verb'$n' are 
 usually fine for loop variables, pretty much anything else needs 
 a name that tells clearly what the content or the purpose is. 
-Names like \verb'$array' or \verb'%hash' have sometimes been 
+Names like \verb'$array' or \verb'%hash' may have sometimes been 
 used in the examples of this book to indicate more clearly 
 the nature of the data structure, but they are bad in 
 real-life programs. If your hash contains a collection of 
@@ -273,7 +273,8 @@ The same mechanism can be used for subroutine parameters.
 Or you could use the \verb'is required' trait:
 
 \begin{verbatim}
-> class A { has $.a is required }; A.new
+> class A { has $.a is required }; 
+> A.new;
 The attribute '$!a' is required, 
 but you did not provide a value for it.
 \end{verbatim}
@@ -281,7 +282,8 @@ but you did not provide a value for it.
 You can even pass a explanatory message:
 
 \begin{verbatim}
-> class A { has $.a is required("We need it") }; A.new
+> class A { has $.a is required("We need it") }; 
+> A.new;
 The attribute '$!a' is required because We need it,
 but you did not provide a value for it.
 \end{verbatim}
@@ -339,7 +341,7 @@ for ^$n {...}
 \end{verbatim}
 
 \item[Split a string into words (splitting on space):] 
-a method call without an explicit invocant always uses 
+A method call without an explicit invocant always uses 
 the \verb'$_' topical variable as implicit invocant. Thus, 
 assuming the string has been topicalised into \verb'$_':
 \index{split function or method}
@@ -364,7 +366,7 @@ loop {...}
 Of course, the body of the {\tt loop} statement must have some 
 flow control statement to exit the loop at some point.
 
-\item[Returning the unique elements of a list:] the {\tt unique} 
+\item[Returning the unique elements of a list:] The {\tt unique} 
 method removes duplicates from the input list:
 \index{unique function}
 
