@@ -34,8 +34,8 @@ a bit more from them.
 \label{sol_right_justify}
 \index{right-justify}
 
-This is the first exercise of this book, so let's first do it 
-step by step:
+This is the first real exercise of this book, so let's first 
+do it step by step:
 
 \begin{verbatim}
 use v6;
@@ -396,7 +396,7 @@ days-HMS $sec.Int;
 \end{verbatim}
 
 In real life, it would usually be good to verify that the 
-user-provided input is an integer and ask again if it is 
+user-provided input is a positive integer and ask again if it is 
 not. As a further exercise, you might try to insert the 
 above code into a recursive subroutine that prints an 
 error message and calls itself again if the user input is 
@@ -982,7 +982,7 @@ True
 %
 \index{power}
 
-\subsubsection{Finding the GCD of two numbers, Exercise~\ref{gcd} (p.~\pageref{gcd})}
+\subsection{Finding the GCD of two numbers, Exercise~\ref{gcd} (p.~\pageref{gcd})}
 \index{gcd}
 \index{greatest common divisor (GCD)}
 \index{GCD (greatest common divisor)}
@@ -1011,7 +1011,7 @@ Note that there is a simpler method to find the GCD of
 two numbers without using the modulo function. It is known
 as Euclid's algorithm and is considered as the oldest known 
 algorithm (see \url{https://en.wikipedia.org/wiki/Euclidean_algorithm}). The Euclidean algorithm is based on 
-the principle that the GCD of two numbers does not change 
+the observation that the GCD of two numbers does not change 
 if the larger number is replaced by its difference with 
 the smaller number.
 
@@ -1184,7 +1184,8 @@ function in Perl~6.
 \label{sol_test_sqrt}
 \index{square root}
 
-For this, we've made the following arbitrary decisions:
+For this, we've made the following somewhat arbitrary 
+decisions:
 \begin{itemize}
 \item We have chosen an \emph{epsilon} value of $10^{-11}$ (or {\tt 1e-11});
 \item We have used simply \verb'$a/2' as the initial estimate 

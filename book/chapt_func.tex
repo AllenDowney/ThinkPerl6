@@ -532,6 +532,11 @@ Let freedom ring from the mighty mountains of New York.
 \end{verbatim}
 %
 
+However, you cannot use the method-invocation syntax with 
+such subroutines. We will see much later in this book (see 
+Chapter~\ref{objects} how to create methods. For the time 
+being, we'll stick to the function-call syntax.
+
 Once you have defined a subroutine, you can use it inside another
 subroutine.  For example, to repeat King's address previous 
 excerpts,  we could write a subroutine called \verb"repeat_speech":
@@ -914,6 +919,10 @@ sub square ($number) { #`(Sub|118134416) ... }
 25
 \end{verbatim}
 
+The \verb'Sub|118134416' message displayed by the REPL is 
+just an internal identifier for the subroutine we've just 
+defined.
+
 The {\tt return} statement instructs the function to terminate 
 the execution of the function at this statement and to return 
 the value of the following expression to the caller. In such a simple 
@@ -1029,6 +1038,24 @@ sub half(Numeric $number) { $number / 2 }
 say half(3+4i); # -> 1.5+2i
 \end{verbatim}
 
+The following table sums up and illustrates some of the 
+various types we have seen so far.
+
+\begin{center}
+\begin{tabular}{|l|c|}  \hline
+\label{types}
+\emph{Type} & \emph{Example}   \\ \hline
+String      & \verb'"A string"', \verb"'Another string'", \verb'"42"' \\ \hline
+Integer     & \verb' -3, -2, 0, 2, 42' \\ \hline
+Rational    & \verb' 1/2, 0.5, 3,14159, 22/7, 42.0' \\ \hline
+Real        & $\pi$, pi, $\surd{2}$, \emph{e}, $\log 42$, $\sin 0.7$\\ \hline
+Complex     & $5.4 + 3i$ \\ \hline
+\end{tabular}
+\end{center}
+\index{String type}
+\index{type!String}
+
+
 \section{Immutable and mutable parameters}
 
 \index{immutable parameter}
@@ -1045,6 +1072,12 @@ sub plus-three(Int $number) { $number += 3}
 my $value = 5;
 say plus-three $value; # ERROR: Cannot assign to an immutable value
 \end{verbatim}
+
+In some other languages, this behavior is named a ``call 
+by value'' semantic: loosely speaking, the subroutine 
+receives (by default) a value rather than a variable, and 
+the parameter therefore cannot be modified.
+\index{call by reference}
 
 If you want to change the value of the parameter within the 
 subroutine (but without changing the argument in the caller) 
@@ -1089,6 +1122,13 @@ and {\tt \$value} are just different names for the same thing (they
 both refer to the same memory location). The argument is now 
 fully \emph{mutable}.
 
+In some other languages, this is named a ``call by reference'' 
+parameter passing mechanism, because, in those language, if you 
+pass to a function  a reference (or a pointer) to a variable, then 
+it is possible for the function to modify the variable referred 
+to by the reference.
+\index{call by reference}
+
 
 \section{Functions and subroutines as first-class citizens}
 \index{first-class object}
@@ -1131,7 +1171,8 @@ Hello World!
 
 The \verb"&" sigil placed before the subroutine name in the 
 argument list tells Perl that you are passing around a 
-subroutine or some other callable code object.
+subroutine or some other callable code object (and not 
+calling the subroutine at the moment).
 %\index{$&$ sigil}
 %\index{sigil!$&$}
 
@@ -1155,7 +1196,7 @@ sub do-twice(&code) {
 \end{verbatim}
 
 The syntax with the \verb"&" sigil has the benefit that 
-if will provide a better error message if you make a mistake 
+it will provide a better error message if you make a mistake 
 and pass something non-callable to \verb"do-twice". 
 
 All the functions we have seen so far had a name, but a 

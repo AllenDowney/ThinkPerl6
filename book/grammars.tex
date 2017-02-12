@@ -15,10 +15,10 @@ everything we have covered earlier and we will explain again briefly
 specific parts of the functionality that we will be using, but you are
 expected to understand generally how regexes work.
 
-\section{A brief reminder}
+\section{A brief refresher}
 
 \index{pattern}
-As you hopefully remember, regexes, as we have studied 
+Regexes, as we have studied 
 them so far, are about string exploration using patterns. 
 A pattern is a sequence of (often special) characters that 
 is supposed to describe a string or part of a string. A 
@@ -26,7 +26,7 @@ pattern matches a string if a correspondence can be found
 between the pattern and the string. 
 
 For example, the 
-following code snippet looks into the string for the letter 
+following code snippet searches the string for the letter 
 ``a'', followed by any number (but at least one) of letters 
 ``b'' or ``c'', followed by zero or more digits followed by
 a ``B'' or a ``C'':
@@ -122,17 +122,19 @@ very easily.
 \index{configuration file}
 
 \index{domain-specific language}
+\index{sub-language}
+\index{slang}
 \index{DSL}
 Sometimes, you also need to develop a domain-specific 
 language (DSL), i.e. a usually relatively small sub-language 
-adapted to a specific field of knowledge (scientific, 
-engineering, business, art, or other) having its own conventions, 
-symbols, operators and so on. With a grammar and Perl's 
-ability to create its own operators, you can often express 
-specialized knowledge within the terminology framework of 
-subject-matter expert.
+(a.k.a. \emph{slang}) adapted to a specific field of 
+knowledge (scientific, engineering, business, art, or other) 
+having its own conventions, symbols, operators and so on. 
+With a grammar and Perl's ability to create its own operators, 
+you can often express specialized knowledge within the 
+terminology framework of subject-matter experts.
 
-\section{Declarative programming, another programming paradigm}
+\section{Declarative programming}
 
 \index{declarative programming}
 \index{programming!declarative}
@@ -182,7 +184,7 @@ say "Number is $0" if $str ~~ /number \s+ (\d+) /;  # -> Number is 42
 
 \index{numbered capture}
 \index{capture!numbered}
-Here, the pattern matched the \verb'$str' string and the 
+Here, the pattern matched the \verb'$str' string, and the 
 part of the pattern within parentheses was captured into 
 the \verb'$0' special variable. Where there are several 
 parenthesized groups, they are captured into variables 
@@ -266,10 +268,9 @@ really a shortcut for  \verb'$/<overall>', i.e. for a
 hash type of access to the \verb'$/' match object.
 
 There is, however, a more convenient way to get named 
-captures which is discussed in the next section on 
-named rules.
+captures which is discussed in the next section.
 
-\section{Subrules or named rules}
+\section{Named rules (a.k.a. subrules)}
 \label{subrules}
 \index{subrule}
 \index{named!rule}
@@ -281,7 +282,7 @@ is one of the kinds of named rules, to match a text line:
 
 \begin{verbatim}
 my regex line { \N* \n }  # any number of characters other 
-                          # than new lines, followed by 1 new line
+                          # than new line, followed by 1 new line
 if "abc\ndef" ~~ /<line> def/ {
     say "First line: ", $<line>.chomp;      # First line: abc
 }
@@ -362,12 +363,13 @@ backtracking;
 \item named rules, in which the regex has an implicit 
 {\tt :ratchet} adverb, just as named tokens, and also 
 an implicit {\tt :sigspace} adverb, which means that 
-whitespace within the pattern is not ignored.
+whitespace within the pattern (or, more specifically, 
+between word characters) is not ignored.
 \end{itemize}
 
-In the two examples above, we probably did not need the 
-regexes to backtrack. We could have used a named token 
-instead of a named regex:
+In the two examples above, we did not need the regexes 
+to backtrack. We could (and probably should) have used 
+a named token instead of a named regex:
 
 \begin{verbatim}
 my token line { \N* \n }
@@ -376,7 +378,8 @@ if "abc\ndef" ~~ /<line> def/ {
 }
 \end{verbatim} 
 
-But we would have to remove the space from \emph{within the pattern} for a rule to match:
+But, for a token to match, we would have to remove the 
+space from \emph{within the pattern}:
 
 \begin{verbatim}
 my rule line { \N*\n }
@@ -385,8 +388,9 @@ if "abc\ndef" ~~ /<line> def/ {
 }
 \end{verbatim} 
 
-Collectively, they are usually referred to as rules, 
-independently of the keyword used for their definition.
+Collectively, these three types of named rules are usually 
+referred to as \emph{rules}, independently of the specific 
+keyword used for their definition.
 \index{rule}
 
 Remember the various regexes we experimented for 
@@ -395,7 +399,7 @@ Subsection~\ref{extracting_dates}
 (p.~\pageref{extracting_dates})? The last example was 
 using subpatterns as building blocks for constructing 
 the full pattern. We could now rewrite it, with the 
-added feature of recognizing a multiple date formats, as 
+added feature of recognizing multiple date formats, as 
 follows:
 \index{date format}
 
@@ -431,10 +435,10 @@ alternation between three possible date formats.
 \index{rule}
 
 \index{date validation}
-This checks that the day in the month is between 0 and 31 
+This code checks that the day in the month is between 0 and 31 
 and that the month is between 01 and 12, and this is 
 probably sufficient to recognize dates in a 
-text, but this would recognize ``2016-11-31'' as a date, 
+text in most cases, but this would recognize ``2016-11-31'' as a date, 
 although November only has 30~days. We may want to be a 
 little bit stricter about valid dates and prevent that
 by adding a code assertion to the {\tt date} named rule:
@@ -449,10 +453,14 @@ my rule date { [    <year> (<sep>) <month> $0 <day>
 }                         
 \end{verbatim}
 
+
+This is better, but we can still match an invalid date 
+such as ``2016-02-30''. 
+
 \begin{exercise}
 \label{february_rule}
-This is better, but we can still match an invalid date 
-such as ``2016-02-30''. As an exercise, change the code 
+%
+As an exercise, change the code 
 assertion to reject a ``Feb, 30'' date. If you feel 
 courageous, you might even want to check the number of 
 days in February depending on whether the date occurs in 
@@ -479,7 +487,8 @@ using a Perl~6 grammar written in Perl~6, and you could write a grammar
 for parsing (almost) any other programming language. 
 To tell the truth, most programmers don't commonly 
 write grammars for parsing programming languages. But 
-grammars are very useful for many more common tasks.
+grammars are very useful for performing many tasks 
+which are much more common than parsing programs.
 
 \index{parsing!HTML}
 \index{parsing!XML}
@@ -487,7 +496,8 @@ grammars are very useful for many more common tasks.
 \index{XML parsing}
 
 If you ever tried to use regexes for analyzing a piece 
-of HTML (or XML) text\footnote{Don't try to do it.}, you 
+of HTML (or XML) text\footnote{Don't try to do it. Now, 
+I warned you: just don't do it.}, you 
 probably found out that this is quickly becoming next 
 to impossible, except perhaps for the most simple 
 HTML data. For analyzing any piece of such data, you 
@@ -569,7 +579,7 @@ significant.
 
 We renamed the {\tt date} rule as {\tt TOP} because this 
 is the default name searched by {\tt parse} for the top level 
-rule. A grammar is creating its own namespace and 
+rule. A grammar creates its own namespace and 
 lexical scope, and we no longer need to declare our rules 
 with the {\tt my} declarator (which is required for
 rules declared outside of a grammar). 
@@ -719,8 +729,8 @@ can supply an actions object. After each successful match
 of a named rule in your grammar, it tries to call a method 
 having the same name as the grammar rule, giving it the 
 newly created Match object as a positional argument. 
-If no such method exists, it is skipped. Action methods 
-are sometimes also called reduction methods. If it exists, 
+If no such method exists, it is skipped. (Action methods 
+are sometimes also called reduction methods.) If it exists, 
 the action method is often used to construct an abstract 
 syntax tree (AST), i.e. a data structure presumably 
 simpler to explore and to use than the match object tree, 
@@ -812,14 +822,14 @@ that result.
 \index{grammar!JSON}
 \index{parsing!JSON}
 
-JSON (or \emph{Java-Script Object Notation}) is an 
+JSON (\emph{Java-Script Object Notation}) is an 
 open-standard format for text data derived from 
 the object notation in the JavaScript programming language. 
 It has become one of the commonly-used standards for 
 serializing data structures, which makes it possible, for 
 example, to exchange them between different platforms and 
 different programming languages, to send them over a network, 
-or to store them permanently in files on disks.
+and to store them permanently in files on disks.
 
 \subsection{The JSON format}
 \index{JSON!format}
@@ -896,13 +906,16 @@ of testing JSON non-integer numbers.
  
 \subsection{Writing the JSON grammar step by step}
 
+Let's take each of the JSON entities in turn and handle 
+them with rules.
 
 \subsubsection{Numbers}
 \index{JSON!number}
 
-The example JSON document only has integers and decimal numbers, 
-but we need to be able to recognize numbers such as ``17'', 
-``-138.27'', ``1.2e-3'', ``.35'', etc. We can use the following rule:
+The example JSON document above only has integers and decimal 
+numbers, but we need to be able to recognize numbers such 
+as ``17'', ``-138.27'', ``1.2e-3'', ``.35'', etc. We can 
+use the following token to do so:
 
 \begin{verbatim}
 token number {
@@ -918,8 +931,8 @@ token number {
 \index{double quote}
 
 There are many possible patterns to define a string. For 
-the sample JSON document used as an example, the following 
-rule will be sufficient:
+our sample JSON document, the following rule will be 
+sufficient:
 
 \begin{verbatim}
 token string {
@@ -943,7 +956,9 @@ token string {
 i.e. a double quoted sequence of any characters other than 
 double quotes, newlines and tabulations.
 
-You might want to study the JSON standard to figure out 
+You might want to study the JSON standards\footnote{Since 
+JSON is actually not completely standardized, I will not provide 
+a specific link, look it up and make your mind.} to figure out 
 exactly what is accepted or forbidden in a JSON string. 
 For our purpose, the first rule above will be sufficient.
 
@@ -1097,20 +1112,20 @@ document (for example to remove a comma between two values
 of a list) and the match should no longer occur (or, at least, 
 should not be the same).
 
-It may be objected that this grammar covers only a subset 
+You may object that this grammar covers only a subset 
 of JSON. This is sort of true, but not really: it is almost complete. 
-True, it would not be recommended to use this grammar 
+True, I would not recommend to use this grammar 
 in a production environment for parsing JSON documents, 
 because it has been built only for pedagogical purposes 
 and may not comply with every single fine detail of the JSON 
-standard.
+standards.
 
 Take a look at the grammar of the Perl~6 {\tt JSON::Tiny} 
 module (\url{https://github.com/moritz/json}), which can 
 parse any valid JSON document. It is not much more 
-complicated (except for the use of proto regexes, a topic 
-that we haven't covered here), and it is not much longer, 
-as it holds in about 35~code lines.
+complicated than what we have shown here (except for the use 
+of proto regexes, a topic that we haven't covered here), and 
+it is not much longer, as it holds in about 35~code lines.
 
 \subsection{Adding actions}
 \index{actions!object}
@@ -1122,9 +1137,12 @@ parse objects just for our relatively small JSON document
 will display about 300 lines of text, as 
 it provides all the details of everything that has been 
 matched, rule by rule and subpattern by subpattern. This 
-can be very useful to understand what the grammar does 
+can be very useful in helping you to understand what the grammar does 
 (especially when it does not work as expected), but 
-exploring that tree to extract the data can be quite tedious.
+exploring that tree to extract the data can be quite 
+tedious. You can use \emph{actions} to populate a simpler 
+tree structure (often called abtract syntax tree) containing 
+only the information you really need. 
 
 \index{abstract syntax tree (AST)}
 \index{AST, abstract syntax tree}
@@ -1167,8 +1185,8 @@ class JSON-actions {
 \index{named!capture}
 For this actions class to work, we need to make a small change 
 to the grammar. The {\tt value} method uses a {\tt val} named 
-capture to access its content; we need to add it to the 
-{\tt value} token:
+capture to access its content; we need to add the relevant 
+named captures to the {\tt value} token:
 
 \begin{verbatim}
 token value { <val=object> | <val=array> | <val=string> 
@@ -1176,7 +1194,7 @@ token value { <val=object> | <val=array> | <val=string>
 }
 \end{verbatim}
 
-We can now call it with the following syntax:
+We can now call out grammar with the following syntax:
 
 \begin{verbatim}
 my $j-actions = JSON-actions.new();
@@ -1184,9 +1202,10 @@ my $match = JSON-Grammar.parse($JSON-string, :actions($j-actions));
 say $match.made;
 \end{verbatim}
 
-Notice that, here, we've used an actions object rather than the
-actions class, but this is just for the purpose of showing 
-how to do it, we could have used the class directly as before.
+Notice that, here, we've used an actions object rather than 
+simply the actions class, but this is just for the purpose of 
+showing how to do it, we could have used the class directly 
+as before.
 \index{actions!object}
 \index{actions!class}
 
@@ -1285,7 +1304,7 @@ or even tedious when you start.
 \index{fun}
 
 When you started to practice programming with this book, you probably 
-made a lot of small stupid mistakes that initially prevented your 
+made a lot of small mistakes that initially prevented your 
 programs from compiling and running, or from doing what 
 you expected. With practice, however, you hopefully gradually 
 made fewer errors and spent less time chasing bugs.
@@ -1316,7 +1335,7 @@ with regexes and grammars.
 
 Let's take the example of the very simple grammar for 
 matching dates of Section~\ref{dategrammar} and let's suppose 
-that you have written that:
+that you have written this grammar:
 
 \begin{verbatim}
 grammar My-Date {
@@ -1335,7 +1354,7 @@ At this point, it has already become a bit difficult to figure
 out why the grammar fails (unless we have thoroughly tested 
 each of the three tokens before building the grammar, but 
 let's assume for the sake of this discussion that we haven't).
-Let's not try to randomly change things here or there and see 
+Let's try not to randomly change things here or there and see 
 if it works better, we would be likely to spend hours doing 
 that and probably not get anywhere. Let's be more methodical.
 
@@ -1343,7 +1362,7 @@ Let's first test the building-block tokens, {\tt year},
 {\tt month}, and {\tt day}. We've seen before that 
 the {\tt parse} method looks \emph{by default} for the {\tt TOP} 
 rule in the grammar, but you can specify another rule, and 
-that's what we need here. We can test them individually:
+that's what we need here. We can test these tokens individually:
 
 \begin{verbatim}
 say so My-Date.parse("2016", :rule<year>);    # -> True
@@ -1439,8 +1458,8 @@ prompt for a list of available commands.
 \index{grammar}
 \item[grammar:] A high level tool for performing lexical and 
 grammatical analysis of structured text. In Perl~6, 
-more specifically a namespace containing a collection of 
-named rules aimed at this type of analysis.
+a grammar is more specifically a namespace containing a 
+collection of named rules aimed at this type of analysis.
 
 \index{lexing}
 \item[lexing:] Performing a lexical analysis of a source text, and especially dividing it into ``words'' or tokens.
@@ -1502,9 +1521,9 @@ be called whenever the rule matches.
 \index{arithmetic calculator}
 
 The arithmetic calculator presented in Section~\ref{actions_object} 
-above is very simplistic. In particular, it can parse only 
-simple arithmetic expressions composed of two operands separated 
-by one infix operator.
+above is very simplistic. In particular, it can parse simple 
+arithmetic expressions composed of two operands separated by 
+one infix operator, but not much more than that.
 
 We would like to be able to parse more complicated arithmetic 
 expressions. Especially the calculator should be able to handle:
@@ -1533,7 +1552,7 @@ is to write such a grammar. As usual, should you fail, the
 Government shall deny any knowledge of your actions class.
 \index{actions class}
 
-There are many possible ways to do that, the solution presented 
-in Section~\ref{sol_calculator} is only one of them.
+There are many possible ways to accomplish this, the solution 
+presented in Section~\ref{sol_calculator} is only one of them.
 \end{exercise}
 
