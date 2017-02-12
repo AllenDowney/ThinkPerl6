@@ -114,7 +114,7 @@ in a Web browser. You might want to use a search engine
 to find such a site. Currently, the easiest is probably 
 to connect to the \url{https://glot.io/new/perl6} site, 
 where you can type some Perl~6 code in the main window, run 
-it and see the output in the output window below.
+it and see the result in the output window below.
 \index{Perl~6 in a browser}
 
 Sooner or later, however, you will really need to install 
@@ -148,11 +148,13 @@ cases slightly differ from what is printed in this book,
 but these possible differences should essentially be 
 only cosmetic. 
 
-Perl~6 is really a new programming language, 
+Compared to Perl~5, Perl~6 is not just the new version of Perl. 
+It is more like the new little sister of Perl~5. It does not 
+aim at replacing Perl~5. Perl~6 is really a new programming language, 
 with a syntax that is similar to earlier versions of 
 Perl (such as Perl~5), but still markedly different. Unless 
-stated otherwise, this book is about Perl~6 only, not about the 
-preceding versions of the Perl programming language. From now on, 
+stated otherwise, this book is about Perl~6 only, not about Perl~5 
+and preceding versions of the Perl programming language. From now on, 
 whenever we speak about \emph{Perl} with no further qualification, 
 we mean Perl~6.
 
@@ -168,7 +170,7 @@ When it starts, you should see output like this:
 
 \begin{verbatim}
 To exit type 'exit' or '^D'
-(Possibly some information about Perl or Panda)
+(Possibly some information about Perl and related software)
 > 
 \end{verbatim}
 %
@@ -438,8 +440,8 @@ legal {\em integer} in Perl~6, but it is a legal expression:
 >
 \end{verbatim}
 %
-That's actually a list of three different numbers, and not what 
-we expected at all! 
+That's actually a list of three different integer numbers, and 
+not what we expected at all! 
 
 \begin{verbatim}
 > say (1,234,567).WHAT
@@ -503,7 +505,7 @@ Syntax rules come in two flavors, pertaining to {\bf tokens} and
 structure.  Tokens are the basic elements of the language, such as
 words, numbers, and chemical elements.  One of the problems with
 $3 += 3 \$ 6$ is that \( \$ \) is not a legal token in mathematics
-(at least as far as we know).  Similarly, $_2Zz$ is not legal because
+(at least as far as I know).  Similarly, $_2Zz$ is not legal because
 there is no chemical element with the abbreviation $Zz$.
 \index{token}
 \index{structure}
@@ -623,7 +625,7 @@ to work effectively.
 Learning to debug can be frustrating, but it is a valuable skill
 that is useful for many activities beyond programming.  At the
 end of each chapter there is a section, like this one,
-with our suggestions for debugging.  We hope they help!
+with our suggestions for debugging.  I hope they help!
 
 
 \section{Glossary}
