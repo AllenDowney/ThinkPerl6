@@ -2119,7 +2119,11 @@ for 1e5..1e6 - 4 -> $number {
 \end{verbatim}
 
 The code is shorter, but is also slower: it takes almost twice 
-as long to execute on my computer.
+as long to execute on my computer. So there is a trade-off here: 
+The first, faster, way is probably better if you need to run 
+your program many times or often, but you might prefer the second 
+version if this is just a one-off computation. It's up to you to 
+decide.
 
 
 \subsection{Exercise~\ref{cartalk3}: Palindromes in ages (p.~\pageref{cartalk3})}
@@ -2165,6 +2169,12 @@ sub check_diffs () {
 }
 \end{verbatim}
 
+The {\tt while True} statement creates an infinite loop. The 
+loop is stopped, however, by the {\tt last} control flow 
+statement when the mother's age exceeds 99. We will see 
+later a more idiomatic way to built an infinite loop.
+\index{infinite loop}
+
 The {\tt sprintf} function used here transforms any number 
 below ten into a two-digit number string with a leading 0. 
 Its syntax is similar to that of the {\tt printf} function 
@@ -2184,11 +2194,6 @@ sub are_reversed(Int $i, Int $j) {
 }
 \end{verbatim}
 
-The {\tt while True} statement creates an infinite loop. The 
-loop is stopped, however, by the {\tt last} control flow 
-statement when the mother's age exceeds 99. We will see 
-later a more idiomatic way to built an infinite loop.
-\index{infinite loop}
 
 \section{Exercises of Chapter~\ref{arrays} (Arrays and lists)}
 
@@ -2431,7 +2436,7 @@ any other mean than the adequate subroutines. Hiding the
 information about the implementation or otherwise making 
 it inaccessible by other means than those that have been 
 designed for that purpose is often called data 
-{\emph{encapsulation}. One common way to achieve data 
+\emph{encapsulation}. One common way to achieve data 
 encapsulation is through object-oriented programming, which 
 we will cover later in this book (see Chapter~\ref{objects}). 
 
@@ -2465,7 +2470,7 @@ The \verb'@queue' array holding the data is lexically
 scoped to this subroutine and cannot be accessed directly 
 from anywhere else in the program. {\tt create-fifo} returns 
 two anonymous subroutines, one to dequeue items and one 
-to enqueue them. These subroutines are \emph{closures}, 
+to enqueue them. These subroutines are lexical \emph{closures}, 
 which means in simple terms that they can access to 
 \verb'@queue', because they have been defined within its 
 scope, even if they are called from somewhere else. Even 
@@ -2677,7 +2682,7 @@ say sort &my_comp, <22ac 34bd 56aa3 12c; 4abc( 1ca 45bc>;
      # -> (56aa3 4abc( 22ac 45bc 34bd 12c; 1ca)
 \end{verbatim}
 
-The transformation subroutine simple enough to be easily 
+The transformation subroutine is simple enough to be easily 
 replaced by a code block:
 
 \begin{verbatim}
@@ -2756,10 +2761,10 @@ been insisting on this programming style in this
 chapter.
 
 These solutions work well because it is known that there 
-are at most lists and nested lists. What if the level 
-of ``nestedness'' is not known in advance and can be 
-higher? A solution would be to use a recursive 
-subroutine to explore the tree of lists:
+are at most lists and nested lists (lists of lists). What 
+if the level of ``nestedness'' is not known in advance 
+and can be higher than two? A solution would be to use 
+a recursive subroutine to explore the tree of lists:
 \index{recursion}
 
 \begin{verbatim}
@@ -2777,6 +2782,9 @@ sub nested-sum ($input) {
 }
 say nested-sum @AoA;  # -> 42
 \end{verbatim}
+
+Remember that a recursive approach if often an efficient 
+tool when dealing with nested or chained data. 
 
 \subsection{Exercise~\ref{cumsum}: Cumulative sum (p.~\pageref{cumsum})}
 \label{sol_cumsum}
@@ -3525,7 +3533,7 @@ sub some-other-sub is export {
 \end{verbatim}
 
 Note that the module name given at the top of the code 
-and the root file name have to correspond. The only 
+and the root file name have to correspond. The only other 
 change to the code of the subroutine is adding the 
 {\tt is export} trait to the signature of the subroutine.
 
