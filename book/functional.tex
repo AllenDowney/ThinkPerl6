@@ -9,16 +9,16 @@ declarative programming paradigm, which means programming
 is done with expressions or declarations instead of 
 statements. In functional code, the output value of a function 
 depends only on the arguments that are input to the function, 
-so calling a function twice with the argument will produce the 
+so calling a function twice with the same argument will produce the 
 same result each time. Eliminating side effects, i.e. changes 
 in state that do not depend on the function inputs, can make 
 it much easier to understand and predict the behavior of a 
 program, which is one of the key motivations for the 
 development of functional programming.
 
-Perl is not a functional language in the sense that it is 
-also using many other programming paradigms that we have been 
-using abundantly throughout this book. It does however 
+Perl is not a functional language in the sense that it  
+also uses several other programming paradigms that we have seen 
+abundantly throughout this book. It does however 
 offer extensive functional programming features and 
 capabilities, some of which have been introduced in 
 various sections of this book and will be briefly 
@@ -44,8 +44,8 @@ another function.
 \subsection{A refresher on functions as first-class objects}
 \label{fco-refresher}
 
-Our initial very simple example was something 
-like this:
+Our initial very simple example of a higher-order function 
+was something like this:
 
 \begin{verbatim}
 sub do-twice(&code) {
@@ -65,10 +65,11 @@ function that is passed as an argument to another function
 is often called a \emph{callback function}.
 \index{callback function}
 
+\index{sigil}
 The \verb"&" sigil placed before the {\tt greet} 
-subroutine name in the argument list as well as before 
+subroutine name in the argument list (as well as before 
 the {\tt code} parameter in the signature and in the 
-body of the {\tt do-twice} subroutine tells Perl 
+body of the {\tt do-twice} subroutine) tells Perl 
 that you are passing around a subroutine or some 
 other callable code object.
 % TODO: get these entries working in plastex
@@ -173,9 +174,9 @@ to {\tt do-twice}:
 do-twice {say "Hello World!"};   # prints "Hello World" twice
 \end{verbatim}
 
-More useful examples of anonymous subroutines have been 
-seen (see Section~\ref{map_filter} for explanations or 
-details):
+You've already seen several useful examples of anonymous 
+subroutines in this book (see Section~\ref{map_filter} 
+for explanations or details):
 \begin{itemize}
 \item With the {\tt reduce} function to compute the sum of 
 the first 20 integers:
@@ -338,7 +339,7 @@ sub create-counter(Int $count) {
 }
 \end{verbatim}
 
-but this is arguably less clear because the code intent 
+but this is arguably less clear because the code's intent 
 is less explicit.
 
 The last {\tt create-fifo} example in the solution to 
@@ -388,7 +389,7 @@ powerful as {\tt map}.
 \index{map}
 \index{function!map}
 
-This is just another example of a block acting as a 
+Here is yet another example of a block acting as a 
 closure for a counter implementation:
 
 \begin{verbatim}
@@ -403,7 +404,7 @@ my &count;
 This closure saves a reference to the \verb'$counter' 
 variable when the closure is created. The call to the 
 \verb'&count' code block successfully displays and 
-updates \verb'$counter', even if that variable is no
+updates \verb'$counter', even though that variable is no
 longer in lexical scope when the block is executed.
 \index{scope!lexical}
 \index{lexical scope}
@@ -417,8 +418,8 @@ series of successive transformations on a list of
 values. Perl provides functions able to work on 
 the items of a list and apply simple actions, 
 callback functions or code blocks to these items. 
-Among those, we have already seen and used abundantly 
-the following:
+We have already seen and used abundantly several 
+such functions:
 \begin{itemize}
 \item {\tt map} applies a transformation of each item 
 of a list;
@@ -456,37 +457,38 @@ splits the data item into four pieces; the pieces are then
 reversed and then fed to {\tt join} to reconstruct a single 
 data item when the pieces are now in reversed order.
 
-Similarly, we could produce a list of children of single 
-mothers with the following code chaining several methods:
+Similarly, we could produce a list of pet animals belonging 
+to single ladies living in Kansas with the following code 
+chaining several methods:
 
 \begin{verbatim}
-my @children-of-single-moms =
-    map  {  .children },
+my @single-kansas-ladies-pets =
+    map  {  .pets },
     grep { !.is-married },
-    grep {  .gender eq FEMALE },
+    grep {  .gender eq "Female" },
+    grep {  .state eq "Kansas" },
          @citizens;
 \end{verbatim}
 \index{map} \index{function!map}
 \index{grep} \index{function!grep}
 
 This one should be read bottom to top. It takes a list 
-of all citizens, filters those who are female, filters 
-those who are not married, and list the children of 
-such unmarried women. Note that {\tt .children} may 
-return one child, a list of several children or an 
-empty list. {\tt map} has a flattening influence 
-on the lists thus produced, so the final result is 
-a flat list of children.
+of all citizens, filters those from Kansas who are female, 
+filters those who are not married, and finally generates 
+the list of pets of such persons. Note that \verb'.pets' 
+may return one animal, a list of several animals or an 
+empty list. \verb'map' ``flattens'' the lists thus produced, 
+so the final result is a flat list of animals (and not a 
+nested list of lists).
 
 These pipelines are very powerful and expressive, and 
 can get a lot done in a few code lines.
 
 \subsection{Feed and backward feed operators}
 
-Although it is easy to get used to it, it may be 
-considered inconvenient that the steps are laid 
-out in reverse order of processing in the previous 
-examples.
+In the previous examples, the steps were laid out in reverse 
+order; you may consider this inconvenient, although it is 
+easy to get used to.
 
 Perl~6 provides the \verb'==>' \emph{feed} operator 
 (sometimes called \emph{pipe} in other languages) 
@@ -500,7 +502,8 @@ steps in a ``more natural'', left to right, order.
 \fi
 
 For example, reusing the example of sorting records 
-by dates seen earlier in this chapter:
+by dates seen earlier in this chapter, you could rewrite 
+it like so:
 \index{sort}
 
 \begin{verbatim}
@@ -610,7 +613,7 @@ say -« @a;          # prints:  -2 -4 -6
 \end{verbatim}
 
 Hyperoperators with unary operators always return a 
-list having the same size as the input list. Infixed 
+list of the same size as the input list. Infixed 
 hyperoperators have a different behavior depending on 
 the size of their operands:
 
@@ -802,7 +805,7 @@ multi sub prefix:<%> (Int $x) {   # double operator
 say % 21;   # -> 42
 \end{verbatim}
 
-This is just an example to show how it works, \% would 
+This is just an example to show how operator construction works, \% would 
 probably not be a good name for a double operator. The 
 interesting point, though, is that we have re-used an existing 
 operator (the modulo operator), but the compiler does not 
@@ -996,7 +999,7 @@ say %year;
 
 Everything works as if this new operator was part 
 of the Perl~6 grammar. And that's in effect what 
-has happened here: we have really extended the 
+has happened here: we have extended the 
 language with a new operator. This possibility of 
 extending the language is key to the ability of  
 Perl~6 to cope with future needs that we can't even 
@@ -1044,12 +1047,13 @@ other languages, including Perl~5, it took quite
 a few tries before getting it right, especially 
 regarding the calling syntax. Here, everything 
 falls into place naturally.) To tell the truth, 
-the test is very limited and there may very well be 
-some edge cases when {\tt my-map} does not work 
-the same way as {\tt map}, but our aim was not to 
-clone {\tt map} exactly; the point is that it is 
-quite simple to build a higher-order subroutine 
-behaving essentially the same way as {\tt map}. 
+the test in this code example is very limited and 
+there may very well be some edge cases when 
+{\tt my-map} does not work the same way as {\tt map}, 
+but our aim was not to clone {\tt map} exactly; 
+the point is that it is quite simple to build a 
+higher-order subroutine that behaves essentially the 
+same way as {\tt map}. 
 \index{higher-order subroutine}
 \index{map}
 
@@ -1197,10 +1201,10 @@ functions are pedagogically interesting, but they aren't
 very useful if they do the same thing as their built-in 
 counterparts (and are probably slower). However, now 
 that we have seen how to build them, we can create our 
-own versions doing things differently.
+own versions that do things differently.
 
-Let's decide we want to create a function that acts like 
-{\tt map} in the sense that it does apply a 
+Say we want to create a function that acts like 
+{\tt map} in the sense that it applies a 
 transformation on the items of the input list, but does 
 that on the items one by one, on demand from a consumer 
 process, and pauses when and as long as the consumer process 
@@ -1217,7 +1221,7 @@ necessary for the program, not more than that.
 \index{laziness}
 \index{lazy!list processing}
 The idea 
-of processing now only what is strictly required is often call 
+of processing only what is strictly required is often called 
 \emph{laziness}, and this is a very useful idea. Lazy 
 list processing can be very useful not only because it 
 avoids processing data that is not needed, and therefore 
@@ -1266,12 +1270,12 @@ instead of doing it 200 times, 195 of which for nothing.
 Of course, multiplying a number by 2 isn't an expensive 
 operation and the array isn't very large, but this shows 
 how laziness can prevent useless computations. We will come 
-back to that, since Perl~6 offers native support to lazy 
+back to this idea, since Perl~6 offers native support to lazy 
 lists and lazy processing.
 \index{laziness}
 
-One additional advantage of using a function such as 
-{\tt iter-map} is that it is possible to use 
+As already noted, an additional advantage of using a function 
+such as {\tt iter-map} is that it is possible to use 
 virtually infinite lists. This works just as before:
 
 \begin{verbatim}
@@ -1305,7 +1309,7 @@ returns true. This implies that {\tt iter-grep} has to
 loop over the values returned by the iterator until it 
 receives a proper value.
 
-This might look like this:
+That might look like this:
 \index{iter!grep}
 
 \begin{verbatim}
@@ -1511,11 +1515,37 @@ Calling the {\tt take} function only makes sense
 within the context of a \verb'gather' block, but 
 it does not have to be within the block itself 
 (or within the lexical scope of the \verb'gather' 
-block). Although we don't cover that elsewhere in this book, 
+block), it can be within the \emph{dynamic scope} of the 
+\verb'gather' block
+
+\index{dynamic variable}
+\index{dynamic scope}
+Although we haven't covered this concept before, 
 Perl has the notion of \emph{dynamic scope}: contrary 
 to lexical scope, dynamic scope encloses not only 
 the current block, but also the subroutines called 
-from within the current clock. The {\tt take} function 
+from within the current block. Dynamic scope variables 
+use the ``*'' twigil. Here is an example:
+%
+\begin{verbatim}
+sub write-result () { say $*value; }
+sub caller (Int $val) { 
+    my $*value = $val * 2; 
+    write-result();
+}
+caller 5;               # -> 10
+\end{verbatim}
+%
+In the code above, the \verb'$*value' dynamic variable 
+is declared and defined in the \verb'caller' subroutine 
+and used in the \verb'write-result' subroutine. This would not 
+work with a lexical variable, but it works with a dynamic 
+variable such as \verb'$*value', because the scope of 
+\verb'$*value' extends to the \verb'write-result' subroutine 
+called by \verb'caller'. 
+
+\index{take function}
+Similarly, the {\tt take} function 
 can work within the dynamic scope of the \verb'gather' 
 block, which essentially means that the {\tt take} 
 function can be called within a subroutine called from 
@@ -1540,7 +1570,8 @@ it is within the dynamic scope of the gather block, i.e.
 within the {\tt compute-val} subroutine, which is itself 
 called in the {\tt gather} block.
 
-One last example will show how powerful this can be.
+One last example will show how powerful the 
+\verb'gather { take }' construct can be.
 
 Let's consider this problem posted on the Rosetta Code 
 site (\url{http://rosettacode.org/wiki/Same_Fringe}): 
@@ -1554,7 +1585,7 @@ important.
 \index{binary tree}
 
 The solution in Perl~6 uses a \verb'gather { take }' 
-block and holds in just 6~code lines:
+block and consists of just 6~code lines:
 
 \begin{verbatim}
 sub fringe ($tree) {
@@ -1583,6 +1614,9 @@ programming paradigm and its inherent expressiveness.
 
 \section{Lazy lists and the sequence operator}
 \index{lazy!list}
+
+Let's come back now to the idea of lazy lists and study 
+how Perl~6 can handle and use them.
 
 \subsection{The sequence operator}
 \index{sequence operator}
@@ -1816,7 +1850,7 @@ my $nums = (0, { $_ + 4 } ... 10);
 say $nums[0..5];     # -> (0 4 8 12 16 20)
 \end{verbatim}
 
-As it can be seen, the generator ``jumps over the end 
+As you can see in this example, the generator ``jumps over the end 
 point'' (it goes beyond 10), and the list is 
 in fact infinite. This is usually not a problem 
 in terms of the computer resources, since it is 
@@ -1830,7 +1864,8 @@ Fibonacci number less than 10,000 might be without
 computing first the series of such numbers until the 
 first one beyond 10,000.
 
-In this case, we can define another code block to test 
+In such cases where it is difficult to predict what the end 
+point should be, we can define another code block to test 
 whether the sequence should stop or continue. The sequence 
 will stop if the block returns a true value. For example, 
 to compute Fibonacci numbers until 100, we could use this 
@@ -1841,8 +1876,8 @@ under the REPL:
 [0 1 1 2 3 5 8 13 21 34 55 89 144]
 \end{verbatim}
 
-Okay, it does stop the series of numbers, but not quite exactly 
-where we wanted: we really wanted it to stop at the last 
+This is better, this does stop the series of numbers, but not 
+quite where we wanted: we really wanted it to stop at the last 
 Fibonacci under 100, and we're getting one more. It would be 
 quite easy to remove or filter out the last generated Fibonacci 
 number, but it's even better not to generate it at all. A slight 
@@ -1874,12 +1909,14 @@ of functional programming, especially in pure functional
 programming languages such as Haskell. The ``curry'' name comes 
 from the American mathematician Haskell Curry, one of the 
 founders (with Alonzo Church) of logical mathematical 
-theories, including lambda-calculus and others.
+theories, including lambda-calculus and others. (And, as 
+you might have guessed, the Haskell programming language 
+derived its name from Curry's first name.)
 \index{Curry, Haskell}
 \index{Church, Alonzo}
 
 To curry a function having several arguments means replacing 
-it by a function having only one argument and returning 
+it with a function having only one argument and returning 
 another function (often a closure) whose role is to 
 process the other arguments.
 
@@ -2017,7 +2054,7 @@ say third(126);          # -> 42
 \end{verbatim}
 
 The \emph{whatever star} ``*'' is a placeholder for 
-an argument, so that the expression returns in fact 
+an argument, so that the expression returns 
 a closure.
 
 It can be used in a way somewhat similar to the \verb'$_' 
@@ -2256,8 +2293,8 @@ This might give you the additional information you need.
 Suppose we want to test a subroutine to determine whether a 
 given string is a palindrome (as discussed in several chapters 
 in this book, see for example Exercise~\ref{palindrome} and 
-Subsection~\ref{palindrome_2}). This could be something 
-like this:
+Subsection~\ref{palindrome_2}). You could perform that test 
+by writing something like this:
 \index{palindrome}
 
 \begin{verbatim}
@@ -2288,8 +2325,9 @@ multi sub MAIN(:$test!) {
 Usually, tests are stored in different files placed in a ``t'' 
 sub-directory. Here, for this short test, everything is in the 
 same file, but two multi {\tt MAIN} subroutines are supplied 
-to either test if a passed parameter is a palindrome, or to 
-run the test plan. See Section~\ref{MAIN} (p.~\pageref{MAIN} and Subsection~\ref{MAIN_sub} (p.~\pageref{MAIN_sub})
+to either test whether a passed parameter is a palindrome, or to 
+run the test plan. See Section~\ref{MAIN} (p.~\pageref{MAIN} 
+and Subsection~\ref{MAIN_sub} (p.~\pageref{MAIN_sub})
 if you don't remember about the {\tt MAIN} subroutine.
 \index{MAIN}
 \index{multi subroutines}
@@ -2351,8 +2389,9 @@ the final number of code lines.
 \begin{description}
 
 \item[First-class object:] an object that can be passed around 
-as an argument to or as a return value from a subroutine. In 
-Perl, subroutine are first-class objects or first-class citizens. 
+as an argument to or as a return value from a subroutine. 
+In Perl, subroutines are first-class objects (also called 
+first-class citizens). 
 \index{first-class object}
 \index{first-class citizen}
 
@@ -2363,7 +2402,7 @@ passed as an argument to another function.
 \item[higher-order function:] a function or subroutine that takes 
 another subroutine (or a simple code block) as an argument. The 
 {\tt map}, {\tt grep}, {\tt reduce}, and {\tt sort} built-in 
-functions are examples of such higher-order functions.
+functions are examples of higher-order functions.
 \index{higher-order function}
 \index{function!higher-order}
 
@@ -2381,7 +2420,7 @@ is called.
 \index{closure}
 
 \item[pipe-line programming:] a programming model in which 
-pieces of data (usually lists) are undergoing successive 
+pieces of data (usually lists) undergo successive 
 transformations as in a pipe-line or an assembly line.
 \index{pipe-line programming}
 
@@ -2408,7 +2447,7 @@ on demand, when required, to avoid unnecessary processing.
 
 \item[iterator:] A piece of code that returns values on demand 
 and keeps track of where it has arrived, so as to be able 
-to know what the next value should be.
+to know what the next value to be provided should be.
 \index{iterator}
 
 \item[cache:] To cache a value is to store it in memory (in a 
@@ -2416,9 +2455,10 @@ variable, an array, a hash, etc.) in order to avoid the need to
 compute it again, thereby hopefully saving some computation time.
 \index{cache}
 
-\item[currying:] currying a function taking several arguments is 
-to create another function taking fewer arguments (where the missing 
-arguments are stored within the new curried function).
+\item[currying:] currying a function that takes several 
+arguments is to create another function that takes fewer 
+arguments (where the missing arguments are stored within 
+the new curried function).
 \index{curry}
 
 \item[test-driven development:] a development methodology 
