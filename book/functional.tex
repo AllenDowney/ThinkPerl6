@@ -23,6 +23,7 @@ offer extensive functional programming features and
 capabilities, some of which have been introduced in 
 various sections of this book and will be briefly 
 reviewed here before we get further.
+\index{programming paradigm}
 
 \section{Higher order functions}
 \index{higher-order functions}
@@ -458,7 +459,7 @@ reversed and then fed to {\tt join} to reconstruct a single
 data item when the pieces are now in reversed order.
 
 Similarly, we could produce a list of pet animals belonging 
-to single ladies living in Kansas with the following code 
+to single women living in Kansas with the following code 
 chaining several methods:
 
 \begin{verbatim}
@@ -478,8 +479,8 @@ filters those who are not married, and finally generates
 the list of pets of such persons. Note that \verb'.pets' 
 may return one animal, a list of several animals or an 
 empty list. \verb'map' ``flattens'' the lists thus produced, 
-so the final result is a flat list of animals (and not a 
-nested list of lists).
+so the final result going into the array is a flat list of 
+animals (and not a nested list of lists).
 
 These pipelines are very powerful and expressive, and 
 can get a lot done in a few code lines.
@@ -613,7 +614,7 @@ say -« @a;          # prints:  -2 -4 -6
 \end{verbatim}
 
 Hyperoperators with unary operators always return a 
-list of the same size as the input list. Infixed 
+list the same size as the input list. Infixed 
 hyperoperators have a different behavior depending on 
 the size of their operands:
 
