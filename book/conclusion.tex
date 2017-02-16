@@ -14,9 +14,9 @@ can be when you write it, how will you ever debug it? }\\
 Writing a real-life program is not the same thing as learning 
 the art of programming or learning a new language.
 
-Because the very nature of this book is to lead you to learn 
+Because the goal of this book is to lead you to learn 
 more advanced concepts or new syntax, I have often been 
-pushing new ways of doing things. This does not mean that 
+pushing new ways of doing things. But this does not mean that 
 you should try to pack your most advanced knowledge into 
 each of your programs. Quite to the contrary.
 
@@ -40,7 +40,7 @@ a regex is very probably the right tool.
 \index{substr}
 \index{regex}
 
-Another related tenet is ``YAGNI'': you  aren't gonna need 
+Another related tenet is ``YAGNI'': you aren't gonna need 
 it. This acronym comes from a school of programming 
 known as ``extreme programming'' (XP). Even if you don't 
 adhere to all the XP principles, this idea is quite sound 
@@ -65,8 +65,8 @@ you, remember that the person maintaining your code might be
 you in a year from now. You may not remember then 
 how that neat trick you've used really works.
 
-A final quote from Dijkstra: ``Simplicity is prerequisite 
-for reliability.''
+A final quote from Edsger Dijkstra on this subject: 
+``Simplicity is prerequisite for reliability.''
 \index{Dijkstra, Edsger}
 \index{simplicity}
 
@@ -97,7 +97,7 @@ and programs have sensible
 names which convey clearly what they are or what they do, 
 then your code will be clearer and might need fewer 
 comments. Very short names like \verb'$i' or \verb'$n' are 
-usually fine for loop variables, pretty much anything else needs 
+usually fine for loop variables, but pretty much anything else needs 
 a name that tells clearly what the content or the purpose is. 
 Names like \verb'$array' or \verb'%hash' may have sometimes been 
 used in the examples of this book to indicate more clearly 
@@ -107,7 +107,7 @@ words, call it \verb'%words' or \verb'%word-list', not
 \verb'%hash'. The \% sigil tells that it is a hash anyway.
 \index{meaningful identifier}
 
-\item[Make useful comments and avoid useless ones:] a 
+\item[Make useful comments and avoid useless ones:] A 
 comment like this:
 \begin{verbatim}
 my $count = 1;     # assigns 1 to $count
@@ -134,7 +134,7 @@ significant software without having a number of initial
 bugs. Edsger Dijkstra is quoted for having said: ``If 
 debugging is the process of removing software bugs,
 then programming must be the process of putting them in.'' 
-It is unfortunately very true. Even though the same Dijkstra 
+It is unfortunately very true. Even though Dijkstra 
 also said that ``Testing shows the presence, not the absence 
 of bugs'', testing is an essential part of software 
 development. Write extensive test plans, use them often,
@@ -154,7 +154,9 @@ at least most of it) in programming.''
 my $time-left = 31536000;
 \end{verbatim}
 
-What the hell is this 31,536,000 number? Compare with this:
+What is this 31,536,000 number coming out of nowhere? 
+There's no way to know just by looking at this line 
+of code. Compare with this:
 
 \begin{verbatim}
 my $secondsInAYear = 365 * 24 * 60 * 60;
@@ -174,7 +176,7 @@ constant SECONDS-PER-YEAR = 365 * 24 * 60 * 60;
 \item[Avoid hard-coded values:] Hard-coded values are bad.
 If you have to use some, define them as variables or constants 
 at the beginning of your program, and use those variables or 
-constants. Hard-coded file paths are especially bad. If you 
+constants instead. Hard-coded file paths are especially bad. If you 
 have to use some, use some variables with relative paths:
 \begin{verbatim}
 my $base-dir = '/path/to/application/data';
@@ -199,9 +201,9 @@ program gracefully (e.g. with an informative error message) if
 the error is too serious for the program to continue.
 \index{error!ignoring}
 
-\item[Format your code clearly and consistently:] the compiler 
+\item[Format your code clearly and consistently:] The compiler 
 might not care about code indentation, but human readers do. 
-Your code formatting should help understanding the structure and 
+Your code formatting should help clarify the structure and 
 control flow of your programs.
 \index{indentation}
 
@@ -222,13 +224,12 @@ and enable you to focus on the overall code design rather than
 get bogged down in detailed code concerns. They often formalize 
 patterns that avoid common mistakes or bugs.
 
-Even though Perl~6 is a relatively new language, a number of such idioms 
-have become honed over time. These are a few of these idiomatic 
-constructs.
+Even though Perl~6 is a relatively new language, a number of such 
+idioms have become honed over time. Here are a few of these 
+idiomatic constructs~\footnote{When two solutions are suggested, 
+the second one is usually the more idiomatic one.}.
 \index{idiomatic Perl~6}
 
-When two solutions are suggested, the second one is usually the 
-more idiomatic one.
 
 \begin{description}
 \item[Creating a hash from a list of keys and a list of values:] Using slices:
@@ -439,9 +440,11 @@ for $start ^..^ $end -> $i {...}
 A book like this one can't tell you everything about programming,  
 nor about Perl~6. At this point, you should know how to write a 
 program to solve an average-difficulty problem, but a lot of work 
-has been done in the last decades to solve harder problems. Read 
-books about algorithmics, the science of algorithms. Many good 
-books exist on the subject, but my best advice would be two books:
+has been done in the last decades to solve harder problems. So 
+where should you go from here?
+
+Read books about algorithmics, the science of algorithms. Many good 
+books exist on the subject, but my best advice would be two books (you should be aware though that they are not easy):
 \begin{itemize}
 \item Cormen, Leiserson, Rivest, Stein: \emph{Introduction to 
 Algorithms}, The MIT Press.
@@ -476,6 +479,6 @@ language. Write new code. Modify existing examples, and see what
 happens. Try new things. Go ahead, be bold, dive into the pool and
 swim. The bottom line is: you will really learn by doing.
 
-And that's great fun. Enjoy it!
+Learning the art of programming is great fun. Enjoy it!
 \index{fun}
 
