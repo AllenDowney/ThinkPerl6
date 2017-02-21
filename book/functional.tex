@@ -1079,17 +1079,24 @@ say @even;                   # -> [2 4 6 8 10]
 \subsection{Our own version of a sort function}
 \label{combsort}
 \index{sort!comb sort}
+\index{comb sort}
 
 We can similarly write our own version of the sort 
 function. 
 
 \index{sort!merge sort}
 \index{sort!quicksort}
+\index{merge sort}
+\index{quick sort}
+
 The Perl {\tt sort} function implements a sort 
-algorithm known as \emph{merge sort}.  Some 
+algorithm known as \emph{merge sort}\footnote{Merge 
+sort is presented in some details in 
+section~\ref{mergesort}.}.  Some 
 previous versions of the Perl language (prior to 
 version~5.8) implemented another algorithm known 
-as \emph{quick sort}. The main reason for this 
+as \emph{quick sort}\footnote{Quick sort is presented 
+in \ref{quicksort}}. The main reason for this 
 change was that, although quick sort is on average  
 a bit faster than merge sort, there are specific 
 cases where quick sort is much less efficient than 
@@ -1098,6 +1105,7 @@ These cases are very rare with random data, but not
 in real situations: it is quite common that you have 
 to sort a previously sorted list in which only a 
 few elements have been added or modified.
+\index{quick sort}
 
 In computing theory, it is frequently said that, for 
 sorting \emph{n} items, both merge sort and quick 
@@ -2123,6 +2131,229 @@ shorter. And, overall, shorter code, provided it remains
 clear and easy to understand, is very likely to have 
 fewer bugs than longer code.
 
+\section{Using a functional programming style}
+\index{functional programming style}
+\label{funcstyle}
+
+In this chapter, we have seen how to use techniques derived 
+from functional programming to make our code simpler and 
+more expressive. In a certain way, though, we haven't fully 
+applied functional programming. All of the techniques we have 
+seen stem from functional programming, but the true essence 
+of functional programming isn't really about higher order 
+functions, list processing and pipe-line programming, 
+anonymous subroutines and closures, lazy lists and currying. 
+As we said at the beginning of this chapter: functional 
+programming treats computation as the evaluation of mathematical 
+functions and avoids changing-state and mutable data.
+
+Instead of simply using techniques derived from functional 
+programming, we can go one step further and actually 
+write code in functional programming style. If we are going 
+to avoid changing-state and mutable data, this means that 
+we will no longer use variables (or not change them) and 
+do things differently.
+
+\subsection{The merge sort algorithm}
+\label{mergesort}
+\index{merge sort}
+\index{sort!merge sort}
+
+Consider the example of a classical and efficient sorting 
+technique called the merge sort, invented by John von Neumann 
+in 1945. It is based on the fact that if you have two sorted 
+arrays, it is significantly faster to merge the two arrays 
+into single sorted array, by reading each array in parallel and 
+picking up the appropriate item from either of the arrays, than 
+it would be blindly sort the data of the two arrays.
+\index{von Neumann, John}
+\index{merging arrays or lists}
+
+Merge sort is a ``divide and conquer'' algorithm which 
+consists in recursively splitting the input unsorted array into 
+smaller and smaller sublists, until each sublist contains only 
+one item (at which point the sublist is sorted, by definition), 
+and then the merge the sublists back into a sorted array.
+\index{divide and conquer}
+
+To avoid unnecessary complexity, we will discuss here 
+implementations that simply sort numbers in ascending order.
+
+
+\subsection{A non-functional implementation of merge sort}
+\index{merge sort! non functional implementation}
+
+Here's how we could try to implement a merge sort algorithm using 
+purely imperative/procedural programming:
+
+\begin{verbatim}
+# ATTENTION: buggy code
+sub merge-sort (@out, @to-be-sorted, $start = 0, $end = @to-be-sorted.end) {
+    return if $end - $start  < 2;
+    my $middle = ($end + $start) div 2;
+    my @first = merge-sort(@to-be-sorted, @out, $start, $middle);
+    my $second = merge-sort(@to-be-sorted, @out, $middle, $end);
+    merge-lists(@out, @to-be-sorted, $start, $middle, $end);
+}
+sub merge-lists (@in, @out, $start, $middle, $end) {
+    my $i = $start;
+    my $j = $middle;
+    for $start..$end  -> $k {
+        if $i < $middle and ($j >= $end or @in[$i] <= @in[$j]) {
+            @out[$k] = @in[$i];
+            $i++;
+        } else {
+            @out[$k] = @in[$j];
+            $j++;
+        } 
+    }
+}
+my @array = reverse 1..10;
+my @output = @array;
+merge-sort2  @output, @array;
+say @output;
+\end{verbatim}
+
+The program always work on the full array (and its copy) and 
+the sublists are not extracted, but figured by appropriate 
+subscript management. 
+
+This code is not very long, but nonetheless fairly complicated.
+If you try to run it, you'll find that there is a bug: 
+the last item of the original array is improperly sorted. For 
+example, if you try to run it on the list of ten consecutive 
+integers in reverse order (i.e. ordered from 10 to 1) used in 
+the test at the end of the above code, you'll get the following 
+output array:
+
+\begin{verbatim}
+[2 3 4 5 6 7 8 9 10 1]
+\end{verbatim}
+
+
+As an exercise, you might try to fix the bug (try it before reading 
+on, the correction comes next). 
+
+It is likely that you'll find that identifying and correcting 
+the bug is quite difficult, although this bug is actually 
+relatively simple (I have encountered some more complicated 
+bugs before arriving at this last final one when I wrote this.) 
+It is quite hard to properly use the array subscripts and 
+insert the data items in the right place, avoiding off-by-one 
+and other errors. 
+
+Here's a corrected version:
+
+\begin{verbatim}
+sub merge-sort (@out, @to-be-sorted, $start = 0, $end = @to-be-sorted.elems) {
+    return if $end - $start < 2;
+    my $middle = ($end + $start) div 2;
+    merge-sort(@to-be-sorted, @out, $start, $middle);
+    merge-sort(@to-be-sorted, @out, $middle, $end);
+    merge-lists(@out, @to-be-sorted, $start, $middle, $end);
+}
+sub merge-lists (@in, @out, $start, $middle, $end) {
+    my $i = $start;
+    my $j = $middle;
+    for $start..$end - 1  -> $k {
+        if $i < $middle and ($j >= $end or @in[$i] <= @in[$j]) {
+            @out[$k] = @in[$i];
+            $i++;
+        } else {
+            @out[$k] = @in[$j];
+            $j++;
+        } 
+    }
+}
+my @array = pick 20, 1..100;
+my @output = @array;
+merge-sort2  @output, @array;
+say @output;
+\end{verbatim}
+
+For 20~randoms integers between 1 and 100, this prints 
+out (for one specific run, you're very unlikely to get the same 
+random numbers is you run the same code) the following:
+
+\begin{verbatim}
+[11 13 14 15 19 24 25 29 39 46 52 57 62 68 81 83 89 92 94 99]
+\end{verbatim}
+
+The point is that is is difficult to understand the detailed 
+implementation of the algorithm, and fairly hard to debug, even 
+using the Perl debugger presented in section~\ref{perl-debugger}.
+\index{debugger}
+\index{merge sort! non functional implementation}
+
+\subsection{A functional implementation of merge sort}
+\index{merge sort!functional implementation}
+Rather than modifying the entire array at each step through 
+the process (and being confused in the management of subscripts), 
+we can split recursively the data into actual sublists and work 
+on these sublists.
+
+This can lead to the following implementation:
+
+\begin{verbatim}
+sub merge-sort (@to-be-sorted) {
+    return @to-be-sorted if @to-be-sorted < 2;
+    my $middle = @to-be-sorted.elems div 2;
+    my @first = merge-sort(@to-be-sorted[0 .. $middle - 1]);
+    my @second = merge-sort(@to-be-sorted[$middle .. @to-be-sorted.end]);
+    return merge-lists(@first, @second);
+}
+sub merge-lists (@one, @two) {
+    my @result;
+    loop {
+        return @result.append(@two) unless @one;
+        return @result.append(@one) unless @two;
+        push @result, @one[0] < @two[0] ?? shift @one !! shift @two;
+    }
+} 
+\end{verbatim}
+
+The code is shorter, but that's not the main point.
+
+The {\tt merge-sort} is somewhat similar to the previous 
+implementation, except that it recursively creates the 
+sublists and then merge the sublists.
+
+It is the {\tt merge-lists} subroutine (which does the bulk 
+of the work in both implementations) that is now much 
+simpler: it receives two sublists and merges them. Most of this 
+work is done in the last code line, the two lines before 
+are only taking care of returning the merged list when one 
+of the input sublists ends up being empty.
+\index{merge sort!functional implementation}
+
+The functional version of the program captures  
+the essence of the merge sort algorithm:
+\begin{itemize}
+\item If the  array has less than two items, it is already 
+sorted, so return it immediately (this is the base case 
+stopping the recursion).
+\item Else, pick the middle position of the array to divide 
+it into two sublists, and call \verb'merge-sort' recursively 
+on them;
+\item Merge the sorted sublist thus generated.
+\item Return the merged list to the caller.
+\end{itemize}
+
+\index{functional programming style}
+I hope that you can see how much clearer and simpler the 
+functional style implementation is. To give you an idea, 
+writing and debugging this latter program took me about 
+fifteen minutes, i.e. about ten times less than the 
+non-functional version. Try to implement these two versions 
+for yourself if you don't believe me. It's a good 
+exercise anyway.
+
+The exercise section of this chapter (section~\ref{quicksort} 
+will provide another (and probably even more telling) example 
+of the simplicity of functional programming compared to more 
+imperative or procedural approaches.
+
+
 \section{Debugging}
 \label{test_module}
 \index{testing!automated tests}
@@ -2469,3 +2700,79 @@ the program complies with the specifications.
 \index{test-driven development}
 
 \end{description}
+
+\section{Exercise: quick sort}
+\label{quicksort}
+\index{quick sort}
+\index{sort!quick sort}
+
+\begin{exercise}
+Quicksort is a ``divide and conquer'' sorting algorithm invented 
+by Tony Hoare in 1959. It relies on partitioning the array 
+to be sorted. To partition an array, an element called a pivot 
+is selected. All elements smaller than the pivot are moved before 
+it and all greater elements are moved after it. The lesser and 
+greater sublists are then recursively sorted and finally 
+concatenated.
+\index{Hoare, Charles Antony Richard}
+\index{divide and conquer algorithm}
+
+One of the difficulties is to select the right pivot. Ideally 
+it should be the median value of the array, since this would 
+give partitions of approximately equal sizes, thereby making 
+the algorithm optimally efficient, but finding the 
+median for each partition would take some time and ultimately 
+penalize the performance. Various variants of the quick sort 
+have been tried, with different strategies to (usually 
+arbitrarily) select a pivot.
+\index{pivot!quick sort algorithm}
+
+The following is a typical non-functional implementation 
+of the quick sort algorithm.
+
+\begin{verbatim}
+sub quicksort(@input) {
+    sub swap ($x, $y) {
+        (@input[$x], @input[$y]) = @input[$y], @input[$x];
+    }
+    sub qsort ($left, $right) {
+        my $pivot = @input[($left + $right) div 2];
+        my $i = $left;
+        my $j = $right;
+        while $i < $j {
+            $i++ while @input[$i] < $pivot;
+            $j-- while @input[$j] > $pivot;
+            if $i <= $j {
+                swap $i, $j;
+                $i++;
+                $j--;
+            }
+        }
+        qsort($left, $j) if $left < $j;
+        qsort($i, $right) if $j < $right;
+    }
+    qsort(0, @input.end)
+}
+my @array = pick 20, 1..100;;
+quicksort @array;
+say @array;
+\end{verbatim}
+
+The array is modified in place (which has the advantage of 
+requiring limited memory), which means that the original array 
+is modified. 
+
+For functional programming, internal data is immutable, so that 
+you're copying data fragments into new lists, rather than modifying 
+them ``in place''.
+
+In the same spirit as what we've done in section~\ref{funcstyle} 
+for the merge sort algorithm, try to write a functional style 
+implementation of the quick sort algorithm. Hint: this can be 
+done in about half a dozen lines of code. 
+
+Solution: \ref{sol_quicksort}.
+\index{quick sort}
+
+\end{exercise}
+
