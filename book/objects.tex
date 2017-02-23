@@ -460,6 +460,8 @@ We declare three methods in the class:
 \begin{itemize}
 \item {\tt coordinates}, a simple accessor to the Cartesian 
 coordinates;
+\index{coordinates!Cartesian}
+\index{Cartesian coordinates}
 
 \item{\tt distanceToCenter}, a method to compute and return 
 the distance between the object and the origin;
@@ -1945,6 +1947,9 @@ that the public interface of the methods provided by a class
 should not depend on how the attributes are represented.
 \index{attribute}
 
+\index{coordinates!Cartesian}
+\index{Cartesian coordinates}
+\index{polar coordinate}
 For example, we designed a {\tt Point2D} class in which the main 
 attributes were the point's Cartesian coordinates. We may find 
 out that, for the purpose of our application, it would be easier 
@@ -2261,12 +2266,12 @@ how the variable changed over time, using the command
 {\tt tp show}.
 
 For example, we used it to log variable \verb'$rotated-word' 
-in the solution to the Caesar's cypher exercise 
+in the solution to the Caesar's cipher exercise 
 (see Subsection~\ref{sol_rotate}) for the 
 ``ABCDabcd'' input string with a rotation of 25 letters; 
 the {\tt tp show} command displayed how the coded output 
 string was progressively populated letter by letter:
-\index{Caesar Cypher}
+\index{Caesar cipher}
 
 \begin{verbatim}
 > tp show
