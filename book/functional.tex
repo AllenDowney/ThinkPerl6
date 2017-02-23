@@ -2139,20 +2139,21 @@ In this chapter, we have seen how to use techniques derived
 from functional programming to make our code simpler and 
 more expressive. In a certain way, though, we haven't fully 
 applied functional programming. All of the techniques we have 
-seen stem from functional programming, but the true essence 
-of functional programming isn't really about higher order 
-functions, list processing and pipe-line programming, 
-anonymous subroutines and closures, lazy lists and currying. 
-As we said at the beginning of this chapter: functional 
-programming treats computation as the evaluation of mathematical 
+seen stem from functional programming and are a crucial 
+part of it, but the true essence of functional programming 
+isn't really about using higher order functions, list 
+processing and pipe-line programming, anonymous subroutines 
+and closures, lazy lists and currying, and so on . 
+The true essence of functional programming is a specific 
+mindset that treats computation as the evaluation of mathematical 
 functions and avoids changing-state and mutable data.
 
 Instead of simply using techniques derived from functional 
 programming, we can go one step further and actually 
 write code in functional programming style. If we are going 
 to avoid changing-state and mutable data, this means that 
-we will no longer use variables (or not change them) and 
-do things differently.
+we will no longer use variables (or at least not change them, 
+thus treat them as immutable data) and do things differently.
 
 \subsection{The merge sort algorithm}
 \label{mergesort}
@@ -2165,7 +2166,7 @@ in 1945. It is based on the fact that if you have two sorted
 arrays, it is significantly faster to merge the two arrays 
 into single sorted array, by reading each array in parallel and 
 picking up the appropriate item from either of the arrays, than 
-it would be blindly sort the data of the two arrays.
+it would be to blindly sort the data of the two arrays.
 \index{von Neumann, John}
 \index{merging arrays or lists}
 
@@ -2173,10 +2174,10 @@ Merge sort is a ``divide and conquer'' algorithm which
 consists in recursively splitting the input unsorted array into 
 smaller and smaller sublists, until each sublist contains only 
 one item (at which point the sublist is sorted, by definition), 
-and then the merge the sublists back into a sorted array.
+and then merging the sublists back into a sorted array.
 \index{divide and conquer}
 
-To avoid unnecessary complexity, we will discuss here 
+To avoid adding unnecessary complexity, we will discuss here 
 implementations that simply sort numbers in ascending order.
 
 
@@ -2214,7 +2215,7 @@ merge-sort2  @output, @array;
 say @output;
 \end{verbatim}
 
-The program always work on the full array (and its copy) and 
+This program always works on the full array (and its copy) and 
 the sublists are not extracted, but figured by appropriate 
 subscript management. 
 
@@ -2231,16 +2232,17 @@ output array:
 \end{verbatim}
 
 
-As an exercise, you might try to fix the bug (try it before reading 
-on, the correction comes next). 
+As an exercise, try fixing the bug before reading any further. 
+(The fix is explained next.)
 
 It is likely that you'll find that identifying and correcting 
 the bug is quite difficult, although this bug is actually 
-relatively simple (I have encountered some more complicated 
-bugs before arriving at this last final one when I wrote this.) 
+relatively simple (when I initially wrote this code, I 
+encountered some more complicated bugs before arriving at this one). 
 It is quite hard to properly use the array subscripts and 
 insert the data items in the right place, avoiding off-by-one 
-and other errors. 
+and other errors.
+\index{off-by-one error}
 
 Here's a corrected version:
 
@@ -2271,15 +2273,24 @@ merge-sort2  @output, @array;
 say @output;
 \end{verbatim}
 
+The main change is in the signature of the \verb'merge-sort' 
+subroutine: the default value for the \verb'$end' parameter 
+is the size (number of items) of the array, and no 
+longer the subscript of the last elements of the array (so, 
+the bug was an off-by-one error). Making this correction 
+also make it necessary to change the pointy block 
+(\verb'for $start..$end - 1 -> ...') in the 
+\verb'merge-lists' subroutine.
+\index{off-by-one error}
+
 For 20~randoms integers between 1 and 100, this prints 
-out (for one specific run, you're very unlikely to get the same 
-random numbers is you run the same code) the following:
+out something like the following:
 
 \begin{verbatim}
 [11 13 14 15 19 24 25 29 39 46 52 57 62 68 81 83 89 92 94 99]
 \end{verbatim}
 
-The point is that is is difficult to understand the detailed 
+The point is that it is difficult to understand the detailed 
 implementation of the algorithm, and fairly hard to debug, even 
 using the Perl debugger presented in section~\ref{perl-debugger}.
 \index{debugger}
@@ -2312,7 +2323,8 @@ sub merge-lists (@one, @two) {
 } 
 \end{verbatim}
 
-The code is shorter, but that's not the main point.
+The code is shorter than the previous implementation, but 
+that's not the main point.
 
 The {\tt merge-sort} is somewhat similar to the previous 
 implementation, except that it recursively creates the 
@@ -2321,17 +2333,19 @@ sublists and then merge the sublists.
 It is the {\tt merge-lists} subroutine (which does the bulk 
 of the work in both implementations) that is now much 
 simpler: it receives two sublists and merges them. Most of this 
-work is done in the last code line, the two lines before 
+work is done in the last code line, the two lines before it 
 are only taking care of returning the merged list when one 
 of the input sublists ends up being empty.
 \index{merge sort!functional implementation}
 
-The functional version of the program captures  
+This functional version of the program captures  
 the essence of the merge sort algorithm:
 \begin{itemize}
 \item If the  array has less than two items, it is already 
 sorted, so return it immediately (this is the base case 
 stopping the recursion).
+\index{base case}
+\index{recursion!base case}
 \item Else, pick the middle position of the array to divide 
 it into two sublists, and call \verb'merge-sort' recursively 
 on them;
@@ -2344,9 +2358,9 @@ I hope that you can see how much clearer and simpler the
 functional style implementation is. To give you an idea, 
 writing and debugging this latter program took me about 
 fifteen minutes, i.e. about ten times less than the 
-non-functional version. Try to implement these two versions 
-for yourself if you don't believe me. It's a good 
-exercise anyway.
+non-functional version. If you don't believe me, try to 
+implement these two versions for yourself. (It's a good 
+exercise even if you \emph{do} believe me.)
 
 The exercise section of this chapter (section~\ref{quicksort} 
 will provide another (and probably even more telling) example 
@@ -2712,13 +2726,13 @@ by Tony Hoare in 1959. It relies on partitioning the array
 to be sorted. To partition an array, an element called a pivot 
 is selected. All elements smaller than the pivot are moved before 
 it and all greater elements are moved after it. The lesser and 
-greater sublists are then recursively sorted and finally 
-concatenated.
+greater sublists are then recursively sorted through the same 
+process and finally reassembled together.
 \index{Hoare, Charles Antony Richard}
 \index{divide and conquer algorithm}
 
 One of the difficulties is to select the right pivot. Ideally 
-it should be the median value of the array, since this would 
+it should be the median value of the array items, since this would 
 give partitions of approximately equal sizes, thereby making 
 the algorithm optimally efficient, but finding the 
 median for each partition would take some time and ultimately 
@@ -2730,7 +2744,7 @@ arbitrarily) select a pivot.
 The following is a typical non-functional implementation 
 of the quick sort algorithm.
 
-\begin{verbatim}
+\begin{verbatim}[fontshape=up]
 sub quicksort(@input) {
     sub swap ($x, $y) {
         (@input[$x], @input[$y]) = @input[$y], @input[$x];
