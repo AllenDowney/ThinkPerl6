@@ -3,6 +3,7 @@
 This (long) chapter provides solutions to the exercises 
 suggested in this book main matter. However, it contains 
 much more than that.
+\index{solutions to the exercises}
 
 First, in many cases, it provides several different solutions, 
 illustrating different approaches to a problem, discussing 
@@ -318,6 +319,7 @@ We need a subroutine that takes a function
 and a number, {\tt \$num}, as arguments, and that calls
 the given function {\tt \$num} times.
 
+\index{function!recursive}
 The {\tt do-n-times} subroutine is recursive and is 
 calling itself each time with a decremented argument. It 
 stops ``recursing'' when this argument is 0. \verb'$subref' is an anonymous subroutine called within the body of 
@@ -482,6 +484,7 @@ time Jim Phelps should decline to accept the mission.
 
 \subsection{Exercise~\ref{triangle}: is it a triangle? (p.~\pageref{triangle})}
 \label{sol_triangle}
+\index{triangle}
 
 This is a possible routine to find out whether you can 
 make a triangle with three given stick lengths
@@ -809,6 +812,9 @@ say hypotenuse 3, 4;
 \subsection{Chained relational operators(in Section~\ref{isbetween})}
 \label{sol_isbetween}
 \index{is-between}
+\index{chained relational operator}
+\index{chained conditional}
+\index{conditional!chained}
 
 We need a subroutine to figure out whether $x \le y \le z$ 
 is true or false. We simply need to test it with a chained relational operator and return that:
@@ -831,6 +837,7 @@ integer numbers). We will see later better ways
 of building more robust test suites (see for example 
 Section~\ref{test_module} and exercise 
 solution in Section~\ref{sol_fact_operator}).
+\index{test module}
 
 
 \subsection{The Ackermann function (Exercise~\ref{ackermann})}
@@ -879,11 +886,13 @@ The Ackermann function is defined for non-negative integers.
 As a further exercise, modify the {\tt ack} subroutine to 
 prevent negative arguments. We have seen two different ways 
 of doing that in Section~\ref{guardian}.
+\index{guardian}
 
 
 \subsection{Palindromes (Exercise~\ref{palindrome})}
-\index{palindrome}
 \label{sol_palindrome}
+\index{palindrome}
+\index{recursion}
 
 Write a recursive subroutine that checks if a word is a 
 palindrome.
@@ -1068,6 +1077,7 @@ One solution might be to add a signature constraint (or
 use a type subset):
 \index{subset!type}
 \index{type subset}
+\index{signature}
 \begin{verbatim}
 sub gcd(Int $a where $a > 0, Int $b where $b > 0) {
     ...
@@ -1206,6 +1216,7 @@ function in Perl~6.
 \subsection{Exercise~\ref{test_sqrt}: square root (p.~\pageref{test_sqrt})}
 \label{sol_test_sqrt}
 \index{square root}
+\index{iteration}
 
 We need a subroutine to find the square root of a number by 
 computing successively better approximations of the root, using 
@@ -1324,6 +1335,8 @@ This prints: 3.14159265358979.
 
 Notice how we have used here a multiline comment to 
 give some additional information about the subroutine.
+\index{multiline comment}
+\index{comment}
 
 Uncommenting the intermediate print statement shows the 
 steps of the progress toward to solution:
@@ -1339,9 +1352,12 @@ Intermediate term = 6.47985705171744e-017
 
 \subsection{Exercise in Section~\ref{stringtraversal}: String traversal (p.~\pageref{stringtraversal})}
 \label{sol_stringtraversal}
+\index{string}
+\index{string traversal}
 
 The backward traversal of a word with a {\tt while} loop may
 be written as follows:
+\index{while loop}
 
 \begin{verbatim}
 my $fruit = "banana";
@@ -1359,8 +1375,10 @@ The {\tt chars} method returns the length of the string. The
 between 0 and \verb'$length' - 1. It is therefore practical 
 to decrement the \verb'$index' variable before using it the
 {\tt substr} function. 
+\index{chars function}
+\index{substr function}
 
-The \emph{while} loop of the preceding code example can be 
+The \verb'while' loop of the preceding code example can be 
 written more concisely:
 
 \begin{verbatim}
@@ -1379,6 +1397,7 @@ We need to use the prefix form of the decrement operator
 because we need \verb'$index' to be decremented before it is 
 used by {\tt substr}.
 \index{prefix decrement operator}
+\index{substr function}
 
 The loop would be made even more concise using a {\tt while} with 
 a statement modifier (or the postfix syntax of {\tt while}):
@@ -1407,6 +1426,7 @@ The aim of this exercise was to train you to use loops to
 traverse the string. Combining the {\tt flip} and {\tt comb} 
 functions or methods would of course make our solution much 
 simpler (and probably faster):
+\index{comb function and method}
 
 \begin{verbatim}
 .say for "banana".flip.comb;
@@ -1438,6 +1458,7 @@ We will come back to this later in the book, but let us just say
 that we need to \emph{flatten} this combination of lists into 
 one single iterable list, which can be done with the 
 {\tt flat} method or function or the ``|'' operator:
+\index{list flattening}
 
 \begin{verbatim}
 for ('J' .. 'N', 'Ou', 'P', 'Qu').flat     -> $letter {#...}
@@ -1461,6 +1482,7 @@ for ('J' .. 'N', 'Ou', 'P', 'Qu').flat -> $letter {
 Here again, we could make the code slightly more concise with 
 the postfix syntax of {\tt for} and the \verb'$_' topical 
 variable:
+\index{statement!for}
 
 \begin{verbatim}
 my $suffix = 'ack';
@@ -1469,11 +1491,15 @@ say "$_$suffix" for flat 'J' .. 'N', 'Ou', 'P', 'Qu';
 %
 
 Here, we have introduced another simple and common way of 
-concatenating two strings: simply inserting the two variables one after the other within double quotes.
+concatenating two strings: simply inserting the two 
+variables one after the other within double quotes and 
+letting variable interpolation do the work.
+\index{variable!interpolation}
 
 
 \subsection{Exercise in Section~\ref{stringtraversal}: Counting the letters of a string (p.~\pageref{stringtraversal})}
 \label{sol_count_letters}
+\index{string traversal}
 
 This subroutine counts the number of occurrences of 
 a specific letter within a word (or any string):
@@ -1554,6 +1580,7 @@ for <s b   l w   l o   s m   y l   a z> -> $st, $end {
 As you can see, this is quite complicated because of 
 the various edge cases that need to be handled. Compare this with 
 the one-line regex that does the same:
+\index{regex}
 
 \begin{verbatim}
 say ~$0 if "yellow submarine" ~~ /l(.)w/;
@@ -1643,10 +1670,13 @@ say ~$0 if $string ~~ /(\d ** 10)/; # -> 0123456789
 
 We are simply using the \verb'\d' (digit) character class 
 together with a quantifier specifying 10 times this class.
+\index{character class}
 
 Note that we have used here capturing parentheses in order 
 to populate the matched number into \verb'$0'. We could also 
 omit parentheses and retrieve the number from the Match object:
+\index{regex!capture}
+
 
 \begin{verbatim}
 my $string = "567867 8778689 6765432 0123456789 897898";
@@ -1709,6 +1739,7 @@ my $string = "567867 8778689 6765432 0123456789 897898";
 say ~$0 if $string ~~ /\D (<[0..7]>+) \D/; # -> 6765432
 \end{verbatim}
 
+\index{character class}
 The character class is \verb'<[0..7]>' for digits between 
 0 and 7. The \verb'+' quantifiers means: as many as possible 
 of this character class. And the \verb'\D' (non digit) are 
@@ -1717,12 +1748,14 @@ number with non-octal digits (for example from matching 567
 in the first number). Depending on the exact requirement, 
 using word boundary anchors as in the previous exercise's 
 solution might be better.
+\index{quantifier}
 
 \subsubsection{First word at the start of the string}
 
 To find the first word in a string, we can just search the 
 first sequence of word characters (characters belonging to 
 the \verb'\w' character class) in the string:
+\index{character class}
 
 \begin{verbatim}
 my $string = "The greatest thing you'll ever learn " ~
@@ -1748,6 +1781,7 @@ To make sure that the match does not start with a vowel in
 the middle of a word, we might start the pattern with a 
 \verb'\W' (non-word character) or, better, with a \verb'<<' 
 left word boundary:
+\index{anchor!left word boundary}
 
 \begin{verbatim}
 my $string = "Democracy is the worst form of government, " ~
@@ -1758,12 +1792,14 @@ say ~$0 if $string ~~ /<< (<[aeiouy]> \w*)/;  # -> is
 Here we use a \verb'*' (rather than \verb'+') quantifier 
 because a word containing only one vowel is eligible as 
 a word starting with a vowel.
+\index{quantifier}
 
 \subsubsection{A mobile number}
 
 For a ten-digit number starting with ``06'' or ``07'', the 
 easiest solution is probably to use a \verb'<[67]>' character 
 class:
+\index{character class}
 
 \begin{verbatim}
 my $string = "567867 8778689 0123456789 0723456789 3644";
@@ -1773,6 +1809,7 @@ say ~$0 if $string ~~ /(0<[67]>\d ** 8)/;  # -> 0723456789
 \subsubsection{First word starting with a vowel (lower- or upper-case)}
 
 We can simply ignore case for the whole word:
+\index{adverb!:ignorecase}
 \begin{verbatim}
 my $string = " Ask not what your country can do for you — " ~
              " ask what you can do for your country. (JFK)";
@@ -1783,6 +1820,7 @@ say ~$0 if $string ~~ /:i << (<[aeiouy]> \w*)/;  # -> Ask
 
 We can capture any letter and check whether the next one is 
 the same as the capture:
+\index{capture}
 
 \begin{verbatim}
 say ~$0 if 'appeal' ~~ /((\w)$0);  # -> pp
@@ -1807,6 +1845,7 @@ say ~$2 if 'Mississippi' ~~ /(\w)$0.*(\w)$0.*((\w)$0)/; # -> pp
 
 The second bug in the {\tt is-reverse} subroutine is located 
 on this line:
+\index{bug}
 
 \begin{verbatim}
     while $j > 0 {
@@ -1846,6 +1885,9 @@ beginning of the string, then looking for the next one
 from the position immediately after, and so on until no 
 more ``a'' is to be found.
 
+\index{infinite loop}
+\index{last statement}
+\index{index function}
 Here, we make an infinite loop from which we break out with 
 the {\tt last} statement when {\tt index} no longer finds 
 an ``a''. The {\tt \$count} counter is incremented each time 
@@ -1891,6 +1933,7 @@ say count_index "When in the Course of human events...", "n"; # 5
 Counting a given letter in a given word with the {\tt substr} 
 function is straight forward: we just need to loop over 
 each letter of the word and increment a counter when needed.
+\index{substr}
 
 \begin{verbatim}
 sub count_substr (Str $word, Str $letter) {
@@ -1998,6 +2041,7 @@ haven't studied yet.
 
 You'll see in other chapters ways to better organize test cases,  
 for example in Section~\ref{test_module} (p.~\pageref{test_module}).
+\index{test module}
 
 \subsection{Exercise~\ref{rotate}: Caesar's cipher (p.~\pageref{rotate})}
 \label{sol_rotate}
@@ -2006,7 +2050,7 @@ for example in Section~\ref{test_module} (p.~\pageref{test_module}).
 \index{Caesar cipher}
 \index{rot13}
 
-Implementing a letter rotation cypher:
+Implementing a letter rotation cipher:
 
 \begin{verbatim}
 sub rotate-one-letter (Str $letter, Int $shift) {
@@ -2105,12 +2149,14 @@ This is, however, a typical case where regexes might prove
 more efficient than looping  (in terms of coding efficiency, 
 i.e., as an approximation, how many code lines are needed 
 for performing a given task).
+\index{regex}
 
 We have seen in Chapter~\ref{strings} that regex captures are 
 populating the \verb'$0', \verb'$1', \verb'$2', etc. special 
 variables. A regex pattern matching any repeated letter might 
 therefore be \verb'/(.) $0/', where the character found 
-by \verb'$0' is the same as the character found by the dot. 
+by \verb'$0' is the same as the character found by the dot.
+\index{capture} 
 
 Similarly, a regex pattern matching three pairs of repeated 
 letters in a row might be:
@@ -2202,6 +2248,7 @@ decide.
 
 \subsection{Exercise~\ref{cartalk3}: Palindromes in ages (p.~\pageref{cartalk3})}
 \label{sol_cartalk3}
+\index{palindrome}
 
 The following program iterates over possible age differences 
 between 15 and 75 and, for each age, calculates all 
@@ -2249,6 +2296,7 @@ statement when the mother's age exceeds 99. We will see
 in section~\ref{C-style loop} a more idiomatic way to built 
 an infinite loop, but this is sufficient for now.
 \index{infinite loop}
+\index{last statement}
 
 The {\tt sprintf} function used here transforms any number 
 below ten into a two-digit number string with a leading 0. 
@@ -2262,6 +2310,7 @@ function, as well as the method syntax for {\tt flip}, in
 may render the \verb'are_reversed' subroutine somewhat  
 nicer:
 \index{fmt method}
+\index{flip function}
 
 \begin{verbatim}
 sub are_reversed(Int $i, Int $j) {
@@ -2280,6 +2329,8 @@ This a somewhat simplistic implementation of a queue using
 an array and the {\tt unshift} and {\ pop} functions:
 \index{enqueue}
 \index{dequeue}
+\index{unshift function}
+\index{pop function}
 
 \begin{verbatim}
 sub enqueue (@queue, $new_item) {
@@ -2300,6 +2351,7 @@ say dequeue @line for 1..3;
 Let us try to make our queue a bit more robust.
 
 First, we want to add some signatures to our subroutines. We might be tempted to write something like:
+\index{subroutine signature}
 
 \begin{verbatim}
 sub enqueue (Array @queue, $new_item) {
@@ -2382,11 +2434,13 @@ because, when given an array as a second argument,
 {\tt unshift} inserts the new items as a sub-list. 
 Using the for loop or the ``|'' flattening operator 
 solves this slight difficulty. 
+\index{list flattening}
 
 Another possibility is to use the {\tt prepend} built-in 
 function instead of {\tt unshift}, since it does add 
 the flattened elements of the array at the beginning 
 of the queue:
+\index{prepend function}
 
 \begin{verbatim}
 sub enqueue (@queue where Array, *@new_items) {
@@ -2493,6 +2547,7 @@ As a further exercise, you might want to apply to the
 example code for stacks (seen in Section~\ref{stack_code} 
 on p.~\pageref{stack_code}) the changes we have made 
 above to the management of queues.
+\index{stack}
 
 \subsubsection{Encapsulating the data}
 \label{functional_queue}
@@ -2515,6 +2570,7 @@ designed for that purpose is often called data
 \emph{encapsulation}. One common way to achieve data 
 encapsulation is through object-oriented programming, which 
 we cover in Chapter~\ref{objects}. 
+\index{object}
 
 \index{first-class object}
 \index{object, first-class}
@@ -2599,7 +2655,8 @@ array and list chapter.
 \subsubsection{Simulating the {\tt pop} function}
 
 The {\tt my-pop} subroutine uses {\tt splice} to simulate 
-the {\tt pop} function:  
+the {\tt pop} function: 
+\index{pop function}
 
 \begin{verbatim}
 sub my-pop (@array where @array > 0) {
@@ -2736,7 +2793,7 @@ say @filt;                                  # -> [9 16]
 
 This is working fine with the sample data of the example test, 
 but the program will abort if we try it with a negative input 
-value. We might want to avoid that exception and just 
+value. We want to avoid that exception and just 
 consider that a negative number is not a perfect square.
 
 Since the code block here would be getting a bit more 
@@ -2757,6 +2814,7 @@ my @filt = grep &is-square, 3, 9, -6, 16;   # -> [9 16]
 
 The transformation subroutine that can extract the letter 
 groups from the strings is quite straight forward:
+\index{sort!transformation subroutine}
 
 \begin{verbatim}
 sub my_comp (Str $str) {
@@ -2814,6 +2872,7 @@ The only slight syntactical difficulty here is that
 we need to flatten the \verb'$item' sublists in order 
 to traverse them. This could also be done with the ``|'' 
 operator:
+\index{list flattening}
 \begin{verbatim}
         for |$item -> $nested_item {
 \end{verbatim}
@@ -2908,6 +2967,7 @@ functional programming. Remember that the reduction
 metaoperator can give you a list of partial results:
 \index{reduction operator}
 \index{metaoperator}
+\index{functional programming}
 
 \begin{verbatim}
 my @numbers = <2 5 7 6 5 3 6 8>;
@@ -2930,6 +2990,7 @@ solutions presented here.
 The easiest way to produce a new list that contains 
 all but the first and last elements of a given list 
 is probably to use simply a slice:
+\index{slice}
 
 \begin{verbatim}
 say middle(5..10);    # -> (6 7 8 9)
@@ -3040,6 +3101,7 @@ By the way, this last version of {\tt is-sorted} will
 ``short-circuit'' and return False as soon as it has 
 found values not in the proper order, without iterating 
 over the rest of the list.
+\index{short-circuit evaluation}
 
 \subsection{Exercise~\ref{is_anagram}: Subroutine is-anagram (p.~\pageref{is_anagram})}
 \label{sol_is_anagram}
@@ -3156,6 +3218,7 @@ of the output of {\tt unique} with the element count of
 the original list will tell us whether some duplicates were 
 removed by {\tt unique}:
 \index{unique function}
+\index{elems method}
 
 \begin{verbatim}
 sub has-duplicates (@array) {
@@ -3177,6 +3240,8 @@ sub has-duplicates (@array) {
 Note that Perl also has a {\tt repeated} built-in 
 function, which is the counterpart of {\tt unique} 
 and returns the duplicates of a list:
+\index{repeated method}
+
 \begin{verbatim}
 say <a b c d b f d>.repeated;  # -> (b d)
 \end{verbatim}
@@ -3265,6 +3330,7 @@ Note that Perl has a {\tt roll} built-in which returns
 randomly selected elements from a list. This can make 
 the {\tt populate-birthdays} subroutine significantly 
 more concise:
+\index{roll method}
 
 \begin{verbatim}
 sub has-duplicate-birthdays (Int $num-students) {
@@ -3345,6 +3411,18 @@ This is four to five times faster:
 \begin{verbatim}
 slurp took 0.42602506 seconds.
 \end{verbatim}
+
+Note that you don't really need to call the \verb'now' 
+function at the beginning of the program: you can use 
+\verb'INIT now' to retrieve the time when the 
+program began to run:
+
+\begin{verbatim}
+my @slurp_array = 'words.txt'.IO.lines;
+say "slurp took " ~ (now - INIT now) ~ " seconds.";
+\end{verbatim}
+\index{now}
+\index{INIT now}
 
 \subsection{Exercise~\ref{bisection}: Bisection search in a list (p.~\pageref{bisection})}
 \label{sol_bisection}
@@ -3499,6 +3577,8 @@ going to look up about 113,000 words in a list having
 113,000 words. Your lookup method needs to be efficient.
 The obvious solution is to use the bisection search 
 implemented in the previous exercise.
+\index{bisection search}
+\index{search!bisection}
 
 \begin{verbatim}
 sub bisect (Str $word, @word_list) {
@@ -3524,6 +3604,8 @@ above is really filtering from the word list those words
 belonging to a reverse pair. This could be implemented 
 with a {\tt grep} using the {\tt bisect} subroutine for 
 selecting the matches:
+\index{for loop}
+\index{grep}
 
 \begin{verbatim}
 say "$_ and $_.flip() form a reverse pair" 
@@ -3548,6 +3630,8 @@ Bisection search is fairly fast, but hash lookup is
 even faster. Although we haven't studied hashes yet, 
 try the following code:
 \index{hash}
+\index{bisection search}
+\index{search!bisection}
 
 \begin{verbatim}
 my %hash = map { $_ => 1}, 'words.txt'.IO.lines;
@@ -3751,8 +3835,9 @@ version of {\tt intersplit} just above.
 
 \subsection{Exercise at the end of Section~\ref{hash_descr}: A hash is a mapping (p.~\pageref{ex_employees})}
 \label{sol_ex_employees}
+\index{hash}
 
-Populating one pair at a time:
+Here's how to populate one pair at a time:
 
 \begin{verbatim}
 my %wages;
@@ -3777,7 +3862,7 @@ my %wages;
 say "Bob's salary is %wages<Bob>";
 \end{verbatim}
 
-Assigning the full hash in one go:
+And here's how to assign the full hash in one go:
 
 \begin{verbatim}
 my %wages = Liz => 3000, Bob => 2500, Jack => 2000, Betty => 1800;
@@ -3787,10 +3872,12 @@ say %wages; # -> Betty => 1800, Bob => 2500, Jack => 2000, Liz => 3000
 \subsection{Exercise~\ref{wordlist2}: Storing the word list into a hash (p.~\pageref{wordlist2})}
 \label{sol_wordlist2}
 
-The standard way might be to read each line of the file 
-in a {\tt for} loop and store each word as the key of the 
-hash. The content of the value is not important, we will 
-store 1.
+The standard way to store the word list in a hash might 
+be to read each line of the file in a {\tt for} loop 
+and store each word as the key of the hash. The content 
+of the value is not important, we will store 1 (it may 
+also make sense to store the \verb'True' Boolean value).
+\index{for loop}
 
 \begin{verbatim}
 my %words;
@@ -3802,6 +3889,7 @@ for 'words.txt'.IO.lines -> $line {
 An alternative approach is to assign to the hash the 
 output of a {\tt map} expression returning a pair for each 
 line of the file:
+\index{map}
 
 \begin{verbatim}
 my %hash = map { $_ => 1}, 'words.txt'.IO.lines;
@@ -3810,6 +3898,7 @@ my %hash = map { $_ => 1}, 'words.txt'.IO.lines;
 
 \subsection{Exercise~\ref{mem_ackerman}: Memoizing the Ackermann function (p.~\pageref{mem_ackerman})}
 \label{sol_mem_ackerman}
+\index{memoize}
 
 The original implementation of the Ackermann function looked 
 like this:
@@ -3876,7 +3965,7 @@ But don't try to run it with values of \verb'$m' greater
 than 3, it is useless. If we were to find an Ackermann 
 value for a pair of numbers already seen, that would 
 mean that we have entered an infinite loop. So there is 
-no point memoizing the Ackermann function.
+in fact no point trying to memoize the Ackermann function.
 
 \index{multidimensional array}
 \index{array!multidimensional}
@@ -3901,6 +3990,7 @@ dd %h;
 %
 
 or to use a semi-colon to separate the keys:
+\index{semi-colon}
 
 \begin{verbatim}
 my %i;
@@ -3913,9 +4003,11 @@ dd %i; # -> Hash %i = {:a(${:b("ab"), :c("ac")}), :b(${:c("bc")})}
 
 \subsection{Exercise~\ref{has_duplicates_hash}: Finding duplicates with a hash (p.~\pageref{has_duplicates_hash})}
 \label{sol_has_duplicates_hash}
+\index{duplicate}
 
 We need to loop on the array, store the array elements into 
-a hash and detect if an element is found in the hash.
+a hash and detect whether an element is found in the hash. 
+Here's one way to do that:
 
 \begin{verbatim}
 sub has-duplicates (@array) {
@@ -3929,10 +4021,10 @@ sub has-duplicates (@array) {
 \end{verbatim}
 
 As a further exercise, generate a list of 50,000~random 
-integers between 0 and 1,000,000,000, check on the same 
-input list whether there are some duplicates with the 
-various methods we have used and measure the run time of 
-the various methods. If you encounter difficulties doing 
+integers between 0 and 1,000,000,000, and then, using 
+the various methods we have demonstrated, check to see 
+whether this list contains any duplicates and measure the 
+runtime of these various methods. If you encounter difficulties doing 
 that, take a look at the solutions to the ``has duplicates'' 
 (see Subsection~\ref{sol_has_duplicates}) and ``birthday paradox'' (see 
 Subsection~\ref{sol_birthdays}) exercises to get some coding clues. An 
@@ -3946,17 +4038,18 @@ are significant.
 \subsection{Exercise~\ref{exrotatepairs}: Rotate pairs (p.~\pageref{exrotatepairs})}
 \label{sol_exrotatepairs}
 
-Consider the word ``sake'' and rotate it by 14~letters. This gives the word ``goys''. This also means that if ``goys'' 
-is rotated by 12~letters, this will produce ``sake''. Since 
+Consider the word ``iron'' and rotate it by 3~letters. This 
+gives the word ``folk''. This also means that if ``folk'' 
+is rotated by 23~letters, this will produce ``iron''. Since 
 we are going to scan all the words of our word list, we will 
-find this ``rotate pair'' when we try a shift of 12 letters 
-on ``goys'', so that there no need to try a 14-letter rotation 
-on ``sake''. More generally, we need to try only rotations 
+find this ``rotate pair'' when we try a shift of 3~letters 
+on ``iron'', so that there no need to try a 23-letter rotation 
+on ``folk''. More generally, we need to try only rotations 
 between 1 and 13~letters. 
 
-We iterate through the words of the list, rotate each of 
-them by every shift between 1 and 13, and lookup the result 
-in the hash.
+The following code iterates through the words of the list, 
+rotates each of them by every shift between 1 and 13, and 
+looks up the result in the hash.
 
 \begin{verbatim}
 sub rotate-one-letter (Str $letter, Int $shift) {
@@ -3992,11 +4085,17 @@ for %words.keys -> $string {
 Rotating each word of a 113-k list by each shift between 
 1 and 13 is quite long. Running the program on the word list 
 will take some time, probably in the order of 10 to 15~minutes.
-Using the \verb'.trans' built-in might speed up the process 
-significantly.
+Using the \verb'.trans' built-in (see documentation in 
+\url{https://docs.perl6.org/routine/trans}) might speed up 
+the process. Try it and judge for yourself.
 
 \subsection{Exercise~\ref{homophones}: Homophones (p.~\pageref{homophones})}
 \label{sol_homophones}
+\index{homophone}
+
+We are looking for words that \emph{sound} the same 
+when we remove the first letter and also and when we 
+remove the first two letters;
 
 This is a solution using both the {\tt words.txt} word list 
 used before and the CMU phonetic dictionary.
@@ -4067,6 +4166,9 @@ for %phonetic.keys -> $word {
 
 \subsection{Exercise in Section~\ref{given_when}: the {\tt given ... when} switch statement (p.~\pageref{proceed_ex})}
 \label{sol_proceed_ex}
+\index{given statement}
+\index{when statement}
+\index{proceed clause}
 
 To test the switch statement with various values, you might 
 write something like this:
@@ -4120,6 +4222,7 @@ for <5 42 43 101 666 1024 2048> -> $value {
 This now works correctly, but the output for 42 is no longer 
 in the same order. If we want to keep the original order,  
 we may need to add a {\tt when} statement with an empty block:
+\index{when statement}
 
 \begin{verbatim}
 for <5 42 43 101 666 1024 2048> -> $value {
@@ -4154,6 +4257,7 @@ for <5 42 43 101 666 1024 2048> -> $value {
 
 It would also be possible to nest a \verb'when' sub-expression 
 within the \verb'when 10..99' expression:
+\index{proceed clause}
 
 \begin{verbatim}
 for <5 42 43 101 666 1024 2048> -> $value {
@@ -4173,6 +4277,7 @@ for <5 42 43 101 666 1024 2048> -> $value {
 \label{sol_fact_operator}
 \index{factorial}
 \index{factorial!operator}
+\index{creating new operators}
 
 The ``!'' negation operator is a prefix operator (i.e. placed 
 before the term that it negates). For the factorial operator, 
@@ -4190,7 +4295,7 @@ say 5!; # -> 120
 \end{verbatim}
 
 The signature ensures the operand is an integer (failing which 
-we get an error). We may want to guard against an 
+we get an error). We may want to guard against a 
 negative integer, which we can do by raising an error if 
 \verb'$n' is negative. In addition, we can use the {\tt Test} 
 standard module to automatize our tests:
@@ -4263,9 +4368,14 @@ More information about testing can be found at:
 
 \subsection{Exercise in Section~\ref{sets_and_bags}: Sets, bags and mixes (p.~\pageref{diff_with_set})}
 \label{sol_diff_with_set}
+\index{set}
+\index{bag}
+\index{type!bag}
+\index{baghash}
+\index{type!baghash}
 
 We can't just replace the \verb'%histogram' with a bag, because 
-bags are immutable (i.e. cannot be changed after creation time) 
+bags are immutable (i.e. cannot be changed after creation) 
 and the \verb'%histogram' hash is populated progressively as 
 the lines of the book are being read from the file. You may use 
 a baghash (the mutable version of a bag) and are encouraged 
@@ -4280,8 +4390,8 @@ populate the set at creation time.
 
 We can change the {\tt process-line} subroutine so that it 
 process the line as previously but, instead of populating a 
-hash, just returns the list of words. And create the set 
-with a {\tt map} function calling that subroutine.
+hash, just returns the list of words. And we can create the 
+set with a {\tt map} function calling that subroutine.
 
 \begin{verbatim}
 my $skip = True;                    # flag to skip the header
@@ -4301,7 +4411,7 @@ my $unknown-words = $book-set (-) $word-list;
 say $unknown-words.keys.head(20);
 \end{verbatim}
 
-This works well, but once we are there, we can also 
+This works well, but once we've done that, we can also 
 get rid of the \verb'$book-set' data structure and 
 just filter directly the words extracted from the book:
 
@@ -4323,9 +4433,10 @@ say @unknown-words.head(20);
 Testing such a program may take some time, because it has to 
 process the full book each time. For the purpose of initial 
 testing, one tip is to reduce the amount of input 
-data to speed up the tests. You may prepare a smaller file with 
-just a limited number of lines from the original {\tt emma.txt} 
-file. Another simple way is to read only some lines from the 
+data to speed up the tests. You may achieve that by 
+preparing a smaller file with just a limited number 
+of lines from the original {\tt emma.txt} file. 
+Another simple way is to read only some lines from the 
 book, which you can do with a slice on the code line which 
 reads the file. For example, to read only the first 2,000~lines 
 of the book file:
@@ -4353,10 +4464,12 @@ and remove from {\tt process-line} the code to skip the header.
 \index{histogram!random choice}
 
 We have made a {\tt BisectSearch} module containing a {\tt bisect} 
-subroutine. It would be great to reuse it, but we can't really 
-as it is: it is doing string comparisons and we need numerical  comparisons.
+subroutine. It would be great to reuse it, but we can't because 
+it is currently doing string comparisons and we need numerical 
+comparisons.
  
-The best is probably to make a copy of the subroutine and modify it 
+The best solution at this point is probably to make a copy of 
+the subroutine and modify it 
 to make numeric comparisons. The subroutines can have the same 
 name provided they are declared as multi subroutines and have 
 a different signature: the first parameter of the new multi 
@@ -4396,10 +4509,10 @@ say @words[$idx];
 \label{sol_markov_analysis}
 \index{Markov analysis}
 
-Before we present our solution to the exercise,, we want 
+Before we present our solution to the exercise, we want 
 to briefly introduce a functionality that is useful for 
 retrieving and validating the command-line arguments passed 
-to a program, the {\tt MAIN} subroutine.
+to a program: the {\tt MAIN} subroutine.
 
 \subsubsection{The {\tt MAIN} subroutine}
 \label{MAIN_sub}
@@ -4462,9 +4575,9 @@ the corresponding argument (``foo'') is not an integer, the
 program displays a message showing the program usage.
 
 Validating the command-line arguments passed to a program 
-can sometimes be a relatively tedious task. With this 
-{\tt MAIN} subroutine signature mechanism, it can often be reduced 
-to a single line of code, the {\tt MAIN} signature.
+can sometimes be a relatively tedious task. But, with this 
+{\tt MAIN} subroutine signature mechanism, it can often be 
+reduced to a single line of code, the {\tt MAIN} signature.
 
 \subsubsection{Solution to the Markov analysis exercise}
 \index{Markov analysis}
@@ -4530,8 +4643,8 @@ $ perl6  markov.pl6 emma.txt 100 2 253
 \label{sol_letter_frequency}
 \index{frequency table}
 
-We have already seen similar problems, there is nothing complicated. 
-This is a possible solution using the pipeline programming model 
+We have already seen problems similar to this one. This 
+is a possible solution using the pipeline programming model 
 described in Section~\ref{most_common_words}:
 \index{pipe-line programming}
 
@@ -4575,10 +4688,10 @@ q :     60       0.10
 z :     44       0.08
 \end{verbatim}
 
-Remember that Edgar Poe's character claimed the succession 
+Remember that Edgar Allan Poe's character claimed the succession 
 of the most commonly used letters in English ran as 
 follows:
-\index{Poe, Edgar Allen}
+\index{Poe, Edgar Allan}
 
 \begin{verbatim}
 e a o i d h n r s t u y c f g l m w b k p q x z
@@ -4626,6 +4739,7 @@ pairs (the dummy letters) at the right place in the pair array
 to keep the array sorted according to our needs.
 \index{array of pairs}
 \index{array!of pairs}
+\index{pair}
 
 \begin{verbatim}
 my %code;
@@ -4724,7 +4838,7 @@ Rats’ asses.''
 \end{quote}
 
 As a first step, we will fold all letters to lower-case and use 
-only the letters, eliminating spaces and punctuation symbols from 
+only the letters, eliminating spaces and punctuation from 
 the computation of the frequency table:
 
 \begin{verbatim}
@@ -4739,6 +4853,7 @@ my %frequencies;
 
 This eloquent treatise on the eating habits of various fauna 
 yields the following frequency table:
+\index{frequency table}
 
 \begin{verbatim}
 e :     40      23.53
@@ -4769,7 +4884,7 @@ r => ----
 
 We want not only to encode an input string with the Huffman code, but 
 we also want to then be able to decode it and to recognize the original 
-input. Because of that, we no longer want to filter out punctuation signs 
+input. Because of that, we no longer want to filter out punctuation  
 from the translation table, which will therefore grow much larger than 
 before. Spaces (both horizontal spaces and line returns) will be handled 
 differently: we'll keep them unchanged in the encoded pseudo-Morse 
@@ -4783,6 +4898,7 @@ in the input string:
 \end{verbatim}
 
 The frequency table now has 14 entries:
+\index{frequency table}
 
 \begin{verbatim}
 e :     40      22.10
@@ -4839,6 +4955,7 @@ code equivalent and concatenated to the output string. If a letter
 is not found in the \verb'%encode' hash, then it is stored into 
 the output as it is: this makes it possible to insert the spaces 
 and end-of-line characters into the output string.
+\index{pseudo-Morse}
 
 The result is as follows (slightly reformatted to fit in this book):
 \begin{verbatim}
@@ -4855,7 +4972,7 @@ The result is as follows (slightly reformatted to fit in this book):
 \end{verbatim}
 
 Interestingly, the input string has 213~characters and the output 
-string has 589. If we were storing the 14~different characters of 
+string has 589~bits. If we were storing the 14~different characters of 
 the input with equal-length codes, we would need four bits per 
 character, which would require 1052~bits. So Huffman coding 
 achieved a compression ratio 1.78 times better than the best possible 
@@ -4868,8 +4985,9 @@ required almost 3 times less.
 
 For decoding efficiently the pseudo-Morse string, we need to reverse 
 the Huffman table, i.e. create a hash in which the pseudo-Morse codes 
-are the keys and the letters the values. Reversing the \verb'%encode' 
+are the keys and the letters are the values. Reversing the \verb'%encode' 
 hash is straight forward:
+\index{reverse}
 
 \begin{verbatim}
 my %decode = reverse %encode.kv;
@@ -4886,15 +5004,17 @@ of duplicates when promoting them to hash keys.
 Decoding the pseudo-Morse string is a bit more complicated than 
 its encoding, because we don't know in advance how many dots and 
 dashes will be needed to obtain a letter. So we need to look at the 
-first character (say a dot) of the pseudo-Morse string; if it is alone an 
-entry in the translation table, then we have found our first 
+first character (say a dot) of the pseudo-Morse string; if this 
+character alone constitutes an entry in the translation table, 
+then we have found our first 
 letter, and we can start afresh with the next character as a starting 
 point of a new letter; if not, we need to pick up the next character 
-and see if the two first characters together form an entry; if yes, 
+and see whether the two first characters together form an entry; if yes, 
 we have found a letter and can start from the beginning again; if 
-not we need to see if the first three characters together form an 
+not we need to see whether the first three characters together form an 
 entry in the table, and so on.
 
+\index{pseudo-Morse}
 For example, with the beginning of the pseudo-Morse string:
 \begin{verbatim}
 .-----..--..-.....-
@@ -5039,14 +5159,14 @@ centuries.
 The Gregorian calendar, introduced by Pope Gregory~XIII 
 in 1582, corrected the Julian calendar with 
 the following additional rule: years divisible by 100 should 
-be leap only if they are divisible by 400. So that, by the 
+be leap only if they are also divisible by 400. So that, by the 
 Gregorian calendar, 1700, 1800, 1900 and 2100 are not leap, 
 but 2000 and 2400 are leap.
 \index{Gregory XIII, Pope}
 
 Depending on what kind of dates your program is going to 
 encounter, you might decide to simplify the rules. If 
-you are writing a module supposed to be accurate for any 
+you are writing a module that is supposed to be accurate for any 
 date far in the past or in the future, you probably want 
 to implement the exact Gregorian rule. But if you know 
 that you're going to meet only dates of the current 
@@ -5056,7 +5176,7 @@ period, you might choose a much simpler rule.
 In particular, since 2000 is an exception to the exception 
 and is leap, any year between 1901 and 2099 is leap if it 
 is divisible by 4 and not leap otherwise. This rule is 
-most probably sufficient for any business application 
+likely sufficient for any business application 
 written in 2017. There is probably no reason to make it 
 more complicated than it needs to be (although it may be 
 argued that it is the same type of reasoning which led to 
@@ -5065,6 +5185,7 @@ the great fear of the ``Y2K'' bug).
 With this simplification in mind, a subroutine to find out 
 if a year is leap should simply return true if it is 
 divisible by 4 and might thus look like this:
+\index{leap year}
 
 \begin{verbatim}
 sub is-leap ($year) { # works for years between 1901 and 2099
@@ -5099,7 +5220,7 @@ sub is-leap ($y) { $y %% 400 or ($y %% 4 and not $y %% 100) }
 \end{verbatim}
 
 The code above is given as an example on how to compute 
-if a year is leap, since it is an interesting and 
+whether a year is leap, since it is an interesting and 
 classical problem, but Perl actually provides the method for that 
 in the {\tt Dateish} role. For example:
 \index{is-leap-year function}
@@ -5123,8 +5244,9 @@ to make the rule more difficult to understand. Think
 about the person who will have to maintain the code in 
 a year from now (and that person might be you).
  
-We prefer to move this out of the {\tt date} rule into 
-a dedicated subroutine checking all dates for February:
+We prefer to move the code performing the validation 
+out of the {\tt date} rule into a dedicated subroutine 
+checking all dates for February:
 
 \begin{verbatim}
 sub feb-date-not-valid ($year, $day) {
@@ -5141,8 +5263,8 @@ The {\tt date} rule now looks like this:
 my rule date { [   <year> (<sep>) <month> $0 <day> 
                  || <day> (<sep>) <month> $0 <year> 
                  || <month>\s<day>',' <year>
-                ] <!{ ($<day> > 30 and $<month> ==  4|6|9|11) or 
-                      $<month> eq '02' and feb-date-not-valid $<year>, $<day>}>
+               ] <!{ ($<day> > 30 and $<month> ==  4|6|9|11) or 
+                     $<month> eq '02' and feb-date-not-valid $<year>, $<day>}>
 } 
 \end{verbatim}
 
@@ -5168,10 +5290,14 @@ A grammar for an arithmetic calculator}
 \index{grammar!arithmetic calculator}
 \index{calculator!grammar}
 
+Here's one possible way to implement an arithmetic calculator.
+
 \subsubsection{The grammar}
 
 Here's one way to write the grammar:
 \index{grammar}
+\index{token}
+\index{rule}
 
 \begin{verbatim}
 my grammar Calculator {
@@ -5190,7 +5316,7 @@ my grammar Calculator {
 }
 \end{verbatim}
 
-This is quite simple.
+This solution is quite simple.
 
 An expression (\verb'expr') is made of one or several terms 
 separated by ``+'' or ``-'' operators. A term is made of one 
@@ -5204,23 +5330,24 @@ evaluated before additions and subtractions, since, when
 parsing an expression, you need to evaluate the individual 
 terms before you can complete the expression evaluation. 
 Similarly, since a parenthesized expression is an atom, it 
-will have to be evaluated before the evaluation of the term 
-in which it appears can be fully evaluated. Note that, in 
-the case of parenthesized expression, the \verb'expr' rule 
+will have to be evaluated before the term in which it 
+appears can be fully evaluated. Note that, in the case 
+of a parenthesized expression, the \verb'expr' rule 
 is called recursively.
 \index{recursion}
 
 \subsubsection{The actions}
 \index{actions!class}
+\index{rule}
 
 Notice that we have included two actions in the grammar (in 
 the {\tt atom} rule). One reason was for convenience: since 
 the {\tt atom} rule covers two very different named 
 sub-rules, it is a bit easier to include the action just 
 in the context of the sub-rules. If an action had been attached 
-to the  {\tt atom} rule, it would have required to find out 
+to the  {\tt atom} rule, it would have required finding out 
 which sub-rule had been matched to know which action to 
-perform. Nothing difficult, but it would have made the  
+perform. Nothing difficult, but doing so would have made the  
 code slightly more complex. The other reason was for pedagogical 
 purpose: although it often makes sense to create an actions 
 class, it is useful to know that actions may be inserted in the 
@@ -5299,10 +5426,10 @@ which will display the following results:
 3 * (7 + 7)     42.000
 \end{verbatim}
 
-You might wonder if this code works correctly with nested 
+You might wonder whether this code works correctly with nested 
 parenthesized expression. I originally thought, when I wrote this 
 code, that it might dysfunction and that I might have to change 
-something to get nested parenthesized expressions right and 
+or add something to get nested parenthesized expressions right and 
 properly balanced. It turns out that it works fine out of the 
 box. For example, with the following test code with relatively 
 deeply nested parenthesized expressions:
@@ -5338,7 +5465,7 @@ remember that they are usually right associative:
 
 \subsection{Exercise~\ref{quicksort}: Making a functional implementation of quick sort)}
 \label{sol_quicksort}
-\index{quicksort}
+\index{quick sort}
 \index{sort!quick sort}
 
 Here's one way to implement the quick sort algorithm in 
@@ -5360,16 +5487,19 @@ the approach of the quick sort algorithm:
 \item If the  array has less than two items, it is already 
 sorted, so return it immediately (this is the base case 
 stopping the recursion).
+\index{base case}
+\index{recursion!base case}
 \item Else, choose an item as a pivot (here, we pick the 
 middle element or one immediately near the middle).
 \item Partition the array into three sublists containing 
 items respectively smaller than, greater than and equal to 
 the pivot.
 \item Sort the first two sublists by a recursive call to 
-the \verb'quicksort' function (but don't call \verb'quicksort' 
+the \verb'quicksort' function, but don't call \verb'quicksort' 
 on the sublist containing items equal to the pivot: not only is 
-it already sorted, but it would fail to meet the base 
-case and would enter into infinite recursion).
+it already sorted (all elements are equal), but it would fail 
+to meet the base case and would enter into infinite recursion.
+\index{recursion}
 \item  Return the list obtained by concatenating the three 
 sub-lists.
 \end{itemize}
@@ -5377,14 +5507,17 @@ sub-lists.
 
 \index{pivot!quick sort algorithm}
 \index{divide and conquer algorithm}
+As noted earlier, the ideal pivot would be the median of the 
+values, but the cost of finding the median would be prohibitive.
+
 In principle, you could choose any item as the pivot, including 
-the first or the last item of the array. But for 
+for example the first or the last item of the array. But for 
 some specific input (such as arrays already almost sorted, 
 forward or backward), this can increase significantly the 
 run time because the partitioning becomes totally unbalanced, 
 thereby losing the advantage of the divide and conquer strategy. 
 Picking an element in the middle strongly reduces the 
-probability of such pathological behavior. Another possible option 
+probability of such pathological behavior. Another possible way 
 to prevent such risk is to select the pivot at random among 
 the array elements.
 
