@@ -11,6 +11,7 @@ you think about choosing data structures and practice using them.
 But first, we would like to briefly introduce two conditional 
 structures that have been left aside so far and provide 
 a couple of new possibilities about subroutine signatures. 
+\index{signature}
 
 \section{The ternary conditional operator}
 \label{ternary operator}
@@ -202,6 +203,7 @@ the number of arguments passed to the subroutine is small
 (say, three or less). 
 \index{positional parameter}
 \index{parameter!positional}
+\index{signature}
 
 When the subroutine signature becomes longer, using positional 
 arguments might become cumbersome and error-prone. 
@@ -406,8 +408,6 @@ them is to use algorithms that generate {\bf pseudorandom} numbers.
 Pseudorandom numbers are not truly random because they are generated
 by a deterministic computation, but just by looking at the numbers it
 is all but impossible to distinguish them from random.
-\index{random module}
-\index{module!random}
 
 Perl provides functions such as {\tt rand} that generate
 pseudorandom numbers (which we will simply call ``random'' 
@@ -841,6 +841,7 @@ multi sub infix:<-> (%main, %dict) {
 
 \index{infix}
 \index{subroutine signature}
+\index{signature}
 \index{multi!subroutine}
 
 Compared to the definition of the {\tt subtract} subroutine, the 
@@ -1047,7 +1048,7 @@ To choose random words from the histogram, the simplest algorithm
 is to build a list with multiple copies of each word, according
 to the observed frequency, and then choose from the list with the 
 \verb'pick' function:
-\index{pick}
+\index{pick function or method}
 
 \begin{verbatim}
 my @array = map {| (.key xx .value)}, %histogram;
@@ -1841,7 +1842,7 @@ we will look at an algorithm for generating a variable-length code
 called a Huffman code. It is an interesting algorithm in its own 
 right, but it also makes a useful exercise because its implementation 
 uses a variety of data structures.
-\index{Huffman code}
+\index{Huffman!code}
 
 Here is an outline of what we will do until the end of this 
 chapter.
@@ -1860,14 +1861,14 @@ and then decode it.
 \end{enumerate}
 
 \subsection{The frequency table}
-\index{frequency table}
+\index{frequency!table}
 
 Since the goal is to give short codes to common letters, we 
-have to know how often each letter occurs. In Edgar Allen Poe’s 
+have to know how often each letter occurs. In Edgar Allan Poe’s 
 short story ``The Gold Bug,'' one of the characters, William~Legrand, 
 uses letter frequencies to crack a cypher. He explains:
-\index{Poe, Edgar Allen}
-\index{The Gold-Bug (Edgar Allen Poe)}
+\index{Poe, Edgar Allan}
+\index{The Gold-Bug (Edgar Allan Poe)}
 \index{cypher}
 
 \begin{quote}
@@ -1883,6 +1884,7 @@ To check, let's use as a sample the text of ``The Gold Bug''
 itself, which can be downloaded from the Project Gutenberg 
 (\url{http://www.gutenberg.org/files/2147/2147-0.txt}) and 
 a variety of other Web sites. 
+\index{Project Gutenberg}
 
 \begin{exercise}
 \label{letter_frequency}
@@ -1940,7 +1942,6 @@ or a ``r'', which you can find out by looking at the fourth symbol.
 In brief, you don't need spaces between the symbols, it is always 
 possible to unambiguously decode a letter.
 
-\index{DNA}
 How can we build such a Huffman code? Let's do it by hand with a 
 very simple alphabet: the four letters of the nucleo-bases of DNA: A, 
 C, T and G. Suppose we want to encode the following input string:
@@ -1952,7 +1953,7 @@ CCTATCCTCGACTCCAGTCCA
 \end{verbatim}
 
 This gives the following frequency table:
-\index{frequency table}
+\index{frequency!table}
 
 \begin{verbatim}
 C :     10      47.62

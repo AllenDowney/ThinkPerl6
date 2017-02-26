@@ -89,7 +89,7 @@ quick fix you're about to write. The Perl~6 ecosystem
 has a large and growing collection of software modules 
 (see \url{modules.perl6.org}) that you can use in your 
 programs.
-\index{Reinventing the wheel}
+\index{reinventing the wheel}
 
 \item[Use meaningful identifiers:] If your variables, 
 subroutines, methods, classes, grammars, modules 
@@ -291,7 +291,7 @@ but you did not provide a value for it.
 
 \item[Iterating over the subscripts of an array:] The first 
 solution that comes to mind might be:
-\index{end}
+\index{end method}
 
 \begin{verbatim}
 for 0 .. @array.end -> $i {...}
@@ -317,7 +317,7 @@ for @array.kv -> $i, $value {...}
 
 \item[Printing the number of items in an array:] Two possible 
 solutions:
-\index{elems method}
+\index{elems function or method}
 
 \begin{verbatim}
 say +@array; 
@@ -347,6 +347,7 @@ the \verb'$_' topical variable as implicit invocant. Thus,
 assuming the string has been topicalised into \verb'$_':
 \index{split function or method}
 \index{words function or method}
+\index{topical variable}
 
 \begin{verbatim}
 @words = .split(/\s+/);
@@ -357,6 +358,7 @@ assuming the string has been topicalised into \verb'$_':
 \item[An infinite loop:] The {\tt loop} statement with no parentheses 
 and no argument loops forever: 
 \index{infinite loop}
+\index{loop!infinite}
 
 \begin{verbatim}
 while True {...}
@@ -404,7 +406,7 @@ method call with the \verb'reverse' function:
 
 \item[Generating random integers between 2 and 6:] Use the \verb'..' 
 range operator and the {\tt pick} method:
-\index{pick method}
+\index{pick function or method}
 \index{random number}
 \begin{verbatim}
 $z = 2 + Int(5.rand);

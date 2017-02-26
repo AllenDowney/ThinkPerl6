@@ -222,6 +222,7 @@ If you've ever used another programming language and stumbled across a terse mes
 \index{error message}
 
 Many programming languages have \emph{keywords} or \emph{reserved words} that are part of the syntax, such as {\tt if}, {\tt while} or {\tt for}, and thus cannot be used for identifying variables because this would create an ambiguity. There is no such problem in Perl: since variable names start with a sigil, the compiler is always able to tell the difference between a keyword and a variable. Names such as {\tt \$if} or {\tt \$while} are syntactically valid variable identifiers in Perl (whether such names make sense is a different matter).
+\index{sigil}
 \index{keyword}
 \index{reserved word}
 
@@ -574,11 +575,15 @@ if it doesn't change the result.
 \index{$/$ division operator}
 \index{operator!$/$ (division)}
 
-\item Operators with the same precedence are usually evaluated from left to
-  right (except exponentiation).  So in the expression {\tt \$degrees / 2 * pi}, the division happens first and the result is multiplied
-  by {\tt pi}, which is not the expected result. (Note that {\tt pi} is not a variable, but a predefined 
-  constant in Perl~6, and therefore does not require a sigil).  To 
-  divide by $2 \pi$, you can use parentheses:
+\item Operators with the same precedence are usually evaluated 
+from left to right (except exponentiation).  So in the expression 
+{\tt \$degrees / 2 * pi}, the division happens first and the 
+result is multiplied by {\tt pi}, which is not the expected 
+result. (Note that {\tt pi} is not a variable, but a predefined 
+constant in Perl~6, and therefore does not require a sigil).  To 
+divide by $2 \pi$, you can use parentheses:
+\index{sigil}
+\index{pi}
   
 \begin{verbatim}
 my $result = $degrees / (2 * pi);  
@@ -627,7 +632,7 @@ in '1?a' (indicated by ?)
 \end{verbatim}
 %
   
-But the following expressions are valid because the strings 
+But the following expressions are valid because these strings 
 can be coerced to numbers without any ambiguity:
 \begin{verbatim}
 > '2'-'1'
@@ -640,6 +645,7 @@ can be coerced to numbers without any ambiguity:
 The \verb'~' operator performs {\bf string concatenation}, which means
 it joins the strings by linking them end-to-end.  For example:
 \index{string concatenation}
+\index{string!concatenation}
 
 \begin{verbatim}
 > my $first = 'throat'
@@ -805,10 +811,12 @@ values they refer to.
 \index{state diagram}
 
 \item[keyword:]  A reserved word that is used to parse a
-program; in many languages, you cannot use keywords like {\tt if}, {\tt  for},
-and {\tt while} as variable names. This problem usually does not occur in 
-Perl because variables begin with a \emph{sigil}.
+program; in many languages, you cannot use keywords like 
+{\tt if}, {\tt  for}, and {\tt while} as variable names. 
+This problem usually does not occur in Perl because variable
+names begin with a \emph{sigil}.
 \index{keyword}
+\index{sigil}
 
 \item[operand:]  One of the values on which an operator operates.
 \index{operand}

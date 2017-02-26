@@ -39,6 +39,8 @@ values are all strings.
 
 In Perl, hash names start with the ``\verb"%"'' sigil. To create 
 a new hash, you just declare it this way:
+\index{sigil}
+\index{sigil, percent}
 
 \begin{verbatim}
 > my %eng2sp;
@@ -62,6 +64,7 @@ This line creates an item that maps from the key
 If the key is a string containing a single word (i.e. 
 without any space in the middle of it), there is a more 
 idiomatic shortcut to create the same hash entry:
+\index{idiomatic}
 
 \begin{verbatim}
 > %eng2sp<one> = 'uno';
@@ -145,7 +148,7 @@ The {\tt elems} method or function works on hashes just
 as on arrays; it returns the number of key-value pairs:
 \index{elems function or method}
 \index{function!elems}
-\index{elems method}
+\index{elems function or method}
 \index{method!elems}
 
 
@@ -175,7 +178,7 @@ To see whether something appears as a value in a hash, you
 can use the {\tt values} method, which returns a collection of
 values, and then use a loop (or possibly a {\tt grep}) to 
 look for the searched item.
-\index{values method}
+\index{values function or method}
 \index{method!values}
 \index{grep}
 
@@ -644,6 +647,7 @@ two places. Since having a hash is important for checking that the
 output values are unique, we can get rid of \verb'@list' 
 and write a more concise and probably more idiomatic version 
 of the same program:
+\index{idiomatic}
 \index{push function}
 
 \begin{verbatim}
@@ -687,7 +691,7 @@ might not be as good.
 Also note, by the way, that Perl has a {\tt pick} function or 
 method to choose elements at random from a list without 
 repetition.
-\index{pick}
+\index{pick function or method}
 
 
 \section{Hash keys are unique}
@@ -732,6 +736,7 @@ would have been sufficient to remove duplicates from
 it is quite common to use a hash (often called \verb'%seen') 
 to check whether a value has already been seen.
 \index{unique function or method}
+\index{map}
 
 \section{Hashes and arrays}
 \label{invert}
@@ -1174,7 +1179,7 @@ can make it easier to spot an error.  We saw an example in
 Section~\ref{factdebug}.  The {\tt dd} function displays 
 helpful details on a composite or complex data structure.
 
-\index{dd}
+\index{dd function}
 \index{function!dd}
 
 \end{description}
@@ -1316,7 +1321,7 @@ Solution: \ref{sol_has_duplicates_hash}.
 Two words are ``rotate pairs'' if you can rotate one of them
 and get the other (see \verb"rotate_word" in 
 Exercise~\ref{rotate}) using the Caesar Cipher.
-\index{Caesar cypher}
+\index{Caesar cipher}
 
 Write a program that reads a wordlist (e.g. {\tt words.txt} 
 and finds all the rotate pairs.  
@@ -1366,6 +1371,7 @@ whether a string is in {\tt words.txt}.
 To check whether two words are homophones, you can use the CMU
 Pronouncing Dictionary.  You can download it from
 \url{http://www.speech.cs.cmu.edu/cgi-bin/cmudict}.
+\index{CMU Pronouncing Dictionary}
 
 Write a program that lists all the words in {\tt words.txt} 
 (or in the CMU dictionary) that solve the Puzzler.

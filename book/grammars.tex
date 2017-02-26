@@ -58,7 +58,7 @@ says characters matching the character class ``b'' or ``c''
 can be repeated one or more times;
 
 \index{quantifier}
-\index{capture, regex}
+\index{capture!regex}
 \item \verb'(\d*)': the \verb'\d' atom is a digit character 
 class, the \verb'*' quantifier means 0 or more occurrences 
 of the previous atom, and the enclosing parentheses request 
@@ -121,10 +121,11 @@ efficient. Perl~6 offers all the tools to do that
 very easily.
 \index{configuration file}
 
-\index{domain-specific language}
+\index{domain-specific language (DSL)}
+\index{DSL (domain-specific language)}
 \index{sub-language}
 \index{slang}
-\index{DSL}
+
 Sometimes, you also need to develop a domain-specific 
 language (DSL), i.e. a usually relatively small sub-language 
 (a.k.a. \emph{slang}) adapted to a specific field of 
@@ -434,7 +435,7 @@ alternation between three possible date formats.
 \index{token}
 \index{rule}
 
-\index{date validation}
+\index{date!validation}
 This code checks that the day in the month is between 0 and 31 
 and that the month is between 01 and 12, and this is 
 probably sufficient to recognize dates in a 
@@ -1534,7 +1535,8 @@ basic arithmetic operators) and multiple operands;
 multiplications should be performed prior to additions);
 \index{precedence}
 \item Parentheses to override usual precedence rules.
-\index{parenthese}
+\index{parentheses}
+\index{parentheses!overriding precedence rule}
 \end{itemize}
 
 These are a few examples of expressions the calculator should 
@@ -1550,7 +1552,7 @@ parse and compute correctly:
 Your mission, \verb'[Dan|Jim]', should you choose to accept it, 
 is to write such a grammar. As usual, should you fail, the 
 Government shall deny any knowledge of your actions class.
-\index{actions class}
+\index{actions!class}
 
 There are many possible ways to accomplish this, the solution 
 presented in Section~\ref{sol_calculator} is only one of them.

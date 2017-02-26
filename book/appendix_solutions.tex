@@ -119,6 +119,7 @@ To add an addressee to the greeting, we need to:
 {\tt do-twice} (the string ``World'');
 \item add a new parameter in the {\tt do-twice} subroutine 
 signature (\verb'$addressee');
+\index{signature}
 \item add this new parameter as an argument in the calls 
 to \verb'$code';
 \item add a signature with one parameter (\verb'$addr') in 
@@ -605,11 +606,12 @@ Args : n = 0, s = 6
 6
 \end{verbatim}
 
-\index{guardian}
+\index{guardian pattern}
 To guard against arguments leading to infinite recursion, 
 we can add integer type constraints to the subroutine 
 signature and some code to stop recursion if the first 
 argument is negative, for example:
+\index{signature}
 
 \begin{verbatim}
 sub recurse(Int $n, Int $s) {
@@ -870,6 +872,7 @@ it works well without them. Even in the last code line with
 two calls to the subroutine, the subroutine signature with 
 two integer numbers is sufficient for the Perl compiler 
 to understand which arguments are associated with which call:
+\index{signature}
 
 \begin{verbatim}
 sub ack (Int $m, Int $n) {
@@ -886,7 +889,7 @@ The Ackermann function is defined for non-negative integers.
 As a further exercise, modify the {\tt ack} subroutine to 
 prevent negative arguments. We have seen two different ways 
 of doing that in Section~\ref{guardian}.
-\index{guardian}
+\index{guardian pattern}
 
 
 \subsection{Palindromes (Exercise~\ref{palindrome})}
@@ -1483,6 +1486,7 @@ Here again, we could make the code slightly more concise with
 the postfix syntax of {\tt for} and the \verb'$_' topical 
 variable:
 \index{statement!for}
+\index{topical variable}
 
 \begin{verbatim}
 my $suffix = 'ack';
@@ -1654,6 +1658,7 @@ regexes, there is more than one way to do it (TIMTOWTDI).
 Most of the exercises suggested here have more than one 
 solution (and sometimes many).
 \index{TIMTOWTDI}
+\index{there is more than one way to do it}
 
 With regexes, you also have to think carefully about the 
 input data to figure out what should be matched and what 
@@ -1886,6 +1891,7 @@ from the position immediately after, and so on until no
 more ``a'' is to be found.
 
 \index{infinite loop}
+\index{loop!infinite}
 \index{last statement}
 \index{index function}
 Here, we make an infinite loop from which we break out with 
@@ -2117,6 +2123,7 @@ It is quite easy to add the ranges for capital letters. You might want to do it 
 
 \subsection{Exercise~\ref{cartalk}: Consecutive double letters (p.~\pageref{cartalk})}
 \label{sol_cartalk}
+\index{Car Talk}
 
 With the looping techniques used in Chapter~\ref{wordplay}, 
 we could write this:
@@ -2193,6 +2200,7 @@ bookkeepings
 
 \subsection{Exercise~\ref{cartalk2}: Palindromes in odometers (p.~\pageref{cartalk2})}
 \label{sol_cartalk2}
+\index{Car Talk}
 
 The following is a possible program for solving the 
 palindromic odometer puzzle:
@@ -2249,6 +2257,7 @@ decide.
 \subsection{Exercise~\ref{cartalk3}: Palindromes in ages (p.~\pageref{cartalk3})}
 \label{sol_cartalk3}
 \index{palindrome}
+\index{Car Talk}
 
 The following program iterates over possible age differences 
 between 15 and 75 and, for each age, calculates all 
@@ -2296,7 +2305,9 @@ statement when the mother's age exceeds 99. We will see
 in section~\ref{C-style loop} a more idiomatic way to built 
 an infinite loop, but this is sufficient for now.
 \index{infinite loop}
+\index{loop!infinite}
 \index{last statement}
+\index{idiomatic}
 
 The {\tt sprintf} function used here transforms any number 
 below ten into a two-digit number string with a leading 0. 
@@ -2352,6 +2363,7 @@ Let us try to make our queue a bit more robust.
 
 First, we want to add some signatures to our subroutines. We might be tempted to write something like:
 \index{subroutine signature}
+\index{signature}
 
 \begin{verbatim}
 sub enqueue (Array @queue, $new_item) {
@@ -2362,6 +2374,7 @@ sub enqueue (Array @queue, $new_item) {
 But that does not work, because that would essentially tell 
 Perl that the \verb'@queue' parameter is an array of arrays. 
 What we need here is the following signature syntax:
+\index{signature}
 
 \begin{verbatim}
 sub enqueue (@queue where Array, $new_item) {
@@ -2630,7 +2643,6 @@ trying to get an item from an empty queue) are left
 as an exercise to the reader.
 
 \index{functional programming}
-\index{functional!programming}
 The techniques used here borrow heavily on a programming 
 paradigm called \emph{functional programming}, a model of 
 programming used by languages such as Lisp, Caml, Clojure or 
@@ -2853,6 +2865,7 @@ my @sorted = @unsorted.sort: {/\d+ (\w+)/; $0 // Nil};
 The most obvious way to compute the sum of all values contained 
 in nested lists or arrays is to use nested loops. For example:
 \index{nested list}
+\index{list!nested}
 
 \begin{verbatim}
 my @AoA = [[1, 2], [3], [4, 5, 6]];
@@ -3087,7 +3100,7 @@ reduction hyperoperator can lead to much shorter code
 than the first solution, without incurring the cost 
 of an additional sort:
 \index{functional programming}
-\index{reduction metaoperator}
+\index{reduction!metaoperator}
 
 \begin{verbatim}
 sub is-sorted (@array) {
@@ -3218,7 +3231,7 @@ of the output of {\tt unique} with the element count of
 the original list will tell us whether some duplicates were 
 removed by {\tt unique}:
 \index{unique function}
-\index{elems method}
+\index{elems function or method}
 
 \begin{verbatim}
 sub has-duplicates (@array) {
@@ -3718,6 +3731,8 @@ Note that the module name given at the top of the code
 and the root file name have to correspond. The only other 
 change to the code of the subroutine is adding the 
 {\tt is export} trait to the signature of the subroutine.
+\index{signature}
+\index{trait}
 
 \index{module!using a module}
 Now a Perl program will be able to load this module 
@@ -3966,6 +3981,8 @@ than 3, it is useless. If we were to find an Ackermann
 value for a pair of numbers already seen, that would 
 mean that we have entered an infinite loop. So there is 
 in fact no point trying to memoize the Ackermann function.
+\index{infinite loop}
+\index{loop!infinite}
 
 \index{multidimensional array}
 \index{array!multidimensional}
@@ -4094,11 +4111,11 @@ the process. Try it and judge for yourself.
 \index{homophone}
 
 We are looking for words that \emph{sound} the same 
-when we remove the first letter and also and when we 
-remove the first two letters;
+when we remove either the first or the second letter.
 
 This is a solution using both the {\tt words.txt} word list 
 used before and the CMU phonetic dictionary.
+\index{CMU Pronouncing Dictionary}
 
 \begin{verbatim}
 my %phonetic;
@@ -4133,9 +4150,12 @@ for %words.keys -> $word {
 
 But this is somewhat inefficient because we don't actually 
 need the word list, since the CMU dictionary is another 
-word list that we can use. The following program uses 
-only the CMU dictionary and saves the time to load the 
-word list and to do checks on it:
+word list that we can use (and we can't use words 
+that would be in the word list and not in the CMU dictionary, 
+because the program wouldn't be able to figure out how 
+they sound). The following program uses only the CMU 
+dictionary and saves the time to load the word list and 
+to do checks on it:
 
 \begin{verbatim}
 my %phonetic;
@@ -4294,6 +4314,8 @@ sub postfix:<!> (Int $n) {
 say 5!; # -> 120
 \end{verbatim}
 
+
+\index{signature}
 The signature ensures the operand is an integer (failing which 
 we get an error). We may want to guard against a 
 negative integer, which we can do by raising an error if 
@@ -4476,6 +4498,7 @@ a different signature: the first parameter of the new multi
 subroutine should be an {\tt Int} instead of a {\tt Str}. Since 
 the changes to be made are quite small and easy, this is 
 left as an exercise to the reader.
+\index{signature}
 
 The program using that module might look like this:
 
@@ -4560,6 +4583,7 @@ parameter has to be a string and the second one an integer; the
 third and fourth parameters are optional and will be defaulted 
 respectively to 2 and 0 if the corresponding arguments are not 
 provided.
+\index{signature}
 
 If the arguments passed to the program don't match the {\tt MAIN} 
 signature, the program will die after having printed an 
@@ -4641,7 +4665,7 @@ $ perl6  markov.pl6 emma.txt 100 2 253
 
 \subsubsection{The frequency table (Section~\ref{letter_frequency})}
 \label{sol_letter_frequency}
-\index{frequency table}
+\index{frequency!table}
 
 We have already seen problems similar to this one. This 
 is a possible solution using the pipeline programming model 
@@ -4723,6 +4747,7 @@ l :     27971    4.04
 \subsubsection{Huffman coding of a DNA strand (Section~\ref{huffman_code_2})}
 \label{sol_huffman_code_2}
 \index{Huffman!code}
+\index{DNA (deoxyribonucleic acid)}
 
 At each step in the algorithm, we need to look for 
 the two letters with the lowest frequencies. Rather than 
@@ -4817,6 +4842,7 @@ my %encode;
 
 The \verb'%encode' hash contains the Huffman table:
 \index{Huffman!table}
+\index{DNA (deoxyribonucleic acid)}
 
 \begin{verbatim}
 c => .
@@ -4853,7 +4879,7 @@ my %frequencies;
 
 This eloquent treatise on the eating habits of various fauna 
 yields the following frequency table:
-\index{frequency table}
+\index{frequency!table}
 
 \begin{verbatim}
 e :     40      23.53
@@ -4898,7 +4924,7 @@ in the input string:
 \end{verbatim}
 
 The frequency table now has 14 entries:
-\index{frequency table}
+\index{frequency!table}
 
 \begin{verbatim}
 e :     40      22.10
@@ -5097,7 +5123,7 @@ rewrite the solution using a binary heap. David Huffman's original
 solution actually used a tree (called the Huffman tree) very 
 similar to a heap.
 \index{heap} 
-\index{huffman!code}
+\index{Huffman!code}
 \index{Huffman!tree}
 
 
@@ -5233,6 +5259,7 @@ False
 \end{verbatim}
 
 \subsubsection{Back to the February date validation}
+\index{date!validation}
 
 You \emph{can} add the rules for Feb.~29 in the code example 
 above if you wish, but we would suggest this is getting 

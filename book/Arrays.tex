@@ -293,7 +293,7 @@ will be expanded to include the new element:
 \index{reassignment}
 
 \index{elems function or method}
-\index{end}
+\index{end method}
 The {\tt elems} function or method returns the number of 
 elements of an array. The {\tt end} function or method 
 returns the index of the last elements of an array:
@@ -470,8 +470,8 @@ as a single entity).
 Stack and queues are very commonly used data structures in 
 computer science.
 
-\index{LIFO}
-\index{last in / first out}
+\index{LIFO (last in / first out)}
+\index{last in / first out (LIFO)}
 A stack is a \emph{last in / first out (LIFO)} data structure. Think of 
 piled-up plates. When you put a clean plate onto the stack, 
 you usually put it on top; when you take out one, you also 
@@ -480,8 +480,8 @@ is the last one that you added. A CS stack implements the same
 idea: you use it when the first piece of data you need from a 
 data structure is the last one you added.
 
-\index{FIFO}
-\index{first in / first out}
+\index{FIFO (first in / first out)}
+\index{first in / first out (FIFO)}
 A queue, by contrast, is a \emph{first in / first out (FIFO)} data 
 structure. This is the idea of persons standing in a 
 line waiting to pay at the supermarket. The first 
@@ -531,6 +531,7 @@ addition, you might want to {\tt put-in-stack} more than
 one element in one go. Take a look at the solution to the 
 exercise on queues below (Subsection~\ref{sol_exercise_queue}) 
 to figure out on how this stack may be improved.
+\index{signature}
 
 You could obtain the same stack features using the  
 {\tt unshift} and {\tt shift} functions instead of {\tt push} 
@@ -674,6 +675,8 @@ sub my-shift (@array) {
 
 or by adding a non-empty constraint on the array in the 
 subroutine signature:
+\index{signature}
+
 \begin{verbatim}
 sub my-shift (@array where @array > 0) {
     my @result = splice @array, 0, 1;
@@ -834,8 +837,9 @@ for @letters {
 \end{verbatim}
 
 \index{placeholder}
-\index{placeholder parameter}
+\index{placeholder!parameter}
 \index{twigil}
+\index{sigil}
 \index{self-declared parameter}
 The \verb'^' in the \verb'$^a-letter' variable is called 
 a \emph{twigil}, i.e. sort of a secondary sigil. When there is 
@@ -848,6 +852,7 @@ variable is a  \emph{placeholder parameter} or a
 \emph{self-declared positional parameter}. This is a positional 
 parameter of the current block that needs not be declared in 
 the signature.
+\index{signature}
 
 If the block uses more than one placeholder, they are 
 associated to the input according to their lexicographic 
@@ -922,6 +927,8 @@ an exception, the {\tt loop} construct with no
 three-part specification is quite common and even 
 idiomatic for making an infinite loop:
 \index{infinite loop}
+\index{loop!infinite}
+\index{idiomatic}
 
 \begin{verbatim}
 loop {
@@ -1064,6 +1071,7 @@ say [lt] <a c d f r t y>;     # -> True
 \end{verbatim}
 
 \subsection{Mapping a list to another list}
+\index{map}
 
 Sometimes you want to traverse one list while building
 another.  For example, the following function takes a list 
@@ -1110,6 +1118,7 @@ order to create new values and returns a list of these new
 values.
 \index{map function}
 \index{topical variable}
+\index{map}
 
 To generate a list of even numbers between 1 and 10, we 
 might use the range operator to generate numbers 
@@ -1147,10 +1156,13 @@ my @results = map &double-sq-root-plus-one, 4, 16, 42;
 say @results;     # -> [5 9 13.9614813968157]
 \end{verbatim}
 %
+\index{map}
 
 The subroutine name needs to be prefixed with the ampersand 
 sigil to make clear that it is a parameter to {\tt map} and 
 not a direct call of the subroutine.
+\index{sigil}
+\index{ampersand sigil}
 
 If the name of the array on the left side and on the right 
 side of the assignment is the same, then the modification 
@@ -1659,6 +1671,7 @@ say sort { $^a.lc leg $^b.lc}, <a ab abc A bc BAC AC>;
 \index{lc function or method}
 \index{function!lc}
 \index{method!lc}
+\index{lower case!lc function}
 Here, when the comparison code block receives its two 
 arguments, the {\tt lc} method casts them to lower-case 
 before performing the comparison. Notice that this has 
@@ -2103,7 +2116,7 @@ Solution: \ref{sol_push_unshift}.
 \index{search!bisection}
 \index{membership!binary search}
 \index{binary search}
-\index{search, binary}
+\index{search!binary}
 \index{half-interval search}
 
 To check whether a word is in our standard word list, 

@@ -945,7 +945,7 @@ few chapters.
 
 \section{Function signatures}
 \index{function!signature}
-\index{signature!function}
+\index{signature}
 
 When a function receives arguments, which are stored into 
 parameters, the part of the function 
@@ -991,6 +991,7 @@ it can also be an annoyance. Consider this code snippet:
 \index{constraint!type}
 \index{type!constraint}
 \index{type!Int}
+\index{signature}
 
 
 \begin{verbatim}
@@ -1086,6 +1087,7 @@ the parameter therefore cannot be modified.
 If you want to change the value of the parameter within the 
 subroutine (but without changing the argument in the caller) 
 you can add the {\tt is copy} \emph{trait} to the signature:
+\index{signature}
 \index{trait}
 \index{is copy trait}
 \index{trait!is copy}
@@ -1177,12 +1179,15 @@ The \verb"&" sigil placed before the subroutine name in the
 argument list tells Perl that you are passing around a 
 subroutine or some other callable code object (and not 
 calling the subroutine at the moment).
+\index{sigil}
+\index{ampersand sigil}
 %\index{$&$ sigil}
 %\index{sigil!$&$}
 
 In fact, it would be more idiomatic to use the \verb"&" sigil 
 also in the \verb"do-twice" subroutine definition, to better 
 specify that the parameter is a callable code object:
+\index{idiomatic}
 
 \begin{verbatim}
 sub do-twice(&code) {
@@ -1481,6 +1486,7 @@ return a useful value.
 function (usually between parentheses) that defines its 
 parameters and possibly their types and other properties.
 \index{function!signature}
+\index{signature}
 
 \item[immutable parameter:] a function or subroutine parameter 
 that cannot be changed within the function body. By default, 

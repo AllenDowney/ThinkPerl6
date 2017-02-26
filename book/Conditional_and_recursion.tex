@@ -407,6 +407,7 @@ $age < 65 or compute-pension();
 This \emph{can} be a way of running the {\tt compute-pension} 
 subroutine conditionally, depending on the value of the age, and 
 this is sometimes used, notably in idiomatic constructs such as:
+\index{idiomatic}
 
 \begin{verbatim}
 do-something() or die "could not do something";
@@ -424,11 +425,11 @@ ways of running conditional code.
 \section{Conditional execution}
 \label{conditional.execution}
 
-\index{conditional statement}
+\index{conditional!statement}
 \index{statement!conditional}
 \index{if statement}
 \index{statement!if}
-\index{conditional execution}
+\index{conditional!execution}
 In order to write useful programs, we almost always need the ability
 to check conditions and change the behavior of the program
 accordingly.  {\bf Conditional statements} give us this ability.  The
@@ -1114,6 +1115,7 @@ to the program will be passed as arguments to \verb'MAIN',
 so that the \verb'MAIN' signature will enable you to 
 retrieve the arguments provided in the command line and 
 possibly also to check their validity.
+\index{signature}
 
 For example, the {\tt greet.pl6} program might look like 
 this:
@@ -1294,7 +1296,7 @@ expressions: {\tt and}, {\tt or}, and {\tt not}. The equivalent higher-precedenc
 
 \item[conditional statement:]  A statement that controls the 
 flow of execution depending on some condition.
-\index{conditional statement}
+\index{conditional!statement}
 \index{statement!conditional}
 
 \item[condition:] The boolean expression in a conditional 

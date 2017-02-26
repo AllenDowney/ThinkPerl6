@@ -26,7 +26,7 @@ reviewed here before we get further.
 \index{programming paradigm}
 
 \section{Higher order functions}
-\index{higher-order functions}
+\index{higher-order function}
 
 As early as Chapter~\ref{funcchap} on functions and 
 subroutines, in Section~\ref{first_class} 
@@ -89,6 +89,9 @@ are found with the {\tt reduce}, {\tt map}, and
 {\tt grep} functions studied in Section~\ref{map_filter} 
 (p.~\pageref{map_filter}), as well as the {\tt sort} 
 function (Section~\ref{sorting} and Section~\ref{advanced_sort}).
+\index{map}
+\index{reduce}
+\index{grep}
 
 Let's consider for example the task of sorting by date 
 records consisting in an identifier followed by a date 
@@ -113,10 +116,11 @@ functions. These lines should be read from right to left:
 first, the input value is split into four items, these 
 items are then reversed and then joined, so that the result 
 for ``id1;13-05-2015'' is ``2015,05,13,id1'', which is 
-adapted for a comparison with the {\tt cmp} function. We 
+adapted for a comparison with the {\tt cmp} operator. We 
 will come back soon to this form of pipeline programming 
 and others ways of performing these operations. 
-\index{cmp function}
+\index{cmp operator}
+\index{operator!cmp}
 \index{pipeline programming}
 
 We can now pass the {\tt compare} subroutine to the 
@@ -214,7 +218,7 @@ But the use of the self-declared positional parameters
 (or placeholders) with the \verb'$^' twigil makes it 
 possible to use parameters within the block. 
 \index{placeholder}
-\index{placeholder parameter}
+\index{placeholder!parameter}
 \index{twigil}
 \index{self-declared parameter}
 
@@ -379,6 +383,7 @@ a pointy block or in the following {\tt map} block:
 my $multiplier = 7;
 say  map {$multiplier * $_}, 3..6; # -> (21 28 35 42)
 \end{verbatim}
+\index{map}
 
 Here the block passed to map references the variable 
 \verb'$multiplier' from the outer scope, making the 
@@ -584,6 +589,7 @@ and U+00BB), but you can use their ASCII equivalent
 double angle brackets, \verb'<< >>', if you prefer 
 (or don't know how to enter those Unicode characters 
 with your editor).
+\index{map}
 \index{French quote marks}
 \index{German quote marks}
 
@@ -723,7 +729,7 @@ The reduction operator makes it possible to apply an
 operator to all elements of a list. Thus, using it 
 with the {\tt lcm} function gives the LCM of numbers 
 between 1 and 20:
-\index{reduction metaoperator}
+\index{reduction!metaoperator}
 
 \begin{verbatim}
 say [lcm] 1..20;                 # -> 232792560
@@ -734,7 +740,7 @@ twice the \verb'[]' reduction metaoperator, once with
 the multiplication operator to compute factorial 100, 
 and another time with the addition operator to sum 
 the digits of the result:
-\index{reduction metaoperator}
+\index{reduction!metaoperator}
 
 \begin{verbatim}
 say [+] split '', [*] 2..100;    # -> 648
@@ -757,6 +763,8 @@ say ([+] 1..100)**2 - [+] (1..100) «**» 2; # -> 25164150
 We have briefly seen (Section~\ref{operator_construction}) 
 that you can build new operators or redefine existing ones 
 for new types.
+\index{creating new operators}
+\index{new operators!creating}
 
 The example we gave was to define the ``-'' minus sign 
 as an infix operator between two hashes in order to 
@@ -813,6 +821,8 @@ operator (the modulo operator), but the compiler does not
 get confused because modulo is an infix operator and our 
 new operator is defined as a prefix operator.
 \index{modulo operator}
+\index{new operators!creating}
+\index{creating new operators}
 
 A better naming example might be to use ``!'' exclamation 
 mark to be a postfix factorial operator, just as in 
@@ -860,6 +870,8 @@ grammars and the ease to create new operators make
 this creation of DSL quite an easy task.
 \index{domain-specific language (DSL)}
 \index{DSL (domain-specific language)}
+\index{new operators!creating}
+\index{creating new operators}
 
 
 The new operator does not have to be declared between 
@@ -907,7 +919,7 @@ In Knuth's paper, this is just a pseudo-code shortcut
 to discuss more easily Tony Hoare's quicksort algorithm, but 
 we can easily implement that symbol:
 \index{swap operator}
-\index{sort!quicksort}
+\index{sort!quick sort}
 \index{Hoare, Charles Antony Richard}
 
 \begin{verbatim}
@@ -984,7 +996,7 @@ So far, so good, nothing really new. But the new
 infix $\oplus$ operator has now become almost the same 
 as a Perl built-in operator, so that we can use it 
 together with the reduction metaoperator:
-\index{reduction metaoperator}
+\index{reduction!metaoperator}
 
 \begin{verbatim}
 my %q1 = jan => 1, feb => 2, mar => 3;
@@ -1006,6 +1018,8 @@ extending the language is key to the ability of
 Perl~6 to cope with future needs that we can't even 
 think of at present time.
 \index{extending the language}
+\index{new operators!creating}
+\index{creating new operators}
 
 \section{Creating your own map-like functions}
 \index{map}
@@ -1055,7 +1069,7 @@ but our aim was not to clone {\tt map} exactly;
 the point is that it is quite simple to build a 
 higher-order subroutine that behaves essentially the 
 same way as {\tt map}. 
-\index{higher-order subroutine}
+\index{higher-order function}
 \index{map}
 
 \subsubsection{my-grep}
@@ -1085,7 +1099,7 @@ We can similarly write our own version of the sort
 function. 
 
 \index{sort!merge sort}
-\index{sort!quicksort}
+\index{sort!quick sort}
 \index{merge sort}
 \index{quick sort}
 
@@ -1123,7 +1137,7 @@ words, merge sort is deemed to be better because it
 remains efficient in all cases.
 \index{algorithmic complexity}
 \index{sort!merge sort}
-\index{sort!quicksort}
+\index{sort!quick sort}
 
 \index{sort!comb sort}
 Suppose now that we want to implement another sorting 
@@ -1153,7 +1167,7 @@ or code block and the array to be sorted, and the
 comparison routine should use placeholder parameters (\verb'$^a' 
 and  \verb'$^b' in the code below). This is a possible 
 basic implementation:
-\index{placeholder parameter}
+\index{placeholder!parameter}
 
 \begin{verbatim}
 sub comb_sort (&code, @array) {
@@ -1204,6 +1218,7 @@ presenting the algorithm.
 
 \subsection{An iterator version of map}
 \index{iter!map}
+\index{map}
 
 These {\tt my-map}, {\tt my-grep}, and {\tt comb\_sort} 
 functions are pedagogically interesting, but they aren't 
@@ -1425,6 +1440,7 @@ gone through these iterating versions of the {\tt map}
 and {\tt grep} functions as a form of case study for 
 pedagogical purpose, in order to explain in practical terms 
 the idea of laziness. 
+\index{map}
 \index{laziness}
 \index{iterator}
 
@@ -1492,7 +1508,7 @@ be rewritten as:
 my @evens = gather {.take if $_ %% 2 for 1..10}
 \end{verbatim}
 
-
+\index{map}
 These code examples don't bring any obvious advantage 
 over their \verb'map' or {\tt grep} counterparts and 
 are not very useful in themselves, but they illustrate 
@@ -1528,7 +1544,9 @@ block), it can be within the \emph{dynamic scope} of the
 \verb'gather' block
 
 \index{dynamic variable}
+\index{variable!dynamic}
 \index{dynamic scope}
+\index{lexical scope}
 Although we haven't covered this concept before, 
 Perl has the notion of \emph{dynamic scope}: contrary 
 to lexical scope, dynamic scope encloses not only 
@@ -2074,6 +2092,7 @@ when the declaration is made):
 > say map 'foo' x * , (1, 3, 2);
 (foo foofoofoo foofoo)
 \end{verbatim}
+\index{map}
 
 It is also possible to use multiple {\tt whatever} terms 
 in the same expression. For example, the {\tt add} 
@@ -2527,7 +2546,7 @@ ok $foo, 'simple test';
 
 failing and that you don't have enough feed-back to 
 understand why, you may try:
-\index{diag}
+\index{diag function (test diagnostic}
 
 \begin{verbatim}
 diag "extensive feedback" unless
@@ -2651,6 +2670,9 @@ another subroutine (or a simple code block) as an argument. The
 functions are examples of higher-order functions.
 \index{higher-order function}
 \index{function!higher-order}
+\index{map}
+\index{grep}
+\index{reduce}
 
 \item[anonymous subroutine:] a subroutine that has no name. Also 
 commonly called a \emph{lambda}. Although they are not exactly 
@@ -2721,7 +2743,7 @@ the program complies with the specifications.
 \index{sort!quick sort}
 
 \begin{exercise}
-Quicksort is a ``divide and conquer'' sorting algorithm invented 
+Quick sort is a ``divide and conquer'' sorting algorithm invented 
 by Tony Hoare in 1959. It relies on partitioning the array 
 to be sorted. To partition an array, an element called a pivot 
 is selected. All elements smaller than the pivot are moved before 
