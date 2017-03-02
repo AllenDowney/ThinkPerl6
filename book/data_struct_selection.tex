@@ -542,6 +542,7 @@ sub process-line(Str $line is copy) {
 }
 process-line $_ for "emma.txt".IO.lines; 
 \end{verbatim}
+\index{case!lower}
 %
 
 The program reads each line of the ``emma.txt'' file and, for 
@@ -968,6 +969,7 @@ has been coerced to a {\tt Set} to check whether it was a subset
 of the \verb'$s' set. This is one of the great things about these 
 collections: most of these set operators can be used with lists, 
 arrays and hashes.
+\index{coercion}
 
 \index{set!membership operator}
 \index{operator!set membership}
@@ -1153,7 +1155,7 @@ the probability of the words that might come next.  For example,
 the second chapter of \emph{The Little Prince} (1943), the 
 famous novella written by French writer and pioneer aviator 
 Antoine de Saint-Exupéry, begins:
-\index{The Little Prince (novella by Saint-Exupéry)}
+\index{The Little Prince (Antoine de Saint-Exupéry)}
 \index{Saint-Exupéry, Antoine de}
 
 \begin{quote}
@@ -2000,7 +2002,7 @@ the longest codes.
 
 Manually encoding the \verb'CCTATCCTCGACTCCAGTCCA' input string 
 with this code yields the following pseudo-Morse code:
-\index{pseudo-Morse code}
+\index{pseudo-Morse}
 
 \begin{verbatim}
 ..-.----...-..--.---.-...-----.-...---
@@ -2055,6 +2057,7 @@ want to start with a relatively small alphabet, because it can
 otherwise be tedious to check the result by hand).
 \item Write a subroutine to encode an input string into 
 pseudo-Morse using the generated Huffman table.
+\index{pseudo-Morse}
 \index{alphabet}
 \item Write a subroutine to decode the pseudo-Morse output 
 you've just generated for the previous question.

@@ -644,7 +644,7 @@ operators:
 \index{cross operator X}
 \index{operator!cross}
 \index{operator!X (cross)}
-\index{zip operator Z}
+\index{zip operator}
 \index{operator!zip}
 \index{operator!Z (zip)}
 
@@ -1610,6 +1610,7 @@ only the number, order, and value of the leaves is
 important. 
 \index{rosettacode}
 \index{binary tree}
+\index{tree!binary}
 
 The solution in Perl~6 uses a \verb'gather { take }' 
 block and consists of just 6~code lines:
@@ -1764,7 +1765,7 @@ say $evens[21];                    # -> 42
 
 The most common way to indicate an infinite lazy list, though, 
 is to use the \verb'*' whatever argument:
-\index{whatever operator}
+\index{whatever!operator}
 \index{operator!whatever}
 
 \begin{verbatim}
@@ -1840,7 +1841,8 @@ say @fibo[0..10];   # -> (0 1 1 2 3 5 8 13 21 34 55)
 This can be rewritten in a more concise (albeit possibly 
 less explicit and less clear) way using the \verb'*' 
 whatever placeholder parameter:
-\index{whatever operator}
+\index{whatever!operator}
+\index{whatever!placeholder parameter}
 
 \begin{verbatim}
 my @fibo = 0, 1, * + * ... *;
@@ -1865,7 +1867,7 @@ say (1, * + 2  ... 11);        # -> (1 3 5 7 9 11)
 This syntax with an asterisk is called a 
 \emph{whatever closure}, we will come back to 
 it below.
-\index{whatever closure}
+\index{whatever!closure}
 
 There is, however, a small caveat in using the sequence operator with 
 an explicit generator: the end value (the upper bound) has 
@@ -1921,7 +1923,7 @@ for which the termination test returned true.
 
 Similarly, we can limit the \emph{whatever closure} 
 syntax seen above as follows:
-\index{whatever closure}
+\index{whatever!closure}
 
 \begin{verbatim}
 > say 0, 1, * + * ...^ * > 100;
@@ -2019,6 +2021,7 @@ factory'' (such as {\tt make-add}) as we've done just above.
 It is possible to curry the existing function, using 
 the {\tt assuming} method on it:
 \index{assuming method}
+\index{function factory}
 
 \begin{verbatim}
 sub add (Numeric $x, Numeric $y) {return $x + $y}   
@@ -2069,7 +2072,8 @@ my &add_2 = &infix:<+>.assuming(2);
 
 \subsection{Currying with the whatever star parameter}
 \index{curry}
-\index{whatever term}
+\index{whatever!term}
+\index{whatever!star parameter}
 \label{whatever star parameter}
 
 A more flexible way to curry a subroutine or an expression 
@@ -2123,6 +2127,7 @@ correctly that the first and third asterisks are
 \verb'whatever' terms and that the second asterisk is 
 the multiplication operator, in other words that this is 
 more or less equivalent to:
+\index{whatever!term}
 
 \begin{verbatim}
 my $mult = { $^a * $^b };
@@ -2151,7 +2156,7 @@ clear and easy to understand, is very likely to have
 fewer bugs than longer code.
 
 \section{Using a functional programming style}
-\index{functional programming style}
+\index{functional programming!style}
 \label{funcstyle}
 
 In this chapter, we have seen how to use techniques derived 
@@ -2166,6 +2171,8 @@ and closures, lazy lists and currying, and so on .
 The true essence of functional programming is a specific 
 mindset that treats computation as the evaluation of mathematical 
 functions and avoids changing-state and mutable data.
+\index{functional programming!style}
+\index{pipe-line programming}
 
 Instead of simply using techniques derived from functional 
 programming, we can go one step further and actually 
@@ -2194,7 +2201,7 @@ consists in recursively splitting the input unsorted array into
 smaller and smaller sublists, until each sublist contains only 
 one item (at which point the sublist is sorted, by definition), 
 and then merging the sublists back into a sorted array.
-\index{divide and conquer}
+\index{divide and conquer algorithm}
 
 To avoid adding unnecessary complexity, we will discuss here 
 implementations that simply sort numbers in ascending order.
@@ -2372,7 +2379,7 @@ on them;
 \item Return the merged list to the caller.
 \end{itemize}
 
-\index{functional programming style}
+\index{functional programming!style}
 I hope that you can see how much clearer and simpler the 
 functional style implementation is. To give you an idea, 
 writing and debugging this latter program took me about 

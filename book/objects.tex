@@ -100,7 +100,6 @@ some classes and to use them to create objects.
 \index{invocant}
 \index{method}
 \index{dot notation}
-\index{invocant}
 You already know informally what a method is, as we have 
 used built-in methods throughout the book. It is a sort of 
 function with a special postfix syntax using the dot notation 
@@ -248,7 +247,7 @@ say $point.abscissa;            # -> 3
 \end{verbatim}
 %
 \index{isa method}
-\index{WHAT method}
+\index{WHAT}
 You can of course create as many points as you wish.
 
 \index{constructor}
@@ -265,6 +264,8 @@ are not forced to use this constructor, you can also create
 your own (and you may name it {\tt new} or something else), 
 but we will stay with the built-in {\tt new} method for the 
 time being.
+\index{invocation!method}
+\index{method invocation}
 
 Creating a new object with a class is called {\bf instantiation}, 
 and the object is an {\bf instance} of the class.
@@ -487,6 +488,8 @@ And, of course, it has a different calling syntax.
 
 \index{method!dispatch}
 \index{dispatching methods}
+\index{invocation!method}
+\index{method invocation}
 Another important difference between a subroutine and a method 
 is that, since there may be several methods with the same name 
 defined in different classes (or different roles), a method 
@@ -533,6 +536,8 @@ within the class (and might be slightly faster), while
 the method invocation syntax can be used somewhere else 
 (for example in another class). We will see in the next section 
 examples of this distinction and its consequences.
+\index{invocation!method}
+\index{method invocation}
 
 We can now create an object and call our methods on it:
 
@@ -666,6 +671,8 @@ have directly accessed the {\tt corner} and {\tt height}
 attributes of the {\tt Rectangle} class and used the following 
 method definition:
 \index{twigil}
+\index{invocation!method}
+\index{method invocation}
 
 \begin{verbatim}
     method topLeft { $!corner.abscissa, $!corner.ordinate + $!height; }
@@ -1465,6 +1472,7 @@ Chekhov
 Method 'Don-Carlos' not found for invocant of class 'Uses'
   in block <unit> at delegate.pl6 line 16
 \end{verbatim}
+\index{invocant}
 
 The program properly displays the names of writers returned 
 by the first three methods, because they have been sort of 
@@ -1523,6 +1531,7 @@ implementation level, even if they share the same name and
 interface.
 
 \index{multi!subroutine}
+\index{invocant}
 Outside of the object-oriented programming, Perl's 
 \emph{multi} subroutines implement a form of polymorphism, 
 since they can behave differently depending on the 
@@ -1591,6 +1600,7 @@ in our interface because it is intuitively quite similar to
 the idea of spherical coordinates; but it does nothing more 
 than invoking the sphericalCoordinates method on its invocant 
 and to return the return values.
+\index{invocant}
 
 Please note that mathematicians, physicists, astronomers, 
 engineers, geographers, and navigators all use the same basic system 
@@ -1949,7 +1959,7 @@ should not depend on how the attributes are represented.
 
 \index{coordinates!Cartesian}
 \index{Cartesian coordinates}
-\index{polar coordinate}
+\index{polar coordinates}
 For example, we designed a {\tt Point2D} class in which the main 
 attributes were the point's Cartesian coordinates. We may find 
 out that, for the purpose of our application, it would be easier 
@@ -2354,7 +2364,7 @@ real data.
 
 \item[method:] A special kind of subroutine defined within a class or a role, that can be called using the dot notation syntax
 \index{method}
-\index{dot notation syntax}
+\index{dot notation}
 
 \item[type object:] An object that contains information about a
 programmer-defined type.  The type object can be used to create instances

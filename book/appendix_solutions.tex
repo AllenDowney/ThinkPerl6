@@ -353,7 +353,7 @@ minutes and seconds (p.~\pageref{int_div_modulo})}
 
 The following is one possible way of converting a number 
 of seconds into a number of days, hours, minutes and seconds:
-\index{modulo}
+\index{modulo operator}
 \index{operator!mod}
 \index{integer division}
 \index{operator!div}
@@ -2057,6 +2057,10 @@ for example in Section~\ref{test_module} (p.~\pageref{test_module}).
 \index{rot13}
 
 Implementing a letter rotation cipher:
+\index{case!lower}
+\index{case!upper}
+\index{lower case}
+\index{upper case}
 
 \begin{verbatim}
 sub rotate-one-letter (Str $letter, Int $shift) {
@@ -2407,6 +2411,8 @@ of arguments (zero or more). These are called "slurpy" because
 they slurp up any remaining arguments to a function, like 
 someone slurping up noodles. This also means that a positional 
 slurpy parameter can only be the last one in the signature.
+\index{enqueue}
+\index{dequeue}
 
 \begin{verbatim}
 sub enqueue (@queue where Array, *@new_items) {
@@ -2508,6 +2514,8 @@ an item? Raising an exception or aborting the program
 might be what's needed. We might also decide to return an 
 undefined value and let the caller deal with it:
 \index{queue}
+\index{enqueue}
+\index{dequeue}
 
 \begin{verbatim}
 sub enqueue (@queue where Array, *@new_items) {
@@ -2622,6 +2630,8 @@ scope, even if they are called from somewhere else. Even
 when {\tt create-fifo} has completed, those subroutines 
 can still access to it because they sort of give an extra 
 life to the array as long as the subroutines are accessible.
+\index{enqueue}
+\index{dequeue}
 
 \index{function factory}
 The rest of the code should be clear: when {\tt create-fifo} is 
@@ -2854,6 +2864,8 @@ say @sorted;
 \end{verbatim}
 %
 This can also be written with a method invocation syntax:
+\index{invocation!method}
+\index{method invocation}
 \begin{verbatim}
 my @sorted = @unsorted.sort: {/\d+ (\w+)/; $0 // Nil};
 \end{verbatim}
@@ -3161,7 +3173,8 @@ pots taps:      False
 Note that this works correctly because the {\tt ne} 
 operator coerces its argument into a string before 
 performing the comparison.
-\index{ne operator}
+\index{ne, string inequality operator}
+\index{coercion}
 
 This code can be made shorter (but possibly slightly less 
 efficient) by returning directly the comparison of 
@@ -3243,6 +3256,8 @@ sub has-duplicates (@array) {
 
 This could be rewritten more concisely by chaining the 
 method invocations:
+\index{invocation!method}
+\index{method invocation}
 
 \begin{verbatim}
 sub has-duplicates (@array) {
@@ -3261,6 +3276,7 @@ say <a b c d b f d>.repeated;  # -> (b d)
 
 The {\tt has-duplicates} subroutine can just coerce 
 the output of {\tt repeated} into a Boolean:
+\index{coerce}
 \begin{verbatim}
 sub has-duplicates (@array) {
     ?@array.repeated
@@ -3406,7 +3422,7 @@ As a further exercise, you may try to explore other
 ways to populate an array, such as {\tt append} or 
 {\tt splice}.
 \index{splice function}
-\index{append}
+\index{append function}
 
 If you are just going to insert each line from the 
 input file into an array without changing anything to 
@@ -4762,7 +4778,6 @@ of pairs mapping each letter to its frequency. We create
 a {\tt insert-pair} subroutine which adds the newly created 
 pairs (the dummy letters) at the right place in the pair array 
 to keep the array sorted according to our needs.
-\index{array of pairs}
 \index{array!of pairs}
 \index{pair}
 
@@ -4982,6 +4997,7 @@ is not found in the \verb'%encode' hash, then it is stored into
 the output as it is: this makes it possible to insert the spaces 
 and end-of-line characters into the output string.
 \index{pseudo-Morse}
+\index{case!lower}
 
 The result is as follows (slightly reformatted to fit in this book):
 \begin{verbatim}
@@ -5131,7 +5147,7 @@ similar to a heap.
 
 \subsection{Exercise in Section~\ref{february_rule}: getting the February dates right (p.~\pageref{february_rule})}
 \label{sol_february_rule}
-\index{February, number of days}
+\index{February!number of days}
 \index{grammar!date}
 \index{leap year}
 
@@ -5497,6 +5513,7 @@ remember that they are usually right associative:
 
 Here's one way to implement the quick sort algorithm in 
 functional programming style.
+\index{ functional programming!style}
 
 \begin{verbatim}
 sub quicksort (@input) {

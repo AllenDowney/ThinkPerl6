@@ -103,6 +103,9 @@ handle strings. Let's review some of the most popular ones.
 The first thing we might want to know about a string is its length. The {\tt chars} built-in returns the number of characters 
 in a string and can be used with either a method or a function 
 syntax:
+\index{invocation!method}
+\index{method invocation}
+
 \begin{verbatim}
 > say "banana".chars;   # method invocation syntax
 6
@@ -773,6 +776,8 @@ for 'abcdef' {                              # $_ now contains 'abcdef'
 You might also use a method invocation syntax:
 \index{match method}
 \index{method!match}
+\index{invocation!method}
+\index{method invocation}
 \begin{verbatim}
 say "Matched" if "abcdef".match(/ b.d.f /); # -> Matched
 \end{verbatim}
@@ -841,6 +846,7 @@ function discussed earlier is likely to be slightly more
 efficient than a regex on large strings. The {\tt contains} 
 method, which returns True if its argument is a substring of 
 its invocant, is also likely to be faster.
+\index{invocant}
 
 Alphanumeric characters and the underscore \verb'_' are literal 
 matches. All other characters must either be escaped with a 
@@ -1302,6 +1308,10 @@ long form and a shorthand form.
 For example, the \verb':ignorecase' (or \verb':i') adverb 
 tells the compiler to ignore the distinction between upper 
 case and lower case: 
+\index{case!lower}
+\index{case!upper}
+\index{lower case}
+\index{upper case}
 
 \begin{verbatim}
 > say so 'AB' ~~ /ab/;
@@ -2182,6 +2192,8 @@ order, so for example:
 because \verb"'c'" is the second letter after \verb"'a'" in 
 the alphabet.  But beware: the numeric codes for upper case 
 letters are different.
+\index{upper case}
+\index{case!upper}
 
 \index{rot13}
 Potentially offensive jokes on the Internet are sometimes 

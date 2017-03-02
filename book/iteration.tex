@@ -11,7 +11,7 @@ kind, using a {\tt while} statement.
 But first we want to say a little more about variable assignment.
 
 \section{Assignment versus equality}
-\index{assignment operator}
+\index{assignment!operator}
 \index{equality operator}
 
 Before going further, I want to address a common source of confusion.
@@ -130,7 +130,8 @@ subtracting 1 is called a {\bf decrement}.
 \index{increment operator}
 \index{decrement operator}
 
-As mentioned earlier, Perl has some shortcuts for increment and decrement:
+As mentioned earlier in Section~\ref{expr_and_statements}, 
+Perl has some shortcuts for increment and decrement :
 
 \begin{verbatim}
 $x += 1; # equivalent to $x = $x + 1
@@ -251,7 +252,6 @@ The hard question is whether we can prove that this program terminates
 for {\em all} positive values of {\tt n}.  So far, no one has
 been able to prove it {\em or} disprove it!  (See
 \url{http://en.wikipedia.org/wiki/Collatz_conjecture}.)
-\index{Collatz's conjecture}
 
 As an exercise, you might want to rewrite the function 
 \verb"print-n-times" from Section~\ref{recursion} using 

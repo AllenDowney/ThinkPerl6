@@ -144,7 +144,7 @@ Solution: \ref{sol_compare}
 \section{Incremental development}
 \label{incremental.development}
 \index{development plan!incremental}
-\index{incremental.development}
+\index{incremental development}
 
 As you write larger functions, you might find yourself
 spending more time debugging.
@@ -157,10 +157,16 @@ a small amount of code at a time.
 \index{testing!incremental development}
 \index{Pythagorean theorem}
 
-As an example, suppose you want to find the distance between two
-points, given by the coordinates $(x_1, y_1)$ and $(x_2, y_2)$.
-By the Pythagorean theorem, the distance is:
+As an example, suppose you want to find the distance between 
+twopoints, given by the Cartesian or rectangular coordinates 
+$(x_1, y_1)$ and $(x_2, y_2)$. By the Pythagorean theorem, 
+the distance is:
 \index{Pythagorean theorem}
+\index{Cartesian coordinates}
+\index{coordinates!Cartesian}
+\index{rectangular!coordinates}
+\index{coordinates!rectangular}
+
 
 \begin{displaymath}
 \mathrm{distance} = \sqrt{(x_2 - x_1)^2 + (y_2 - y_1)^2}
@@ -216,9 +222,10 @@ sub distance($x1, $y1, $x2, $y2) {
 \end{verbatim}
 %
 If the function is working, it should display \verb"$dx is 3" and 
-\verb"$dy is 4".  If so, we know that the function is getting the right
-arguments and performing the first computation correctly.  If not,
-there are only a few lines to check.
+\verb"$dy is 4" (and still return 0.0).  If so, we know that the 
+function is getting the right arguments and performing the 
+first computation correctly.  If not, there are only a few lines 
+to check.
 
 Next we compute the sum of squares of {\tt \$dx} and {\tt \$dy}:
 
@@ -284,6 +291,13 @@ difficult to read.
 
 \end{enumerate}
 
+Note that, at least for relatively simple cases, you can also 
+use the REPL to test expressions and even multi-line statements 
+or subroutines in interactive mode before you commit them to your 
+program code. This is usually fast and can save you some time.
+\index{REPL}
+\index{interactive mode}
+
 \label{hypotenuse}
 As an exercise, use incremental development to write a function
 called {\tt hypotenuse} that returns the length of the hypotenuse of a
@@ -341,6 +355,16 @@ sub circle-area($x-c, $y-c, $x-p, $y-p) {
 }
 \end{verbatim}
 %
+
+The last line of the previous example now works like a data 
+pipeline from right to left: the \verb'distance' function 
+takes the four arguments and returns a distance (the radius) 
+which is fed as an argument to the \verb'area'; with this 
+argument, \verb'area' is now able to return the area, which 
+is then returned by \verb'circle-area' to the caller code. 
+We'll come back later to this very expressive data pipeline 
+model.
+\index{pipe-line programming}
 
 \section{Boolean functions}
 \label{boolean}
@@ -425,6 +449,7 @@ Solution: \ref{sol_isbetween}.
 
 We've seen in the section above several ways of writing a 
 subroutine to check the divisibility of two integers.
+\index{divisibility}
 
 In fact, Perl~6 has a ``is divisible'' operator, \verb'%%', which returns {\tt True} if the number on the left is divisible by the one on the right:
 %\index{%%!is divisible operator}
@@ -599,9 +624,9 @@ result is returned.
 \end{quote}
 
 
-The return value (2) is multiplied by \verb'$n', which is 3, and the result, 6,
-becomes the return value of the subroutine call that started the whole
-process.
+The return value (2) is multiplied by \verb'$n', which is 3, and 
+the result, 6, becomes the return value of the subroutine call 
+that started the whole process.
 \index{stack diagram}
 
 Figure~\ref{fig.stack3} shows what the stack diagram looks like for
@@ -731,6 +756,7 @@ The subroutine has a base case---when {\tt \$n == 0}.  But if {\tt \$n}
 is not an integer, we can {\em miss} the base case and recurse forever.
 \index{infinite recursion}
 \index{recursion!infinite}
+\index{base case}
 
 In the first recursive call, the value of {\tt \$n} is 0.5.
 In the next, it is -0.5.  From there, it gets smaller
@@ -1144,6 +1170,7 @@ and $a/b$ is a power of $b$.  Write a function called
 \verb"is-power-of" that takes parameters {\tt a} and {\tt b}
 and returns {\tt True} if {\tt a} is a power of {\tt b}.
 Note: you will have to think about the base case.
+\index{base case}
 
 Solution: \ref{sol_power}
 

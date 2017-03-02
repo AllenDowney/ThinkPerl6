@@ -71,6 +71,7 @@ for \verb'$/[0]');
 a ``B'' or a ``C''), and the square brackets regroup this 
 alternation into one subpattern (and also enable proper 
 precedence).
+\index{subpattern}
 
 \end{itemize}
 
@@ -176,6 +177,7 @@ of this chapter, round parentheses
 not only group things together, but also capture data: they 
 make the string matched by the subpattern within 
 the parentheses available as a special variable:
+\index{subpattern}
 
 \begin{verbatim}
 my $str =  'number 42';
@@ -403,6 +405,7 @@ the full pattern. We could now rewrite it, with the
 added feature of recognizing multiple date formats, as 
 follows:
 \index{date format}
+\index{subpattern}
 
 \index{matching a date}
 \begin{verbatim}
@@ -807,7 +810,7 @@ an actual object that would have to be constructed beforehand.
 
 \index{TOP rule}
 \index{make method}
-\index{AST (abstract syntax tree}
+\index{AST, abstract syntax tree}
 \index{made method}
 Whenever the {\tt TOP} rule succeeds, the {\tt TOP} method 
 of class {\tt ArithmActions} is invoked with the match 
@@ -1144,6 +1147,7 @@ exploring that tree to extract the data can be quite
 tedious. You can use \emph{actions} to populate a simpler 
 tree structure (often called abtract syntax tree) containing 
 only the information you really need. 
+\index{subpattern}
 
 \index{abstract syntax tree (AST)}
 \index{AST, abstract syntax tree}
